@@ -4,7 +4,7 @@ A beautiful and animated bottom navigation. The navigation bar use your current 
 
 ## Preview
 
-![FanBottomNavyBar Gif](navy.gif "BottomNavyBar")
+![FanBottomNavyBar Gif](navy.gif "BottomNavyBar") ![FanBottomNavyBar Gif](navy2.gif "BottomNavyBar")
 
 ## Getting Started
 
