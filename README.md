@@ -2,6 +2,10 @@
 
 A beautiful and animated bottom navigation. The navigation bar use your current theme, but you are free to customize it.
 
+## Preview
+
+![FanBottomNavyBar Gif](navy.gif "BottomNavyBar")
+
 ## Getting Started
 
 Add the plugin (coming soon):
