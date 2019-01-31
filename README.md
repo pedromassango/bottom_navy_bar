@@ -1,6 +1,6 @@
 # BottomNavyBar
 
-A beautiful and animated bottom navigation. Fully customisable.
+A beautiful and animated bottom navigation. The navigation bar use your current theme, but you are free to customize it.
 
 ## Getting Started
 
