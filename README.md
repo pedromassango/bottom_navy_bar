@@ -1,6 +1,6 @@
-# bottom_navy_bar
+# BottomNavyBar
 
-A new Flutter project.
+A beatufull and animated bottom navigation. Fully customisable.
 
 ## Getting Started
 
