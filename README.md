@@ -32,13 +32,7 @@ bottomNavigationBar: BottomNavyBar(
 ```
 
 ## Customization (Optional)
-
-The navigation bar use your current theme, but you are free to customize it:
-
-
-*iconSize* - the item icon's size
-
-*activeColor* - the active item's background color
-
-*inactiveColor* - the inactive item's icon color
-*backgroundColor* - the navigation bar's background color
+**iconSize** - the item icon's size<br/>
+**activeColor** - the active item's background color<br/>
+**inactiveColor** - the inactive item's icon color<br/>
+**backgroundColor** - the navigation bar's background color
