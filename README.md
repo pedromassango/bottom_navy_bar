@@ -8,7 +8,7 @@ A beautiful and animated bottom navigation. The navigation bar use your current 
 
 ## Getting Started
 
-Add the plugin (coming soon):
+Add the plugin:
 
 ```yaml
 dependencies:
