@@ -11,7 +11,7 @@ class BottomNavyBar extends StatefulWidget {
   final List<BottomNavyBarItem> items;
   final ValueChanged<int> onItemSelected;
 
-  const BottomNavyBar({
+  BottomNavyBar({
     Key key,
     this.currentIndex = 0,
     this.iconSize = 24,
@@ -20,10 +20,13 @@ class BottomNavyBar extends StatefulWidget {
     this.backgroundColor,
     @required this.items,
     @required this.onItemSelected
-  }) : super(key: key);
+  }) {
+    assert(items != null);
+    assert(onItemSelected != null);
+  }
 
   @override
-  State<StatefulWidget> createState() {
+  BottomNavyBarState createState() {
     return BottomNavyBarState(
         items: items,
         backgroundColor: backgroundColor,
@@ -46,14 +49,15 @@ class BottomNavyBarState extends State<BottomNavyBar> {
   int _selectedIndex;
   ValueChanged<int> onItemSelected;
 
-  BottomNavyBarState(
-      {@required this.items,
-        this.currentIndex,
-        this.activeColor,
-        this.inactiveColor = Colors.black,
-        this.backgroundColor,
-        this.iconSize,
-        @required this.onItemSelected}){
+  BottomNavyBarState({
+    @required this.items,
+    this.currentIndex,
+    this.activeColor,
+    this.inactiveColor = Colors.black,
+    this.backgroundColor,
+    this.iconSize,
+    @required this.onItemSelected
+  }) {
     _selectedIndex = currentIndex;
   }
 
@@ -144,5 +148,8 @@ class BottomNavyBarItem {
   BottomNavyBarItem({
     @required this.icon,
     @required this.title,
-  });
+  }){
+    assert(icon != null);
+    assert(title != null);
+  }
 }
