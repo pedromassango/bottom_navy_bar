@@ -26,8 +26,8 @@ class BottomNavyBar extends StatefulWidget {
   }
 
   @override
-  BottomNavyBarState createState() {
-    return BottomNavyBarState(
+  _BottomNavyBarState createState() {
+    return _BottomNavyBarState(
         items: items,
         backgroundColor: backgroundColor,
         currentIndex: currentIndex,
@@ -39,7 +39,7 @@ class BottomNavyBar extends StatefulWidget {
   }
 }
 
-class BottomNavyBarState extends State<BottomNavyBar> {
+class _BottomNavyBarState extends State<BottomNavyBar> {
   final int currentIndex;
   final double iconSize;
   Color activeColor;
@@ -49,7 +49,7 @@ class BottomNavyBarState extends State<BottomNavyBar> {
   int _selectedIndex;
   ValueChanged<int> onItemSelected;
 
-  BottomNavyBarState({
+  _BottomNavyBarState({
     @required this.items,
     this.currentIndex,
     this.activeColor,
@@ -95,8 +95,8 @@ class BottomNavyBarState extends State<BottomNavyBar> {
               isSelected
                   ? DefaultTextStyle.merge(
                   style: TextStyle(color: backgroundColor),
-                  child: item.title)
-                  : SizedBox.shrink()
+                  child: item.title,
+              ) : SizedBox.shrink()
             ],
           )
         ],
