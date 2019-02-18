@@ -55,6 +55,7 @@ bottomNavigationBar: BottomNavyBar(
 
 ### BottomNavyBar
 **iconSize** - the item icon's size<br/>
+**items** - navigation items, required more than one item<br/>
 **onItemSelected** - required to listen when a item is tapped it provide the selected item's index<br/>
 **backgroundColor** - the navigation bar's background color
 
