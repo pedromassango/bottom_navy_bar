@@ -1,3 +1,5 @@
+## [2.2.0] - icon now have default inactive color as the active color (bug fixed).
+
 ## [2.1.0] - icon now have default inactive color as the active color.
 
 ## [2.0.0] - Full update & more improved.
