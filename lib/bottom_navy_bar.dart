@@ -50,6 +50,8 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
     @required this.onItemSelected
   }) {
     _selectedIndex = currentIndex;
+
+    assert(items.length > 1, 'Required more than one item');
   }
 
   Widget _buildItem(BottomNavyBarItem item, bool isSelected) {
