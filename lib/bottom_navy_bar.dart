@@ -79,7 +79,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
                 child: IconTheme(
                   data: IconThemeData(
                       size: iconSize,
-                      color: isSelected ? item.activeColor.withOpacity(1) : item.inactiveColor),
+                      color: (!isSelected && item.inactiveColor == null) ? item.activeColor.withOpacity(1) : item.inactiveColor),
                   child: item.icon,
                 ),
               ),
@@ -138,7 +138,7 @@ class BottomNavyBarItem {
     @required this.icon,
     @required this.title,
     this.activeColor = Colors.blue,
-    this.inactiveColor = Colors.black87
+    this.inactiveColor
   }){
     assert(icon != null);
     assert(title != null);
