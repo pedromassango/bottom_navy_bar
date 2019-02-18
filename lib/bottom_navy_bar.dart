@@ -79,7 +79,9 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
                 child: IconTheme(
                   data: IconThemeData(
                       size: iconSize,
-                      color: (!isSelected && item.inactiveColor == null) ? item.activeColor.withOpacity(1) : item.inactiveColor),
+                      color: isSelected ?
+                      item.activeColor.withOpacity(1)
+                          : item.inactiveColor == null ? item.activeColor : item.inactiveColor),
                   child: item.icon,
                 ),
               ),
