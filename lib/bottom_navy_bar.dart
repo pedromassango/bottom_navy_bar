@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 class BottomNavyBar extends StatefulWidget {
   final int currentIndex;
   final double iconSize;
-  final Color activeColor;
-  final Color inactiveColor;
   final Color backgroundColor;
   final List<BottomNavyBarItem> items;
   final ValueChanged<int> onItemSelected;
@@ -15,8 +13,6 @@ class BottomNavyBar extends StatefulWidget {
     Key key,
     this.currentIndex = 0,
     this.iconSize = 24,
-    this.activeColor,
-    this.inactiveColor,
     this.backgroundColor,
     @required this.items,
     @required this.onItemSelected
@@ -32,18 +28,15 @@ class BottomNavyBar extends StatefulWidget {
         backgroundColor: backgroundColor,
         currentIndex: currentIndex,
         iconSize: iconSize,
-        activeColor: activeColor,
-        inactiveColor: inactiveColor,
         onItemSelected: onItemSelected
     );
   }
 }
 
+
 class _BottomNavyBarState extends State<BottomNavyBar> {
   final int currentIndex;
   final double iconSize;
-  Color activeColor;
-  Color inactiveColor;
   Color backgroundColor;
   List<BottomNavyBarItem> items;
   int _selectedIndex;
@@ -52,8 +45,6 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
   _BottomNavyBarState({
     @required this.items,
     this.currentIndex,
-    this.activeColor,
-    this.inactiveColor = Colors.black,
     this.backgroundColor,
     this.iconSize,
     @required this.onItemSelected
@@ -63,14 +54,12 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
 
   Widget _buildItem(BottomNavyBarItem item, bool isSelected) {
     return AnimatedContainer(
-      width: isSelected ? 124 : 50,
+      width: isSelected ? 125 : 50,
       height: double.maxFinite,
-      duration: Duration(milliseconds: 250),
+      duration: Duration(milliseconds: 450),
       padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
-      decoration: !isSelected
-          ? null
-          : BoxDecoration(
-        color: activeColor,
+      decoration: BoxDecoration(
+        color: isSelected ? item.activeColor.withOpacity(0.3) : backgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(50)),
       ),
       child: ListView(
@@ -88,14 +77,14 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
                 child: IconTheme(
                   data: IconThemeData(
                       size: iconSize,
-                      color: isSelected ? backgroundColor : inactiveColor),
+                      color: isSelected ? item.activeColor.withOpacity(1) : item.inactiveColor),
                   child: item.icon,
                 ),
               ),
               isSelected
                   ? DefaultTextStyle.merge(
-                  style: TextStyle(color: backgroundColor),
-                  child: item.title,
+                style: TextStyle(color: item.activeColor, fontWeight: FontWeight.bold),
+                child: item.title,
               ) : SizedBox.shrink()
             ],
           )
@@ -106,10 +95,6 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
 
   @override
   Widget build(BuildContext context) {
-    activeColor = (activeColor == null)
-        ? Theme.of(context).accentColor
-        : activeColor;
-
     backgroundColor = (backgroundColor == null)
         ? Theme.of(context).bottomAppBarColor
         : backgroundColor;
@@ -144,10 +129,14 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
 class BottomNavyBarItem {
   final Icon icon;
   final Text title;
+  final Color activeColor;
+  final Color inactiveColor;
 
   BottomNavyBarItem({
     @required this.icon,
     @required this.title,
+    this.activeColor = Colors.blue,
+    this.inactiveColor = Colors.black87
   }){
     assert(icon != null);
     assert(title != null);
