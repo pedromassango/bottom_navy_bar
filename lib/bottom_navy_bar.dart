@@ -9,15 +9,15 @@ class BottomNavyBar extends StatefulWidget {
   final List<BottomNavyBarItem> items;
   final ValueChanged<int> onItemSelected;
 
-  BottomNavyBar({
-    Key key,
-    this.currentIndex = 0,
-    this.iconSize = 24,
-    this.backgroundColor,
-    @required this.items,
-    @required this.onItemSelected
-  }) {
+  BottomNavyBar(
+      {Key key,
+      this.currentIndex = 0,
+      this.iconSize = 24,
+      this.backgroundColor,
+      @required this.items,
+      @required this.onItemSelected}) {
     assert(items != null);
+    assert(items.length >= 2 || items.length >= 5);
     assert(onItemSelected != null);
   }
 
@@ -28,11 +28,9 @@ class BottomNavyBar extends StatefulWidget {
         backgroundColor: backgroundColor,
         currentIndex: currentIndex,
         iconSize: iconSize,
-        onItemSelected: onItemSelected
-    );
+        onItemSelected: onItemSelected);
   }
 }
-
 
 class _BottomNavyBarState extends State<BottomNavyBar> {
   final int currentIndex;
@@ -42,23 +40,18 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
   int _selectedIndex;
   ValueChanged<int> onItemSelected;
 
-  _BottomNavyBarState({
-    @required this.items,
-    this.currentIndex,
-    this.backgroundColor,
-    this.iconSize,
-    @required this.onItemSelected
-  }) {
-    _selectedIndex = currentIndex;
-
-    assert(items.length > 1, 'Required more than one item');
-  }
+  _BottomNavyBarState(
+      {@required this.items,
+      this.currentIndex,
+      this.backgroundColor,
+      this.iconSize,
+      @required this.onItemSelected});
 
   Widget _buildItem(BottomNavyBarItem item, bool isSelected) {
     return AnimatedContainer(
       width: isSelected ? 125 : 50,
       height: double.maxFinite,
-      duration: Duration(milliseconds: 450),
+      duration: Duration(milliseconds: 270),
       padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
       decoration: BoxDecoration(
         color: isSelected ? item.activeColor.withOpacity(0.3) : backgroundColor,
@@ -79,17 +72,21 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
                 child: IconTheme(
                   data: IconThemeData(
                       size: iconSize,
-                      color: isSelected ?
-                      item.activeColor.withOpacity(1)
-                          : item.inactiveColor == null ? item.activeColor : item.inactiveColor),
+                      color: isSelected
+                          ? item.activeColor.withOpacity(1)
+                          : item.inactiveColor == null
+                              ? item.activeColor
+                              : item.inactiveColor),
                   child: item.icon,
                 ),
               ),
               isSelected
                   ? DefaultTextStyle.merge(
-                style: TextStyle(color: item.activeColor, fontWeight: FontWeight.bold),
-                child: item.title,
-              ) : SizedBox.shrink()
+                      style: TextStyle(
+                          color: item.activeColor, fontWeight: FontWeight.bold),
+                      child: item.title,
+                    )
+                  : SizedBox.shrink()
             ],
           )
         ],
@@ -106,7 +103,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 56,
-      padding: EdgeInsets.only(left: 8, right: 8, top: 6,bottom: 6),
+      padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
       decoration: BoxDecoration(
           color: backgroundColor,
           boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 2)]),
@@ -136,12 +133,11 @@ class BottomNavyBarItem {
   final Color activeColor;
   final Color inactiveColor;
 
-  BottomNavyBarItem({
-    @required this.icon,
-    @required this.title,
-    this.activeColor = Colors.blue,
-    this.inactiveColor
-  }){
+  BottomNavyBarItem(
+      {@required this.icon,
+      @required this.title,
+      this.activeColor = Colors.blue,
+      this.inactiveColor}) {
     assert(icon != null);
     assert(title != null);
   }
