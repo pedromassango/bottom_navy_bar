@@ -13,7 +13,7 @@ Add the plugin:
 ```yaml
 dependencies:
   ...
-  bottom_navy_bar: ^2.0.0
+  bottom_navy_bar: ^3.0.0
 ```
 
 ## Basic Usage
@@ -55,7 +55,7 @@ bottomNavigationBar: BottomNavyBar(
 
 ### BottomNavyBar
 **iconSize** - the item icon's size<br/>
-**items** - navigation items, required more than one item<br/>
+**items** - navigation items, required more than one item and less than six<br/>
 **onItemSelected** - required to listen when a item is tapped it provide the selected item's index<br/>
 **backgroundColor** - the navigation bar's background color
 
