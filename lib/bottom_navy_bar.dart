@@ -94,6 +94,13 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
     );
   }
 
+
+  @override
+  void initState() {
+    _selectedIndex = currentIndex;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     backgroundColor = (backgroundColor == null)
