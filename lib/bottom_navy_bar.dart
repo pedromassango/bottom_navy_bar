@@ -94,7 +94,6 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
     );
   }
 
-
   @override
   void initState() {
     _selectedIndex = currentIndex;
