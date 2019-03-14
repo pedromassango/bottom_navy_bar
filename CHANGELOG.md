@@ -1,3 +1,5 @@
+## [4.0.0] - Fixed: Can't set default active item before Tap
+
 ## [3.0.0] - animation duration set to 270 milliseconds && code improved.
 
 ## [2.2.0] - icon now have default inactive color as the active color (bug fixed).
