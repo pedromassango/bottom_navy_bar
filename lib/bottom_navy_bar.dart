@@ -1,9 +1,11 @@
 library bottom_navy_bar;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class BottomNavyBar extends StatefulWidget {
-  final int currentIndex;
+
+  int selectedIndex;
   final double iconSize;
   final Color backgroundColor;
   final List<BottomNavyBarItem> items;
@@ -11,11 +13,11 @@ class BottomNavyBar extends StatefulWidget {
 
   BottomNavyBar(
       {Key key,
-      this.currentIndex = 0,
-      this.iconSize = 24,
-      this.backgroundColor,
-      @required this.items,
-      @required this.onItemSelected}) {
+        this.selectedIndex=0,
+        this.iconSize = 24,
+        this.backgroundColor,
+        @required this.items,
+        @required this.onItemSelected}) {
     assert(items != null);
     assert(items.length >= 2 || items.length >= 5);
     assert(onItemSelected != null);
@@ -26,26 +28,29 @@ class BottomNavyBar extends StatefulWidget {
     return _BottomNavyBarState(
         items: items,
         backgroundColor: backgroundColor,
-        currentIndex: currentIndex,
         iconSize: iconSize,
         onItemSelected: onItemSelected);
   }
 }
 
 class _BottomNavyBarState extends State<BottomNavyBar> {
-  final int currentIndex;
+
   final double iconSize;
   Color backgroundColor;
   List<BottomNavyBarItem> items;
-  int _selectedIndex;
+
   ValueChanged<int> onItemSelected;
 
+  @override
+  void initState() {
+    super.initState();
+
+  }
   _BottomNavyBarState(
       {@required this.items,
-      this.currentIndex,
-      this.backgroundColor,
-      this.iconSize,
-      @required this.onItemSelected});
+        this.backgroundColor,
+        this.iconSize,
+        @required this.onItemSelected});
 
   Widget _buildItem(BottomNavyBarItem item, bool isSelected) {
     return AnimatedContainer(
@@ -75,29 +80,23 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
                       color: isSelected
                           ? item.activeColor.withOpacity(1)
                           : item.inactiveColor == null
-                              ? item.activeColor
-                              : item.inactiveColor),
+                          ? item.activeColor
+                          : item.inactiveColor),
                   child: item.icon,
                 ),
               ),
               isSelected
                   ? DefaultTextStyle.merge(
-                      style: TextStyle(
-                          color: item.activeColor, fontWeight: FontWeight.bold),
-                      child: item.title,
-                    )
+                style: TextStyle(
+                    color: item.activeColor, fontWeight: FontWeight.bold),
+                child: item.title,
+              )
                   : SizedBox.shrink()
             ],
           )
         ],
       ),
     );
-  }
-
-  @override
-  void initState() {
-    _selectedIndex = currentIndex;
-    super.initState();
   }
 
   @override
@@ -120,12 +119,11 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
           return GestureDetector(
             onTap: () {
               onItemSelected(index);
-
               setState(() {
-                _selectedIndex = index;
+                widget.selectedIndex = index;
               });
             },
-            child: _buildItem(item, _selectedIndex == index),
+            child: _buildItem(item, widget.selectedIndex == index),
           );
         }).toList(),
       ),
@@ -141,9 +139,9 @@ class BottomNavyBarItem {
 
   BottomNavyBarItem(
       {@required this.icon,
-      @required this.title,
-      this.activeColor = Colors.blue,
-      this.inactiveColor}) {
+        @required this.title,
+        this.activeColor = Colors.blue,
+        this.inactiveColor}) {
     assert(icon != null);
     assert(title != null);
   }
