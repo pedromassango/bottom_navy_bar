@@ -1,11 +1,14 @@
 # BottomNavyBar
 
 A beautiful and animated bottom navigation. The navigation bar use your current theme, but you are free to customize it.
-
+## Fix
+Support setState to change BottomNavyBar's _selectindex,just copy bottom_navy_bar.dart into your project
 ## Preview
 
 ![FanBottomNavyBar Gif](navy.gif "BottomNavyBar")
+## PageView
 
+![Fix Gif](fix.gif "Fix")
 ## Getting Started
 
 Add the plugin:
@@ -22,10 +25,12 @@ Adding the widget
 
 ```dart
 bottomNavigationBar: BottomNavyBar(
+   selectedIndex: _selectedIndex,
    onItemSelected: (index) => setState(() {
-       _index = index;
-       _controller.animateTo(_index);
-   }),
+              _selectedIndex = index;
+              _pageController.animateToPage(index,
+                  duration: Duration(milliseconds: 300), curve: Curves.ease);
+    }),
    items: [
      BottomNavyBarItem(
        icon: Icon(Icons.apps),
