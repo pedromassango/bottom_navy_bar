@@ -57,7 +57,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
       width: isSelected ? 125 : 50,
       height: double.maxFinite,
       duration: Duration(milliseconds: 270),
-      padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: isSelected ? item.activeColor.withOpacity(0.3) : backgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(50)),
