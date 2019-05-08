@@ -119,9 +119,9 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
           return GestureDetector(
             onTap: () {
               onItemSelected(index);
-              setState(() {
-                widget.selectedIndex = index;
-              });
+//               setState(() {
+//                 widget.selectedIndex = index;
+//               });
             },
             child: _buildItem(item, widget.selectedIndex == index),
           );
