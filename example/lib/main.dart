@@ -1,17 +1,13 @@
+
+import 'package:Yazhiragu/ui/homepage/bottomnav.dart';
 import 'package:flutter/material.dart';
-
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-
+import 'dart:async';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -27,14 +23,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  StreamController<int> indexcontroller = StreamController<int>.broadcast();
+  PageController pageController = PageController(initialPage: 0);
 
-  int currentIndex = 0;
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void dispose() {
+    indexcontroller.close();
+    super.dispose();
   }
 
   @override
@@ -43,53 +39,61 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
+      body: PageView(
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        children: <Widget>[
+          Center(
+            child: Text('PAGE 1'),
+          ),
+          Center(
+            child: Text('PAGE 2'),
+          ),
+          Center(
+            child: Text('PAGE 3'),
+          )
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-      bottomNavigationBar: BottomNavyBar(
-        currentIndex: currentIndex,
-        onItemSelected: (index) => setState(() {
-          currentIndex = index;
-        }),
+      bottomNavigationBar:       
+      StreamBuilder(
+        stream: indexcontroller.stream,
+        initialData: 0,
+        builder: (c,snap){
+         int currentindex = snap.data;
+         return BottomNav(
+        currentIndex: currentindex,
+        onItemSelected:onItmSelected,
         items: [
-          BottomNavyBarItem(
+          BottomNavItem(
             icon: Icon(Icons.apps),
             title: Text('Home'),
             activeColor: Colors.red,
           ),
-          BottomNavyBarItem(
+          BottomNavItem(
               icon: Icon(Icons.people),
               title: Text('Users'),
               activeColor: Colors.purpleAccent
           ),
-          BottomNavyBarItem(
+          BottomNavItem(
               icon: Icon(Icons.message),
               title: Text('Messages'),
               activeColor: Colors.pink
           ),
-          BottomNavyBarItem(
-              icon: Icon(Icons.settings),
-              title: Text('Settings'),
-              activeColor: Colors.blue
-          ),
         ],
-      ),
+      );
+        },
+      )
+
     );
+  }
+
+void onPageChanged(int pageIndex){
+  indexcontroller.add(pageIndex);
+}
+
+
+  void onItmSelected(int itemIndex){
+   indexcontroller.add(itemIndex);
+   pageController.jumpToPage(itemIndex);
   }
 }
