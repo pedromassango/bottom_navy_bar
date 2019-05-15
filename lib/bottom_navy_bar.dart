@@ -8,12 +8,14 @@ class BottomNavyBar extends StatefulWidget {
   int selectedIndex;
   final double iconSize;
   final Color backgroundColor;
+  final bool showElevation;
   final List<BottomNavyBarItem> items;
   final ValueChanged<int> onItemSelected;
 
   BottomNavyBar(
       {Key key,
-        this.selectedIndex=0,
+        this.selectedIndex = 0,
+        this.showElevation = true,
         this.iconSize = 24,
         this.backgroundColor,
         @required this.items,
@@ -111,7 +113,10 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
       padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
       decoration: BoxDecoration(
           color: backgroundColor,
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 2)]),
+          boxShadow: [
+            if(widget.showElevation)
+              BoxShadow(color: Colors.black12, blurRadius: 2)
+          ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: items.map((item) {
