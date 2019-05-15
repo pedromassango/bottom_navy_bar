@@ -26,6 +26,7 @@ Adding the widget
 ```dart
 bottomNavigationBar: BottomNavyBar(
    selectedIndex: _selectedIndex,
+   showElevation: true, // use this to remove appBar's elevation
    onItemSelected: (index) => setState(() {
               _selectedIndex = index;
               _pageController.animateToPage(index,
@@ -64,6 +65,7 @@ bottomNavigationBar: BottomNavyBar(
 **currentIndex** - the current item index. Use this to change the selected item. Default to zero<br/>
 **onItemSelected** - required to listen when a item is tapped it provide the selected item's index<br/>
 **backgroundColor** - the navigation bar's background color
+**showElevation** - if false the appBar's elevation will be removed
 
 ### BottomNavyBarItem
 **activeColor** - the active item's background and text color<br/>

@@ -1,3 +1,5 @@
+## [4.1.0] - Added support to hide/show appBar's elevation
+
 ## [4.0.0] - Fixed: Can't set default active item before Tap
 
 ## [3.0.0] - animation duration set to 270 milliseconds && code improved.
