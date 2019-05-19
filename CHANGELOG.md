@@ -1,3 +1,5 @@
+## [4.2.0] - Fixed the width of the Bottom navigation bar
+
 ## [4.1.0] - Added support to hide/show appBar's elevation
 
 ## [4.0.0] - Fixed: Can't set default active item before Tap
