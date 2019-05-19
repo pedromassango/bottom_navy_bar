@@ -61,7 +61,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
       duration: Duration(milliseconds: 270),
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: isSelected ? item.activeColor.withOpacity(0.3) : backgroundColor,
+        color: isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(50)),
       ),
       child: ListView(
