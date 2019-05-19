@@ -56,17 +56,16 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
 
   Widget _buildItem(BottomNavyBarItem item, bool isSelected) {
     return AnimatedContainer(
-      width: isSelected ? 125 : 50,
+      width: isSelected ? 130 : 50,
       height: double.maxFinite,
       duration: Duration(milliseconds: 270),
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.only(left: 12),
       decoration: BoxDecoration(
         color: isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(50)),
       ),
       child: ListView(
         shrinkWrap: true,
-        padding: EdgeInsets.all(0),
         physics: NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
         children: <Widget>[
@@ -108,7 +107,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
         : backgroundColor;
 
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: double.maxFinite,
       height: 56,
       padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
       decoration: BoxDecoration(

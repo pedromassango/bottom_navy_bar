@@ -1,6 +1,7 @@
 # BottomNavyBar
 
 A beautiful and animated bottom navigation. The navigation bar use your current theme, but you are free to customize it.
+
 ## Fix
 Support setState to change BottomNavyBar's _selectindex,just copy bottom_navy_bar.dart into your project
 ## Preview
