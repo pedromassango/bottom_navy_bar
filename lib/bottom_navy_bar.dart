@@ -107,29 +107,35 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
         : backgroundColor;
 
     return Container(
-      width: double.maxFinite,
-      height: 56,
-      padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
       decoration: BoxDecoration(
           color: backgroundColor,
           boxShadow: [
-            if(widget.showElevation)
-              BoxShadow(color: Colors.black12, blurRadius: 2)
-          ]),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: items.map((item) {
-          var index = items.indexOf(item);
-          return GestureDetector(
-            onTap: () {
-              onItemSelected(index);
-              setState(() {
-                widget.selectedIndex = index;
-              });
-            },
-            child: _buildItem(item, widget.selectedIndex == index),
-          );
-        }).toList(),
+          if(widget.showElevation)
+            BoxShadow(color: Colors.black12, blurRadius: 2)
+
+          ]
+      ),
+      child: SafeArea(
+        child: Container(
+          width: double.infinity,
+          height: 56,
+          padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: items.map((item) {
+              var index = items.indexOf(item);
+              return GestureDetector(
+                onTap: () {
+                  onItemSelected(index);
+                  setState(() {
+                    widget.selectedIndex = index;
+                  });
+                },
+                child: _buildItem(item, widget.selectedIndex == index),
+              );
+            }).toList(),
+          ),
+        ),
       ),
     );
   }
