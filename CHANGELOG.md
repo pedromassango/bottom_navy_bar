@@ -1,3 +1,5 @@
+## [5.1.0] - Added assertion to prevent more than five items
+
 ## [5.0.0] - Fixed: Bar is too low at iPhone X(s/R)
 
 ## [4.2.0] - Fixed the width of the Bottom navigation bar
