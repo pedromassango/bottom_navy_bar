@@ -21,7 +21,7 @@ class BottomNavyBar extends StatefulWidget {
         @required this.items,
         @required this.onItemSelected}) {
     assert(items != null);
-    assert(items.length >= 2 || items.length >= 5);
+    assert(items.length >= 2 && items.length <= 5);
     assert(onItemSelected != null);
   }
 
