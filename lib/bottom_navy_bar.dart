@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class BottomNavyBar extends StatefulWidget {
-
   int selectedIndex;
   final double iconSize;
   final Color backgroundColor;
@@ -14,14 +13,14 @@ class BottomNavyBar extends StatefulWidget {
 
   BottomNavyBar(
       {Key key,
-        this.selectedIndex = 0,
-        this.showElevation = true,
-        this.iconSize = 24,
-        this.backgroundColor,
-        @required this.items,
-        @required this.onItemSelected}) {
+      this.selectedIndex = 0,
+      this.showElevation = true,
+      this.iconSize = 24,
+      this.backgroundColor,
+      @required this.items,
+      @required this.onItemSelected}) {
     assert(items != null);
-    assert(items.length >= 2 && items.length <= 5);
+    assert(items.length >= 2 && items.length <= 8);
     assert(onItemSelected != null);
   }
 
@@ -36,7 +35,6 @@ class BottomNavyBar extends StatefulWidget {
 }
 
 class _BottomNavyBarState extends State<BottomNavyBar> {
-
   final double iconSize;
   Color backgroundColor;
   List<BottomNavyBarItem> items;
@@ -46,13 +44,13 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
   @override
   void initState() {
     super.initState();
-
   }
+
   _BottomNavyBarState(
       {@required this.items,
-        this.backgroundColor,
-        this.iconSize,
-        @required this.onItemSelected});
+      this.backgroundColor,
+      this.iconSize,
+      @required this.onItemSelected});
 
   Widget _buildItem(BottomNavyBarItem item, bool isSelected) {
     return AnimatedContainer(
@@ -81,17 +79,17 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
                       color: isSelected
                           ? item.activeColor.withOpacity(1)
                           : item.inactiveColor == null
-                          ? item.activeColor
-                          : item.inactiveColor),
+                              ? item.activeColor
+                              : item.inactiveColor),
                   child: item.icon,
                 ),
               ),
               isSelected
                   ? DefaultTextStyle.merge(
-                style: TextStyle(
-                    color: item.activeColor, fontWeight: FontWeight.bold),
-                child: item.title,
-              )
+                      style: TextStyle(
+                          color: item.activeColor, fontWeight: FontWeight.bold),
+                      child: item.title,
+                    )
                   : SizedBox.shrink()
             ],
           )
@@ -107,14 +105,10 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
         : backgroundColor;
 
     return Container(
-      decoration: BoxDecoration(
-          color: backgroundColor,
-          boxShadow: [
-          if(widget.showElevation)
-            BoxShadow(color: Colors.black12, blurRadius: 2)
-
-          ]
-      ),
+      decoration: BoxDecoration(color: backgroundColor, boxShadow: [
+        if (widget.showElevation)
+          BoxShadow(color: Colors.black12, blurRadius: 2)
+      ]),
       child: SafeArea(
         child: Container(
           width: double.infinity,
@@ -149,9 +143,9 @@ class BottomNavyBarItem {
 
   BottomNavyBarItem(
       {@required this.icon,
-        @required this.title,
-        this.activeColor = Colors.blue,
-        this.inactiveColor}) {
+      @required this.title,
+      this.activeColor = Colors.blue,
+      this.inactiveColor}) {
     assert(icon != null);
     assert(title != null);
   }
