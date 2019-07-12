@@ -10,6 +10,9 @@ class BottomNavyBar extends StatefulWidget {
   final bool showElevation;
   final List<BottomNavyBarItem> items;
   final ValueChanged<int> onItemSelected;
+  final bool limitedNumberOfItems;
+  final int selectedWidth;
+  final int unselectedWidth;
 
   BottomNavyBar(
       {Key key,
@@ -17,10 +20,13 @@ class BottomNavyBar extends StatefulWidget {
       this.showElevation = true,
       this.iconSize = 24,
       this.backgroundColor,
+      this.limitedNumberOfItems = true,
+      this.selectedWidth = 130,
+      this.unselectedWidth = 50,
       @required this.items,
       @required this.onItemSelected}) {
     assert(items != null);
-    assert(items.length >= 2 && items.length <= 8);
+    assert(items.length >= 2 && (items.length <= 5 || !limitedNumberOfItems));
     assert(onItemSelected != null);
   }
 
@@ -30,7 +36,10 @@ class BottomNavyBar extends StatefulWidget {
         items: items,
         backgroundColor: backgroundColor,
         iconSize: iconSize,
-        onItemSelected: onItemSelected);
+        onItemSelected: onItemSelected,
+        limitedNumberOfItems: limitedNumberOfItems,
+        selectedWidth: selectedWidth,
+        unselectedWidth: unselectedWidth);
   }
 }
 
@@ -40,6 +49,9 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
   List<BottomNavyBarItem> items;
 
   ValueChanged<int> onItemSelected;
+  final bool limitedNumberOfItems;
+  final int selectedWidth;
+  final int unselectedWidth;
 
   @override
   void initState() {
@@ -50,11 +62,16 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
       {@required this.items,
       this.backgroundColor,
       this.iconSize,
-      @required this.onItemSelected});
+      @required this.onItemSelected,
+      this.limitedNumberOfItems,
+      this.selectedWidth,
+      this.unselectedWidth});
 
   Widget _buildItem(BottomNavyBarItem item, bool isSelected) {
     return AnimatedContainer(
-      width: isSelected ? 130 : 50,
+      width: isSelected
+          ? this.selectedWidth.toDouble()
+          : this.unselectedWidth.toDouble(),
       height: double.maxFinite,
       duration: Duration(milliseconds: 270),
       padding: EdgeInsets.only(left: 12),
