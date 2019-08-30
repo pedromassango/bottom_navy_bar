@@ -4,22 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class BottomNavyBar extends StatefulWidget {
-
   int selectedIndex;
   final double iconSize;
   final Color backgroundColor;
   final bool showElevation;
+  final Duration animationDuration;
   final List<BottomNavyBarItem> items;
   final ValueChanged<int> onItemSelected;
 
   BottomNavyBar(
       {Key key,
-        this.selectedIndex = 0,
-        this.showElevation = true,
-        this.iconSize = 24,
-        this.backgroundColor,
-        @required this.items,
-        @required this.onItemSelected}) {
+      this.selectedIndex = 0,
+      this.showElevation = true,
+      this.iconSize = 24,
+      this.backgroundColor,
+      this.animationDuration = const Duration(milliseconds: 270),
+      @required this.items,
+      @required this.onItemSelected}) {
     assert(items != null);
     assert(items.length >= 2 && items.length <= 5);
     assert(onItemSelected != null);
@@ -31,14 +32,15 @@ class BottomNavyBar extends StatefulWidget {
         items: items,
         backgroundColor: backgroundColor,
         iconSize: iconSize,
+        animationDuration: animationDuration,
         onItemSelected: onItemSelected);
   }
 }
 
 class _BottomNavyBarState extends State<BottomNavyBar> {
-
   final double iconSize;
   Color backgroundColor;
+  Duration animationDuration;
   List<BottomNavyBarItem> items;
 
   ValueChanged<int> onItemSelected;
@@ -46,19 +48,20 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
   @override
   void initState() {
     super.initState();
-
   }
+
   _BottomNavyBarState(
       {@required this.items,
-        this.backgroundColor,
-        this.iconSize,
-        @required this.onItemSelected});
+      this.backgroundColor,
+      this.iconSize,
+      this.animationDuration,
+      @required this.onItemSelected});
 
   Widget _buildItem(BottomNavyBarItem item, bool isSelected) {
     return AnimatedContainer(
       width: isSelected ? 130 : 50,
       height: double.maxFinite,
-      duration: Duration(milliseconds: 270),
+      duration: animationDuration,
       padding: EdgeInsets.only(left: 12),
       decoration: BoxDecoration(
         color: isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
@@ -81,17 +84,17 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
                       color: isSelected
                           ? item.activeColor.withOpacity(1)
                           : item.inactiveColor == null
-                          ? item.activeColor
-                          : item.inactiveColor),
+                              ? item.activeColor
+                              : item.inactiveColor),
                   child: item.icon,
                 ),
               ),
               isSelected
                   ? DefaultTextStyle.merge(
-                style: TextStyle(
-                    color: item.activeColor, fontWeight: FontWeight.bold),
-                child: item.title,
-              )
+                      style: TextStyle(
+                          color: item.activeColor, fontWeight: FontWeight.bold),
+                      child: item.title,
+                    )
                   : SizedBox.shrink()
             ],
           )
@@ -107,14 +110,10 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
         : backgroundColor;
 
     return Container(
-      decoration: BoxDecoration(
-          color: backgroundColor,
-          boxShadow: [
-          if(widget.showElevation)
-            BoxShadow(color: Colors.black12, blurRadius: 2)
-
-          ]
-      ),
+      decoration: BoxDecoration(color: backgroundColor, boxShadow: [
+        if (widget.showElevation)
+          BoxShadow(color: Colors.black12, blurRadius: 2)
+      ]),
       child: SafeArea(
         child: Container(
           width: double.infinity,
@@ -149,9 +148,9 @@ class BottomNavyBarItem {
 
   BottomNavyBarItem(
       {@required this.icon,
-        @required this.title,
-        this.activeColor = Colors.blue,
-        this.inactiveColor}) {
+      @required this.title,
+      this.activeColor = Colors.blue,
+      this.inactiveColor}) {
     assert(icon != null);
     assert(title != null);
   }
