@@ -5,10 +5,11 @@ import 'package:flutter/widgets.dart';
 
 class BottomNavyBar extends StatefulWidget {
 
-  int selectedIndex;
+  final int selectedIndex;
   final double iconSize;
   final Color backgroundColor;
   final bool showElevation;
+  final Duration animationDuration;
   final List<BottomNavyBarItem> items;
   final ValueChanged<int> onItemSelected;
 
@@ -18,6 +19,7 @@ class BottomNavyBar extends StatefulWidget {
         this.showElevation = true,
         this.iconSize = 24,
         this.backgroundColor,
+        this.animationDuration = const Duration(milliseconds: 270),
         @required this.items,
         @required this.onItemSelected}) {
     assert(items != null);
@@ -31,6 +33,7 @@ class BottomNavyBar extends StatefulWidget {
         items: items,
         backgroundColor: backgroundColor,
         iconSize: iconSize,
+        animationDuration: animationDuration,
         onItemSelected: onItemSelected);
   }
 }
@@ -39,6 +42,8 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
 
   final double iconSize;
   Color backgroundColor;
+  int selectedIndex;
+  Duration animationDuration;
   List<BottomNavyBarItem> items;
 
   ValueChanged<int> onItemSelected;
@@ -52,13 +57,15 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
       {@required this.items,
         this.backgroundColor,
         this.iconSize,
+        this.animationDuration,
+        this.selectedIndex,
         @required this.onItemSelected});
 
   Widget _buildItem(BottomNavyBarItem item, bool isSelected) {
     return AnimatedContainer(
       width: isSelected ? 130 : 50,
       height: double.maxFinite,
-      duration: Duration(milliseconds: 270),
+      duration: animationDuration,
       padding: EdgeInsets.only(left: 12),
       decoration: BoxDecoration(
         color: isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
@@ -128,7 +135,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
                 onTap: () {
                   onItemSelected(index);
                   setState(() {
-                    widget.selectedIndex = index;
+                    selectedIndex = index;
                   });
                 },
                 child: _buildItem(item, widget.selectedIndex == index),
