@@ -48,11 +48,6 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
 
   ValueChanged<int> onItemSelected;
 
-  @override
-  void initState() {
-    super.initState();
-
-  }
   _BottomNavyBarState(
       {@required this.items,
         this.backgroundColor,
