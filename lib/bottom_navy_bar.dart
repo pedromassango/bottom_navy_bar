@@ -3,7 +3,7 @@ library bottom_navy_bar;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class BottomNavyBar extends StatefulWidget {
+class BottomNavyBar extends StatelessWidget {
 
   final int selectedIndex;
   final double iconSize;
@@ -26,35 +26,6 @@ class BottomNavyBar extends StatefulWidget {
     assert(items.length >= 2 && items.length <= 5);
     assert(onItemSelected != null);
   }
-
-  @override
-  _BottomNavyBarState createState() {
-    return _BottomNavyBarState(
-        items: items,
-        backgroundColor: backgroundColor,
-        iconSize: iconSize,
-        animationDuration: animationDuration,
-        onItemSelected: onItemSelected);
-  }
-}
-
-class _BottomNavyBarState extends State<BottomNavyBar> {
-
-  final double iconSize;
-  Color backgroundColor;
-  int selectedIndex;
-  Duration animationDuration;
-  List<BottomNavyBarItem> items;
-
-  ValueChanged<int> onItemSelected;
-
-  _BottomNavyBarState(
-      {@required this.items,
-        this.backgroundColor,
-        this.iconSize,
-        this.animationDuration,
-        this.selectedIndex,
-        @required this.onItemSelected});
 
   Widget _buildItem(BottomNavyBarItem item, bool isSelected) {
     return AnimatedContainer(
@@ -104,15 +75,15 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
 
   @override
   Widget build(BuildContext context) {
-    backgroundColor = (backgroundColor == null)
+    final bgColor = (backgroundColor == null)
         ? Theme.of(context).bottomAppBarColor
         : backgroundColor;
 
     return Container(
       decoration: BoxDecoration(
-          color: backgroundColor,
+          color: bgColor,
           boxShadow: [
-          if(widget.showElevation)
+          if(showElevation)
             BoxShadow(color: Colors.black12, blurRadius: 2)
 
           ]
@@ -129,11 +100,8 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
               return GestureDetector(
                 onTap: () {
                   onItemSelected(index);
-                  setState(() {
-                    selectedIndex = index;
-                  });
                 },
-                child: _buildItem(item, widget.selectedIndex == index),
+                child: _buildItem(item, selectedIndex == index),
               );
             }).toList(),
           ),

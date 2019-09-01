@@ -1,5 +1,6 @@
 ## [5.2.0] - Added optional parameter animationDuration to BottomNavyBar
 ##         - fixed issue, that selectedIndex has to be final in StatefulWidget
+##         - BottomNavyBar changed to StatelessWidget
 
 ## [5.1.0] - Added assertion to prevent more than five items
 

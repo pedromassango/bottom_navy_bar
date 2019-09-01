@@ -18,7 +18,7 @@ Add the plugin:
 ```yaml
 dependencies:
   ...
-  bottom_navy_bar: ^3.0.0
+  bottom_navy_bar: ^5.2.0
 ```
 
 ## Basic Usage
