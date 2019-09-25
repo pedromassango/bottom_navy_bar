@@ -1,3 +1,5 @@
+![Pub](https://img.shields.io/pub/v/bottom_navy_bar)
+
 # BottomNavyBar
 
 A beautiful and animated bottom navigation. The navigation bar use your current theme, but you are free to customize it.
