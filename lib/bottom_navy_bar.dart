@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class BottomNavyBar extends StatelessWidget {
-
   final int selectedIndex;
   final double iconSize;
   final Color backgroundColor;
@@ -12,16 +11,18 @@ class BottomNavyBar extends StatelessWidget {
   final Duration animationDuration;
   final List<BottomNavyBarItem> items;
   final ValueChanged<int> onItemSelected;
+  final MainAxisAlignment mainAxisAlignment;
 
   BottomNavyBar(
       {Key key,
-        this.selectedIndex = 0,
-        this.showElevation = true,
-        this.iconSize = 24,
-        this.backgroundColor,
-        this.animationDuration = const Duration(milliseconds: 270),
-        @required this.items,
-        @required this.onItemSelected}) {
+      this.selectedIndex = 0,
+      this.showElevation = true,
+      this.iconSize = 24,
+      this.backgroundColor,
+      this.animationDuration = const Duration(milliseconds: 270),
+      this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
+      @required this.items,
+      @required this.onItemSelected}) {
     assert(items != null);
     assert(items.length >= 2 && items.length <= 5);
     assert(onItemSelected != null);
@@ -53,18 +54,15 @@ class BottomNavyBar extends StatelessWidget {
                       size: iconSize,
                       color: isSelected
                           ? item.activeColor.withOpacity(1)
-                          : item.inactiveColor == null
-                          ? item.activeColor
-                          : item.inactiveColor),
+                          : item.inactiveColor == null ? item.activeColor : item.inactiveColor),
                   child: item.icon,
                 ),
               ),
               isSelected
                   ? DefaultTextStyle.merge(
-                style: TextStyle(
-                    color: item.activeColor, fontWeight: FontWeight.bold),
-                child: item.title,
-              )
+                      style: TextStyle(color: item.activeColor, fontWeight: FontWeight.bold),
+                      child: item.title,
+                    )
                   : SizedBox.shrink()
             ],
           )
@@ -75,26 +73,17 @@ class BottomNavyBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = (backgroundColor == null)
-        ? Theme.of(context).bottomAppBarColor
-        : backgroundColor;
+    final bgColor = (backgroundColor == null) ? Theme.of(context).bottomAppBarColor : backgroundColor;
 
     return Container(
-      decoration: BoxDecoration(
-          color: bgColor,
-          boxShadow: [
-          if(showElevation)
-            BoxShadow(color: Colors.black12, blurRadius: 2)
-
-          ]
-      ),
+      decoration: BoxDecoration(color: bgColor, boxShadow: [if (showElevation) BoxShadow(color: Colors.black12, blurRadius: 2)]),
       child: SafeArea(
         child: Container(
           width: double.infinity,
           height: 56,
           padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: mainAxisAlignment,
             children: items.map((item) {
               var index = items.indexOf(item);
               return GestureDetector(
@@ -111,14 +100,14 @@ class BottomNavyBar extends StatelessWidget {
   }
 }
 
-class CustomBottomNavyBarItem {
+class BottomNavyBarItem {
   final Icon icon;
   final Text title;
   final Color activeColor;
   final Color inactiveColor;
   final double cornerActiveRadius;
 
-  CustomBottomNavyBarItem(
+  BottomNavyBarItem(
       {@required this.icon, @required this.title, this.activeColor = Colors.blue, this.inactiveColor, this.cornerActiveRadius = 50}) {
     assert(icon != null);
     assert(title != null);
