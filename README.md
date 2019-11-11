@@ -4,15 +4,27 @@
 
 A beautiful and animated bottom navigation. The navigation bar use your current theme, but you are free to customize it.
 
-## Fix
-Support setState to change BottomNavyBar's _selectindex,just copy bottom_navy_bar.dart into your project
+| Preview | PageView |
+|---------|----------|
+|![FanBottomNavyBar Gif](navy.gif "BottomNavyBar") | ![Fix Gif](fix.gif "Fix") |
 
-## Preview
+## Customization (Optional)
 
-![FanBottomNavyBar Gif](navy.gif "BottomNavyBar")
-## PageView
+#### BottomNavyBar
+**iconSize** - the item icon's size<br/>
+**items** - navigation items, required more than one item and less than six<br/>
+**selectedIndex** - the current item index. Use this to change the selected item. Default to zero<br/>
+**onItemSelected** - required to listen when a item is tapped it provide the selected item's index<br/>
+**backgroundColor** - the navigation bar's background color<br/>
+**showElevation** - if false the appBar's elevation will be removed<br/>
+**itemCornerRadius** - use this property to change the active item's corner radius<br/>
 
-![Fix Gif](fix.gif "Fix")
+#### BottomNavyBarItem
+**icon** - the icon of this item<br/>
+**title** - the text that will appear next to the icon when this item is selected<br/>
+**activeColor** - the active item's background and text color<br/>
+**inactiveColor** - the inactive item's icon color<br/>
+
 ## Getting Started
 
 Add the plugin:
@@ -60,20 +72,3 @@ bottomNavigationBar: BottomNavyBar(
    ],
 )
 ```
-
-## Customization (Optional)
-
-### BottomNavyBar
-**iconSize** - the item icon's size<br/>
-**items** - navigation items, required more than one item and less than six<br/>
-**selectedIndex** - the current item index. Use this to change the selected item. Default to zero<br/>
-**onItemSelected** - required to listen when a item is tapped it provide the selected item's index<br/>
-**backgroundColor** - the navigation bar's background color<br/>
-**showElevation** - if false the appBar's elevation will be removed<br/>
-**itemCornerRadius** - use this property to change the active item's corner radius<br/>
-
-### BottomNavyBarItem
-**icon** - the icon of this item<br/>
-**title** - the text that will appear next to the icon when this item is selected<br/>
-**activeColor** - the active item's background and text color<br/>
-**inactiveColor** - the inactive item's icon color<br/>
