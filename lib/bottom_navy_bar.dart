@@ -33,19 +33,18 @@ class BottomNavyBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = (backgroundColor == null)
-        ? Theme
-        .of(context)
-        .bottomAppBarColor
-        : backgroundColor;
+    final bgColor = (backgroundColor == null) ? Theme.of(context).bottomAppBarColor : backgroundColor;
 
     return Container(
       decoration: BoxDecoration(
-          color: bgColor,
-          boxShadow: [
-            if(showElevation)
-              const BoxShadow(color: Colors.black12, blurRadius: 2)
-          ]
+        color: bgColor,
+        boxShadow: [
+          if (showElevation)
+            const BoxShadow(
+              color: Colors.black12,
+              blurRadius: 2,
+            ),
+        ],
       ),
       child: SafeArea(
         child: Container(
@@ -83,15 +82,14 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
 
-  const _ItemWidget({
-    Key key,
-    @required this.item,
-    @required this.isSelected,
-    @required this.backgroundColor,
-    @required this.animationDuration,
-    @required this.itemCornerRadius,
-    @required this.iconSize
-  })
+  const _ItemWidget(
+      {Key key,
+      @required this.item,
+      @required this.isSelected,
+      @required this.backgroundColor,
+      @required this.animationDuration,
+      @required this.itemCornerRadius,
+      @required this.iconSize})
       : assert(isSelected != null),
         assert(item != null),
         assert(backgroundColor != null),
@@ -133,41 +131,16 @@ class _ItemWidget extends StatelessWidget {
               ),
               isSelected
                   ? DefaultTextStyle.merge(
-                      style: TextStyle(color: item.activeColor, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: item.activeColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                       child: item.title,
                     )
                   : SizedBox.shrink()
             ],
           )
         ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final bgColor = (backgroundColor == null) ? Theme.of(context).bottomAppBarColor : backgroundColor;
-
-    return Container(
-      decoration: BoxDecoration(color: bgColor, boxShadow: [if (showElevation) BoxShadow(color: Colors.black12, blurRadius: 2)]),
-      child: SafeArea(
-        child: Container(
-          width: double.infinity,
-          height: 56,
-          padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
-          child: Row(
-            mainAxisAlignment: mainAxisAlignment,
-            children: items.map((item) {
-              var index = items.indexOf(item);
-              return GestureDetector(
-                onTap: () {
-                  onItemSelected(index);
-                },
-                child: _buildItem(item, selectedIndex == index),
-              );
-            }).toList(),
-          ),
-        ),
       ),
     );
   }
