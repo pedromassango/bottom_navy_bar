@@ -11,8 +11,8 @@ class BottomNavyBar extends StatelessWidget {
   final Duration animationDuration;
   final List<BottomNavyBarItem> items;
   final ValueChanged<int> onItemSelected;
-  final double itemCornerRadius;
   final MainAxisAlignment mainAxisAlignment;
+  final double itemCornerRadius;
 
   BottomNavyBar({
     Key key,
@@ -133,13 +133,41 @@ class _ItemWidget extends StatelessWidget {
               ),
               isSelected
                   ? DefaultTextStyle.merge(
-                style: TextStyle(color: item.activeColor, fontWeight: FontWeight.bold),
-                child: item.title,
-              )
+                      style: TextStyle(color: item.activeColor, fontWeight: FontWeight.bold),
+                      child: item.title,
+                    )
                   : SizedBox.shrink()
             ],
           )
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bgColor = (backgroundColor == null) ? Theme.of(context).bottomAppBarColor : backgroundColor;
+
+    return Container(
+      decoration: BoxDecoration(color: bgColor, boxShadow: [if (showElevation) BoxShadow(color: Colors.black12, blurRadius: 2)]),
+      child: SafeArea(
+        child: Container(
+          width: double.infinity,
+          height: 56,
+          padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
+          child: Row(
+            mainAxisAlignment: mainAxisAlignment,
+            children: items.map((item) {
+              var index = items.indexOf(item);
+              return GestureDetector(
+                onTap: () {
+                  onItemSelected(index);
+                },
+                child: _buildItem(item, selectedIndex == index),
+              );
+            }).toList(),
+          ),
+        ),
       ),
     );
   }
