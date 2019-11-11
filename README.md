@@ -70,7 +70,10 @@ bottomNavigationBar: BottomNavyBar(
 **onItemSelected** - required to listen when a item is tapped it provide the selected item's index<br/>
 **backgroundColor** - the navigation bar's background color
 **showElevation** - if false the appBar's elevation will be removed
+**itemCornerRadius** - use this property to change the active item's corner radius
 
 ### BottomNavyBarItem
+**icon** - the icon of this item<br/>
+**title** - the text that will appear next to the icon when this item is selected<br/>
 **activeColor** - the active item's background and text color<br/>
 **inactiveColor** - the inactive item's icon color<br/>

@@ -1,3 +1,5 @@
+## [5.2.1] - Added [itemCornerRadius] property to change the active item's corner radius
+
 ## [5.2.0] - Added optional parameter animationDuration to BottomNavyBar
 ##         - fixed issue, that selectedIndex has to be final in StatefulWidget
 ##         - BottomNavyBar changed to StatelessWidget
