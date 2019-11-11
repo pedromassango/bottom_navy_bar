@@ -35,7 +35,7 @@ class BottomNavyBar extends StatelessWidget {
       padding: EdgeInsets.only(left: 12),
       decoration: BoxDecoration(
         color: isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(50)),
+        borderRadius: BorderRadius.all(Radius.circular(item.cornerActiveRadius)),
       ),
       child: ListView(
         shrinkWrap: true,
@@ -111,17 +111,15 @@ class BottomNavyBar extends StatelessWidget {
   }
 }
 
-class BottomNavyBarItem {
+class CustomBottomNavyBarItem {
   final Icon icon;
   final Text title;
   final Color activeColor;
   final Color inactiveColor;
+  final double cornerActiveRadius;
 
-  BottomNavyBarItem(
-      {@required this.icon,
-        @required this.title,
-        this.activeColor = Colors.blue,
-        this.inactiveColor}) {
+  CustomBottomNavyBarItem(
+      {@required this.icon, @required this.title, this.activeColor = Colors.blue, this.inactiveColor, this.cornerActiveRadius = 50}) {
     assert(icon != null);
     assert(title != null);
   }
