@@ -111,14 +111,14 @@ class BottomNavyBar extends StatelessWidget {
   }
 }
 
-class CustomBottomNavyBarItem {
+class BottomNavyBarItem {
   final Icon icon;
   final Text title;
   final Color activeColor;
   final Color inactiveColor;
   final double cornerActiveRadius;
 
-  CustomBottomNavyBarItem(
+  BottomNavyBarItem(
       {@required this.icon, @required this.title, this.activeColor = Colors.blue, this.inactiveColor, this.cornerActiveRadius = 50}) {
     assert(icon != null);
     assert(title != null);
