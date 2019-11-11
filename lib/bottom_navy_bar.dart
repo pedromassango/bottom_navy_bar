@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class BottomNavyBar extends StatelessWidget {
-
   final int selectedIndex;
   final double iconSize;
   final Color backgroundColor;
@@ -13,6 +12,7 @@ class BottomNavyBar extends StatelessWidget {
   final List<BottomNavyBarItem> items;
   final ValueChanged<int> onItemSelected;
   final double itemCornerRadius;
+  final MainAxisAlignment mainAxisAlignment;
 
   BottomNavyBar({
     Key key,
@@ -22,6 +22,7 @@ class BottomNavyBar extends StatelessWidget {
     this.backgroundColor,
     this.itemCornerRadius = 50,
     this.animationDuration = const Duration(milliseconds: 270),
+    this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     @required this.items,
     @required this.onItemSelected,
   }) {
@@ -33,15 +34,17 @@ class BottomNavyBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bgColor = (backgroundColor == null)
-        ? Theme.of(context).bottomAppBarColor
+        ? Theme
+        .of(context)
+        .bottomAppBarColor
         : backgroundColor;
 
     return Container(
       decoration: BoxDecoration(
           color: bgColor,
           boxShadow: [
-          if(showElevation)
-            const BoxShadow(color: Colors.black12, blurRadius: 2)
+            if(showElevation)
+              const BoxShadow(color: Colors.black12, blurRadius: 2)
           ]
       ),
       child: SafeArea(
@@ -50,7 +53,7 @@ class BottomNavyBar extends StatelessWidget {
           height: 56,
           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: mainAxisAlignment,
             children: items.map((item) {
               var index = items.indexOf(item);
               return GestureDetector(
@@ -124,16 +127,13 @@ class _ItemWidget extends StatelessWidget {
                       size: iconSize,
                       color: isSelected
                           ? item.activeColor.withOpacity(1)
-                          : item.inactiveColor == null
-                          ? item.activeColor
-                          : item.inactiveColor),
+                          : item.inactiveColor == null ? item.activeColor : item.inactiveColor),
                   child: item.icon,
                 ),
               ),
               isSelected
                   ? DefaultTextStyle.merge(
-                style: TextStyle(
-                    color: item.activeColor, fontWeight: FontWeight.bold),
+                style: TextStyle(color: item.activeColor, fontWeight: FontWeight.bold),
                 child: item.title,
               )
                   : SizedBox.shrink()
