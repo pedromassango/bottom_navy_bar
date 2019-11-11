@@ -68,9 +68,9 @@ bottomNavigationBar: BottomNavyBar(
 **items** - navigation items, required more than one item and less than six<br/>
 **selectedIndex** - the current item index. Use this to change the selected item. Default to zero<br/>
 **onItemSelected** - required to listen when a item is tapped it provide the selected item's index<br/>
-**backgroundColor** - the navigation bar's background color
-**showElevation** - if false the appBar's elevation will be removed
-**itemCornerRadius** - use this property to change the active item's corner radius
+**backgroundColor** - the navigation bar's background color<br/>
+**showElevation** - if false the appBar's elevation will be removed<br/>
+**itemCornerRadius** - use this property to change the active item's corner radius<br/>
 
 ### BottomNavyBarItem
 **icon** - the icon of this item<br/>
