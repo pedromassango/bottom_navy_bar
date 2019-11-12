@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class BottomNavyBar extends StatelessWidget {
-
   final int selectedIndex;
   final double iconSize;
   final Color backgroundColor;
@@ -12,6 +11,7 @@ class BottomNavyBar extends StatelessWidget {
   final Duration animationDuration;
   final List<BottomNavyBarItem> items;
   final ValueChanged<int> onItemSelected;
+  final MainAxisAlignment mainAxisAlignment;
   final double itemCornerRadius;
 
   BottomNavyBar({
@@ -22,6 +22,7 @@ class BottomNavyBar extends StatelessWidget {
     this.backgroundColor,
     this.itemCornerRadius = 50,
     this.animationDuration = const Duration(milliseconds: 270),
+    this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     @required this.items,
     @required this.onItemSelected,
   }) {
@@ -32,17 +33,18 @@ class BottomNavyBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = (backgroundColor == null)
-        ? Theme.of(context).bottomAppBarColor
-        : backgroundColor;
+    final bgColor = (backgroundColor == null) ? Theme.of(context).bottomAppBarColor : backgroundColor;
 
     return Container(
       decoration: BoxDecoration(
-          color: bgColor,
-          boxShadow: [
-          if(showElevation)
-            const BoxShadow(color: Colors.black12, blurRadius: 2)
-          ]
+        color: bgColor,
+        boxShadow: [
+          if (showElevation)
+            const BoxShadow(
+              color: Colors.black12,
+              blurRadius: 2,
+            ),
+        ],
       ),
       child: SafeArea(
         child: Container(
@@ -50,7 +52,7 @@ class BottomNavyBar extends StatelessWidget {
           height: 56,
           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: mainAxisAlignment,
             children: items.map((item) {
               var index = items.indexOf(item);
               return GestureDetector(
@@ -80,15 +82,14 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
 
-  const _ItemWidget({
-    Key key,
-    @required this.item,
-    @required this.isSelected,
-    @required this.backgroundColor,
-    @required this.animationDuration,
-    @required this.itemCornerRadius,
-    @required this.iconSize
-  })
+  const _ItemWidget(
+      {Key key,
+      @required this.item,
+      @required this.isSelected,
+      @required this.backgroundColor,
+      @required this.animationDuration,
+      @required this.itemCornerRadius,
+      @required this.iconSize})
       : assert(isSelected != null),
         assert(item != null),
         assert(backgroundColor != null),
@@ -124,18 +125,18 @@ class _ItemWidget extends StatelessWidget {
                       size: iconSize,
                       color: isSelected
                           ? item.activeColor.withOpacity(1)
-                          : item.inactiveColor == null
-                          ? item.activeColor
-                          : item.inactiveColor),
+                          : item.inactiveColor == null ? item.activeColor : item.inactiveColor),
                   child: item.icon,
                 ),
               ),
               isSelected
                   ? DefaultTextStyle.merge(
-                style: TextStyle(
-                    color: item.activeColor, fontWeight: FontWeight.bold),
-                child: item.title,
-              )
+                      style: TextStyle(
+                        color: item.activeColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      child: item.title,
+                    )
                   : SizedBox.shrink()
             ],
           )

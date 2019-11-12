@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,7 +26,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int currentIndex = 0;
   int _counter = 0;
 
@@ -74,19 +72,19 @@ class _MyHomePageState extends State<MyHomePage> {
             activeColor: Colors.red,
           ),
           BottomNavyBarItem(
-              icon: Icon(Icons.people),
-              title: Text('Users'),
-              activeColor: Colors.purpleAccent
+            icon: Icon(Icons.people),
+            title: Text('Users'),
+            activeColor: Colors.purpleAccent,
           ),
           BottomNavyBarItem(
-              icon: Icon(Icons.message),
-              title: Text('Messages'),
-              activeColor: Colors.pink
+            icon: Icon(Icons.message),
+            title: Text('Messages'),
+            activeColor: Colors.pink,
           ),
           BottomNavyBarItem(
-              icon: Icon(Icons.settings),
-              title: Text('Settings'),
-              activeColor: Colors.blue
+            icon: Icon(Icons.settings),
+            title: Text('Settings'),
+            activeColor: Colors.blue,
           ),
         ],
       ),
