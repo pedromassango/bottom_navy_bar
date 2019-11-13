@@ -1,3 +1,5 @@
+## [5.2.2] - Added [mainAxisAlignment] property to align the items in the navigation bar
+
 ## [5.2.1] - Added [itemCornerRadius] property to change the active item's corner radius
 
 ## [5.2.0] - Added optional parameter animationDuration to BottomNavyBar
