@@ -18,6 +18,7 @@ A beautiful and animated bottom navigation. The navigation bar use your current 
 **backgroundColor** - the navigation bar's background color<br/>
 **showElevation** - if false the appBar's elevation will be removed<br/>
 **itemCornerRadius** - use this property to change the active item's corner radius<br/>
+**mainAxisAlignment** - use this property to change the horizontal alignment of the items. It is mostly used when you have ony two items and you want to center the items<br/>
 
 #### BottomNavyBarItem
 **icon** - the icon of this item<br/>
