@@ -1,4 +1,6 @@
-![Pub](https://img.shields.io/pub/v/bottom_navy_bar)
+![Pub](https://img.shields.io/pub/v/bottom_navy_bar) <a href="https://github.com/Solido/awesome-flutter">
+    <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
+</a>
 
 # BottomNavyBar
 
@@ -32,7 +34,7 @@ Add the plugin:
 ```yaml
 dependencies:
   ...
-  bottom_navy_bar: ^5.2.0
+  bottom_navy_bar: ^5.2.2
 ```
 
 ## Basic Usage
