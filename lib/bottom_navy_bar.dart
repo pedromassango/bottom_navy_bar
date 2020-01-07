@@ -13,6 +13,7 @@ class BottomNavyBar extends StatelessWidget {
   final ValueChanged<int> onItemSelected;
   final MainAxisAlignment mainAxisAlignment;
   final double itemCornerRadius;
+  final Curve curve;
 
   BottomNavyBar({
     Key key,
@@ -25,10 +26,12 @@ class BottomNavyBar extends StatelessWidget {
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     @required this.items,
     @required this.onItemSelected,
+    this.curve = Curves.linear,
   }) {
     assert(items != null);
     assert(items.length >= 2 && items.length <= 5);
     assert(onItemSelected != null);
+    assert(curve != null);
   }
 
   @override
@@ -64,6 +67,7 @@ class BottomNavyBar extends StatelessWidget {
                   backgroundColor: bgColor,
                   itemCornerRadius: itemCornerRadius,
                   animationDuration: animationDuration,
+                  curve: curve,
                 ),
               );
             }).toList(),
@@ -81,21 +85,24 @@ class _ItemWidget extends StatelessWidget {
   final Color backgroundColor;
   final double itemCornerRadius;
   final Duration animationDuration;
+  final Curve curve;
 
-  const _ItemWidget(
-      {Key key,
-      @required this.item,
-      @required this.isSelected,
-      @required this.backgroundColor,
-      @required this.animationDuration,
-      @required this.itemCornerRadius,
-      @required this.iconSize})
-      : assert(isSelected != null),
+  const _ItemWidget({
+    Key key,
+    @required this.item,
+    @required this.isSelected,
+    @required this.backgroundColor,
+    @required this.animationDuration,
+    @required this.itemCornerRadius,
+    @required this.iconSize,
+    this.curve = Curves.linear,
+  })  : assert(isSelected != null),
         assert(item != null),
         assert(backgroundColor != null),
         assert(animationDuration != null),
         assert(itemCornerRadius != null),
         assert(iconSize != null),
+        assert(curve != null),
         super(key: key);
 
   @override
@@ -104,7 +111,7 @@ class _ItemWidget extends StatelessWidget {
       width: isSelected ? 130 : 50,
       height: double.maxFinite,
       duration: animationDuration,
-      padding: EdgeInsets.only(left: 12),
+      curve: curve,
       decoration: BoxDecoration(
         color: isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
         borderRadius: BorderRadius.circular(itemCornerRadius),
