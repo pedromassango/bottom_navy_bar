@@ -151,11 +151,13 @@ class BottomNavyBarItem {
   final Text title;
   final Color activeColor;
   final Color inactiveColor;
+  final TextAlign textAlign;
 
   BottomNavyBarItem({
     @required this.icon,
     @required this.title,
     this.activeColor = Colors.blue,
+    this.textAlign,
     this.inactiveColor,
   }) {
     assert(icon != null);
