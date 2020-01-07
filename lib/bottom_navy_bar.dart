@@ -109,38 +109,44 @@ class _ItemWidget extends StatelessWidget {
         color: isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
         borderRadius: BorderRadius.circular(itemCornerRadius),
       ),
-      child: ListView(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+      child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Row(
+        physics: NeverScrollableScrollPhysics(),
+        child: Container(
+          width: isSelected ? 130 : 50,
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: IconTheme(
-                  data: IconThemeData(
-                      size: iconSize,
-                      color: isSelected
-                          ? item.activeColor.withOpacity(1)
-                          : item.inactiveColor == null ? item.activeColor : item.inactiveColor),
-                  child: item.icon,
+              IconTheme(
+                data: IconThemeData(
+                  size: iconSize,
+                  color: isSelected
+                      ? item.activeColor.withOpacity(1)
+                      : item.inactiveColor == null ? item.activeColor : item.inactiveColor,
                 ),
+                child: item.icon,
               ),
-              isSelected
-                  ? DefaultTextStyle.merge(
+              if (isSelected)
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 4),
+                    child: DefaultTextStyle.merge(
                       style: TextStyle(
                         color: item.activeColor,
                         fontWeight: FontWeight.bold,
                       ),
+                      maxLines: 1,
+                      textAlign: item.textAlign,
                       child: item.title,
-                    )
-                  : SizedBox.shrink()
+                    ),
+                  ),
+                ),
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
