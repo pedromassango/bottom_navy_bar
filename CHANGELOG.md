@@ -1,3 +1,8 @@
+## 5.3.2
+
+* Added `curve` param to customize the item change's animation
+* Added `textAlign` property in `BottomNavyBarItem` to change the alignment of the item title
+ 
 ## 5.2.2
  * Added [mainAxisAlignment] property to align the items in the navigation bar
 
