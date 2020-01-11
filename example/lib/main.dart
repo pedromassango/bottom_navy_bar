@@ -62,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedIndex: currentIndex,
         showElevation: true,
         itemCornerRadius: 8,
+        curve: Curves.easeInBack,
         onItemSelected: (index) => setState(() {
           currentIndex = index;
         }),
@@ -70,21 +71,27 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.apps),
             title: Text('Home'),
             activeColor: Colors.red,
+            textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.people),
             title: Text('Users'),
             activeColor: Colors.purpleAccent,
+            textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.message),
-            title: Text('Messages'),
+            title: Text(
+              'Messages test for mes teset test test ',
+            ),
             activeColor: Colors.pink,
+            textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.settings),
             title: Text('Settings'),
             activeColor: Colors.blue,
+            textAlign: TextAlign.center,
           ),
         ],
       ),

@@ -13,28 +13,30 @@ A beautiful and animated bottom navigation. The navigation bar use your current 
 ## Customization (Optional)
 
 ### BottomNavyBar
-`iconSize` - the item icon's size<br/>
-`items` - navigation items, required more than one item and less than six<br/>
-`selectedIndex` - the current item index. Use this to change the selected item. Default to zero<br/>
-`onItemSelected` - required to listen when a item is tapped it provide the selected item's index<br/>
-`backgroundColor` - the navigation bar's background color<br/>
-`showElevation` - if false the appBar's elevation will be removed<br/>
-`mainAxisAlignment` - use this property to change the horizontal alignment of the items. It is mostly used when you have ony two items and you want to center the items<br/>
-
+- `iconSize` - the item icon's size
+- `items` - navigation items, required more than one item and less than six
+- `selectedIndex` - the current item index. Use this to change the selected item. Default to zero
+- `onItemSelected` - required to listen when a item is tapped it provide the selected item's index
+- `backgroundColor` - the navigation bar's background color
+- `showElevation` - if false the appBar's elevation will be removed
+- `mainAxisAlignment` - use this property to change the horizontal alignment of the items. It is mostly used when you have ony two items and you want to center the items
+- `curve` - param to customize the item change's animation
+ 
 ### BottomNavyBarItem
-`icon` - the icon of this item<br/>
-`title` - the text that will appear next to the icon when this item is selected<br/>
-`activeColor` - the active item's background and text color<br/>
-`inactiveColor` - the inactive item's icon color<br/>
+- `icon` - the icon of this item
+- `title` - the text that will appear next to the icon when this item is selected
+- `activeColor` - the active item's background and text color
+- `inactiveColor` - the inactive item's icon color
+- `textAlign` - property to change the alignment of the item title
 
 ## Getting Started
 
-Add the plugin:
+Add the dependency in `pubspec.yaml`:
 
 ```yaml
 dependencies:
   ...
-  bottom_navy_bar: ^5.2.2
+  bottom_navy_bar: ^5.3.2
 ```
 
 ## Basic Usage

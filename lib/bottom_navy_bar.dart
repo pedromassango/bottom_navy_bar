@@ -14,6 +14,7 @@ class BottomNavyBar extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
   final double itemCornerRadius;
   final double containerHeight;
+  final Curve curve;
 
   BottomNavyBar({
     Key key,
@@ -27,15 +28,19 @@ class BottomNavyBar extends StatelessWidget {
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     @required this.items,
     @required this.onItemSelected,
+    this.curve = Curves.linear,
   }) {
     assert(items != null);
     assert(items.length >= 2 && items.length <= 5);
     assert(onItemSelected != null);
+    assert(curve != null);
   }
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = (backgroundColor == null) ? Theme.of(context).bottomAppBarColor : backgroundColor;
+    final bgColor = (backgroundColor == null)
+        ? Theme.of(context).bottomAppBarColor
+        : backgroundColor;
 
     return Container(
       decoration: BoxDecoration(
@@ -66,6 +71,7 @@ class BottomNavyBar extends StatelessWidget {
                   backgroundColor: bgColor,
                   itemCornerRadius: itemCornerRadius,
                   animationDuration: animationDuration,
+                  curve: curve,
                 ),
               );
             }).toList(),
@@ -83,21 +89,24 @@ class _ItemWidget extends StatelessWidget {
   final Color backgroundColor;
   final double itemCornerRadius;
   final Duration animationDuration;
+  final Curve curve;
 
-  const _ItemWidget(
-      {Key key,
-      @required this.item,
-      @required this.isSelected,
-      @required this.backgroundColor,
-      @required this.animationDuration,
-      @required this.itemCornerRadius,
-      @required this.iconSize})
-      : assert(isSelected != null),
+  const _ItemWidget({
+    Key key,
+    @required this.item,
+    @required this.isSelected,
+    @required this.backgroundColor,
+    @required this.animationDuration,
+    @required this.itemCornerRadius,
+    @required this.iconSize,
+    this.curve = Curves.linear,
+  })  : assert(isSelected != null),
         assert(item != null),
         assert(backgroundColor != null),
         assert(animationDuration != null),
         assert(itemCornerRadius != null),
         assert(iconSize != null),
+        assert(curve != null),
         super(key: key);
 
   @override
@@ -106,43 +115,51 @@ class _ItemWidget extends StatelessWidget {
       width: isSelected ? 130 : 50,
       height: double.maxFinite,
       duration: animationDuration,
-      padding: EdgeInsets.only(left: 12),
+      curve: curve,
       decoration: BoxDecoration(
         color: isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
         borderRadius: BorderRadius.circular(itemCornerRadius),
       ),
-      child: ListView(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+      child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Row(
+        physics: NeverScrollableScrollPhysics(),
+        child: Container(
+          width: isSelected ? 130 : 50,
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: IconTheme(
-                  data: IconThemeData(
-                      size: iconSize,
-                      color: isSelected
-                          ? item.activeColor.withOpacity(1)
-                          : item.inactiveColor == null ? item.activeColor : item.inactiveColor),
-                  child: item.icon,
+              IconTheme(
+                data: IconThemeData(
+                  size: iconSize,
+                  color: isSelected
+                      ? item.activeColor.withOpacity(1)
+                      : item.inactiveColor == null
+                          ? item.activeColor
+                          : item.inactiveColor,
                 ),
+                child: item.icon,
               ),
-              isSelected
-                  ? DefaultTextStyle.merge(
+              if (isSelected)
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 4),
+                    child: DefaultTextStyle.merge(
                       style: TextStyle(
                         color: item.activeColor,
                         fontWeight: FontWeight.bold,
                       ),
+                      maxLines: 1,
+                      textAlign: item.textAlign,
                       child: item.title,
-                    )
-                  : SizedBox.shrink()
+                    ),
+                  ),
+                ),
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
@@ -153,11 +170,13 @@ class BottomNavyBarItem {
   final Text title;
   final Color activeColor;
   final Color inactiveColor;
+  final TextAlign textAlign;
 
   BottomNavyBarItem({
     @required this.icon,
     @required this.title,
     this.activeColor = Colors.blue,
+    this.textAlign,
     this.inactiveColor,
   }) {
     assert(icon != null);
