@@ -63,6 +63,7 @@ class BottomNavyBar extends StatelessWidget {
             children: items.map((item) {
               var index = items.indexOf(item);
               return GestureDetector(
+                key: item.key,
                 onTap: () => onItemSelected(index),
                 child: _ItemWidget(
                   item: item,
@@ -171,6 +172,7 @@ class BottomNavyBarItem {
   final Color activeColor;
   final Color inactiveColor;
   final TextAlign textAlign;
+  final Key key;
 
   BottomNavyBarItem({
     @required this.icon,
@@ -178,6 +180,7 @@ class BottomNavyBarItem {
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
+    this.key,
   }) {
     assert(icon != null);
     assert(title != null);
