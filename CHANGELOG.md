@@ -1,3 +1,7 @@
+## 5.4.0
+
+* Added `containerHeight` param to change the Navigation Bar height
+
 ## 5.3.2
 
 * Added `curve` param to customize the item change's animation

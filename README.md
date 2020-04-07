@@ -21,6 +21,7 @@ A beautiful and animated bottom navigation. The navigation bar use your current 
 - `showElevation` - if false the appBar's elevation will be removed
 - `mainAxisAlignment` - use this property to change the horizontal alignment of the items. It is mostly used when you have ony two items and you want to center the items
 - `curve` - param to customize the item change's animation
+- `containerHeight` - changes the Navigation Bar's height
  
 ### BottomNavyBarItem
 - `icon` - the icon of this item
@@ -36,7 +37,7 @@ Add the dependency in `pubspec.yaml`:
 ```yaml
 dependencies:
   ...
-  bottom_navy_bar: ^5.3.2
+  bottom_navy_bar: ^5.4.0
 ```
 
 ## Basic Usage
