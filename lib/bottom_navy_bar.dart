@@ -13,6 +13,7 @@ class BottomNavyBar extends StatelessWidget {
   final ValueChanged<int> onItemSelected;
   final MainAxisAlignment mainAxisAlignment;
   final double itemCornerRadius;
+  final double containerHeight;
   final Curve curve;
 
   BottomNavyBar({
@@ -22,6 +23,7 @@ class BottomNavyBar extends StatelessWidget {
     this.iconSize = 24,
     this.backgroundColor,
     this.itemCornerRadius = 50,
+    this.containerHeight = 56,
     this.animationDuration = const Duration(milliseconds: 270),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     @required this.items,
@@ -54,7 +56,7 @@ class BottomNavyBar extends StatelessWidget {
       child: SafeArea(
         child: Container(
           width: double.infinity,
-          height: 56,
+          height: containerHeight,
           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
           child: Row(
             mainAxisAlignment: mainAxisAlignment,
