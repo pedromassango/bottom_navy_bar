@@ -171,8 +171,8 @@ class _ItemWidget extends StatelessWidget {
 }
 
 class BottomNavyBarItem {
-  final Icon icon;
-  final Text title;
+  final Widget icon;
+  final Widget title;
   final Color activeColor;
   final Color inactiveColor;
   final TextAlign textAlign;
