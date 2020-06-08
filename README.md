@@ -80,7 +80,7 @@ bottomNavigationBar: BottomNavyBar(
 
 ## Use with PageView and PageController
 
-```
+```dart
 class _MyHomePageState extends State<MyHomePage> {
 
   int _currentIndex = 0;
