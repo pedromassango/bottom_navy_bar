@@ -14,6 +14,16 @@ class BottomNavyBar extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
   final double itemCornerRadius;
   final double containerHeight;
+  final double cornerRadius;
+  final double blurRadius;
+  final double spreadRadius;
+  final double shadowOffsetX;
+  final double shadowOffsetY;
+  final double inactiveOpacity;
+  final double verticalPadding;
+  final double horizontalPadding;
+  final double verticalItemPadding;
+  final double horizontalItemPadding;
   final Curve curve;
 
   BottomNavyBar({
@@ -24,6 +34,16 @@ class BottomNavyBar extends StatelessWidget {
     this.backgroundColor,
     this.itemCornerRadius = 50,
     this.containerHeight = 56,
+    this.cornerRadius = 0,
+    this.blurRadius = 0,
+    this.spreadRadius = 0,
+    this.shadowOffsetX = 0,
+    this.shadowOffsetY = 0,
+    this.inactiveOpacity = 1.0,
+    this.verticalPadding = 6,
+    this.horizontalPadding = 8,
+    this.verticalItemPadding = 10,
+    this.horizontalItemPadding = 4,
     this.animationDuration = const Duration(milliseconds: 270),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     @required this.items,
@@ -47,17 +67,24 @@ class BottomNavyBar extends StatelessWidget {
         color: bgColor,
         boxShadow: [
           if (showElevation)
-            const BoxShadow(
-              color: Colors.black12,
-              blurRadius: 2,
+            BoxShadow(
+              color: Colors.black,
+              blurRadius: blurRadius,
+              spreadRadius: spreadRadius,
+              offset: Offset(shadowOffsetX, shadowOffsetY),
             ),
         ],
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(cornerRadius),
+          topRight: Radius.circular(cornerRadius),
+        ),
       ),
       child: SafeArea(
         child: Container(
           width: double.infinity,
           height: containerHeight,
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+          padding: EdgeInsets.symmetric(
+              vertical: verticalPadding, horizontal: horizontalPadding),
           child: Row(
             mainAxisAlignment: mainAxisAlignment,
             children: items.map((item) {
@@ -72,6 +99,9 @@ class BottomNavyBar extends StatelessWidget {
                   itemCornerRadius: itemCornerRadius,
                   animationDuration: animationDuration,
                   curve: curve,
+                  inactiveOpacity: inactiveOpacity,
+                  verticalItemPadding: verticalItemPadding,
+                  horizontalItemPadding: horizontalItemPadding,
                 ),
               );
             }).toList(),
@@ -90,6 +120,9 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
   final Curve curve;
+  final double inactiveOpacity;
+  final double verticalItemPadding;
+  final double horizontalItemPadding;
 
   const _ItemWidget({
     Key key,
@@ -99,6 +132,9 @@ class _ItemWidget extends StatelessWidget {
     @required this.animationDuration,
     @required this.itemCornerRadius,
     @required this.iconSize,
+    @required this.inactiveOpacity,
+    @required this.verticalItemPadding,
+    @required this.horizontalItemPadding,
     this.curve = Curves.linear,
   })  : assert(isSelected != null),
         assert(item != null),
@@ -107,6 +143,7 @@ class _ItemWidget extends StatelessWidget {
         assert(itemCornerRadius != null),
         assert(iconSize != null),
         assert(curve != null),
+        assert(inactiveOpacity != null),
         super(key: key);
 
   @override
@@ -121,7 +158,7 @@ class _ItemWidget extends StatelessWidget {
         curve: curve,
         decoration: BoxDecoration(
           color:
-              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+              isSelected ? item.activeColor.withOpacity(0.1) : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(
@@ -135,29 +172,30 @@ class _ItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                IconTheme(
-                  data: IconThemeData(
-                    size: iconSize,
-                    color: isSelected
-                        ? item.activeColor.withOpacity(1)
-                        : item.inactiveColor == null
-                            ? item.activeColor
-                            : item.inactiveColor,
+                Container(
+                  child: FittedBox(
+                    child: Opacity(
+                      opacity: isSelected ? 1.0 : inactiveOpacity,
+                      child: item.icon,
+                    ),
                   ),
-                  child: item.icon,
                 ),
                 if (isSelected)
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
-                      child: DefaultTextStyle.merge(
-                        style: TextStyle(
-                          color: item.activeColor,
-                          fontWeight: FontWeight.bold,
+                      padding: EdgeInsets.symmetric(
+                          vertical: verticalItemPadding,
+                          horizontal: horizontalItemPadding),
+                      child: FittedBox(
+                        child: DefaultTextStyle.merge(
+                          style: TextStyle(
+                            color: item.activeColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          textAlign: item.textAlign,
+                          child: item.title,
                         ),
-                        maxLines: 1,
-                        textAlign: item.textAlign,
-                        child: item.title,
                       ),
                     ),
                   ),
@@ -170,6 +208,9 @@ class _ItemWidget extends StatelessWidget {
   }
 }
 
+/// The BottomNavyBar's item. Used to configure each item of the navigation bar.
+/// [icon] required. The widget on the left of this item.
+/// [title] required. The widget on the right of this item.
 class BottomNavyBarItem {
   final Widget icon;
   final Widget title;
