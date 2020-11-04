@@ -72,6 +72,7 @@ class BottomNavyBar extends StatelessWidget {
                   itemCornerRadius: itemCornerRadius,
                   animationDuration: animationDuration,
                   curve: curve,
+                  itemCount: items.length,
                 ),
               );
             }).toList(),
@@ -90,6 +91,7 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
   final Curve curve;
+  final int itemCount;
 
   const _ItemWidget({
     Key key,
@@ -99,6 +101,7 @@ class _ItemWidget extends StatelessWidget {
     @required this.animationDuration,
     @required this.itemCornerRadius,
     @required this.iconSize,
+    this.itemCount,
     this.curve = Curves.linear,
   })  : assert(isSelected != null),
         assert(item != null),
@@ -111,11 +114,15 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Semantics(
       container: true,
       selected: isSelected,
       child: AnimatedContainer(
-        width: isSelected ? 130 : 50,
+        width: isSelected
+            ? (((width / (itemCount + 1)) * 2) - 8)
+            : (((width - ((width / (itemCount + 1)) * 2)) / (itemCount - 1)) -
+                8),
         height: double.maxFinite,
         duration: animationDuration,
         curve: curve,
@@ -128,7 +135,11 @@ class _ItemWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: NeverScrollableScrollPhysics(),
           child: Container(
-            width: isSelected ? 130 : 50,
+            width: isSelected
+                ? (((width / (itemCount + 1)) * 2) - 8)
+                : (((width - ((width / (itemCount + 1)) * 2)) /
+                        (itemCount - 1)) -
+                    8),
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisSize: MainAxisSize.max,
