@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCornerRadius: 24,
         curve: Curves.easeIn,
         onItemSelected: (index) => setState(() => _currentIndex = index),
-        items: [
+        items: <BottomNavyBarItem>[
           BottomNavyBarItem(
             icon: Icon(Icons.apps),
             title: Text('Home'),
