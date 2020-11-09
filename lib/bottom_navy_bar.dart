@@ -219,7 +219,8 @@ class BottomNavyBarItem {
   /// Defines this item's title which placed in the left side of the [icon].
   final Widget title;
 
-  /// The [icon] and [title] color defined when this item is selected.
+  /// The [icon] and [title] color defined when this item is selected. Defaults
+  /// to [Colors.blue].
   final Color activeColor;
 
   /// The [icon] and [title] color defined when this item is not selected.
