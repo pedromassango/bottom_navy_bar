@@ -3,18 +3,12 @@ library bottom_navy_bar;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+/// A beautiful and animated bottom navigation that paints a rounded shape
+/// around its [items] to provide a wonderful look.
+///
+/// Update [selectedIndex] to change the selected item.
+/// [selectedIndex] is required and must not be null.
 class BottomNavyBar extends StatelessWidget {
-  final int selectedIndex;
-  final double iconSize;
-  final Color backgroundColor;
-  final bool showElevation;
-  final Duration animationDuration;
-  final List<BottomNavyBarItem> items;
-  final ValueChanged<int> onItemSelected;
-  final MainAxisAlignment mainAxisAlignment;
-  final double itemCornerRadius;
-  final double containerHeight;
-  final Curve curve;
 
   BottomNavyBar({
     Key key,
@@ -35,6 +29,43 @@ class BottomNavyBar extends StatelessWidget {
     assert(onItemSelected != null);
     assert(curve != null);
   }
+
+  /// The selected item is index. Changing this property will change and animate
+  /// the item being selected. Defaults to zero.
+  final int selectedIndex;
+
+  /// The icon size of all items. Defaults to 24.
+  final double iconSize;
+
+  /// The background color of the navigation bar. It defaults to
+  /// [Theme.bottomAppBarColor] if not provided.
+  final Color backgroundColor;
+
+  /// Whether this navigation bar should show a elevation. Defaults to true.
+  final bool showElevation;
+
+  /// Use this to change the item's animation duration. Defaults to 270ms.
+  final Duration animationDuration;
+
+  /// Defines the appearance of the buttons that are displayed in the bottom
+  /// navigation bar. This should have at least two items and five at most.
+  final List<BottomNavyBarItem> items;
+
+  /// A callback that will be called when a item is pressed.
+  final ValueChanged<int> onItemSelected;
+
+  /// Defines the alignment of the items.
+  /// Defaults to [MainAxisAlignment.spaceBetween].
+  final MainAxisAlignment mainAxisAlignment;
+
+  /// The [items] corner radius, if not set, it defaults to 50.
+  final double itemCornerRadius;
+
+  /// Defines the bottom navigation bar height. Defaults to 56.
+  final double containerHeight;
+
+  /// Used to configure the animation curve. Defaults to [Curves.linear].
+  final Curve curve;
 
   @override
   Widget build(BuildContext context) {
@@ -170,12 +201,8 @@ class _ItemWidget extends StatelessWidget {
   }
 }
 
+/// The [BottomNavyBar.items] definition.
 class BottomNavyBarItem {
-  final Widget icon;
-  final Widget title;
-  final Color activeColor;
-  final Color inactiveColor;
-  final TextAlign textAlign;
 
   BottomNavyBarItem({
     @required this.icon,
@@ -187,4 +214,22 @@ class BottomNavyBarItem {
     assert(icon != null);
     assert(title != null);
   }
+
+  /// Defines this item's icon which is placed in the right side of the [title].
+  final Widget icon;
+
+  /// Defines this item's title which placed in the left side of the [icon].
+  final Widget title;
+
+  /// The [icon] and [title] color defined when this item is selected.
+  final Color activeColor;
+
+  /// The [icon] and [title] color defined when this item is not selected.
+  final Color inactiveColor;
+
+  /// The alignment for the [title].
+  ///
+  /// This will take effect only if [title] it a [Text] widget.
+  final TextAlign textAlign;
+
 }
