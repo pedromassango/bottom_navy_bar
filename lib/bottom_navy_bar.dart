@@ -23,12 +23,12 @@ class BottomNavyBar extends StatelessWidget {
     @required this.items,
     @required this.onItemSelected,
     this.curve = Curves.linear,
-  }) {
-    assert(items != null);
-    assert(items.length >= 2 && items.length <= 5);
-    assert(onItemSelected != null);
-    assert(curve != null);
-  }
+  }) : assert(items != null),
+       assert(items.length >= 2 && items.length <= 5),
+       assert(onItemSelected != null),
+       assert(animationDuration != null),
+       assert(curve != null),
+       super(key: key);
 
   /// The selected item is index. Changing this property will change and animate
   /// the item being selected. Defaults to zero.
@@ -210,10 +210,8 @@ class BottomNavyBarItem {
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
-  }) {
-    assert(icon != null);
-    assert(title != null);
-  }
+  }) : assert(icon != null),
+       assert(title != null);
 
   /// Defines this item's icon which is placed in the right side of the [title].
   final Widget icon;
