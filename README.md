@@ -1,6 +1,7 @@
 ![Pub](https://img.shields.io/pub/v/bottom_navy_bar) <a href="https://github.com/Solido/awesome-flutter">
     <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
-</a>
+</a> ![Widget Tests](https://github.com/pedromassango/bottom_navy_bar/workflows/Widget%20Tests/badge.svg)
+
 
 # BottomNavyBar
 
