@@ -38,7 +38,7 @@ Add the dependency in `pubspec.yaml`:
 ```yaml
 dependencies:
   ...
-  bottom_navy_bar: ^5.4.0
+  bottom_navy_bar: ^5.6.0
 ```
 
 ## Basic Usage
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Nav Bar")),
+      appBar: AppBar(title: Text("Bottom Nav Bar")),
       body: SizedBox.expand(
         child: PageView(
           controller: _pageController,
@@ -129,15 +129,15 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.home)
           ),
           BottomNavyBarItem(
-            title: Text('Item One'),
+            title: Text('Item Two'),
             icon: Icon(Icons.apps)
           ),
           BottomNavyBarItem(
-            title: Text('Item One'),
+            title: Text('Item Three'),
             icon: Icon(Icons.chat_bubble)
           ),
           BottomNavyBarItem(
-            title: Text('Item One'),
+            title: Text('Item Four'),
             icon: Icon(Icons.settings)
           ),
         ],

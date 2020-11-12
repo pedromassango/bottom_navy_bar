@@ -1,3 +1,8 @@
+## 5.6.0
+
+* Added Tests
+* Added public API documentation
+
 ## 5.4.0
 
 * Added `containerHeight` param to change the Navigation Bar height
