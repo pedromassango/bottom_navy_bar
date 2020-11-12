@@ -20,6 +20,7 @@ jobs:
         with:
           channel: stable
       - run: flutter pub get
+      - run: flutter analyze
       - run: pub global activate coverage
       - run: flutter test --coverage
       - run: bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info
