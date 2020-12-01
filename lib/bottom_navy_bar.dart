@@ -11,7 +11,7 @@ import 'package:flutter/widgets.dart';
 class BottomNavyBar extends StatelessWidget {
   final double fullWidth;
   final double fullheight;
-
+  final Color mainActiveColor;
   BottomNavyBar({
     Key key,
     this.selectedIndex = 0,
@@ -27,6 +27,7 @@ class BottomNavyBar extends StatelessWidget {
     this.curve = Curves.linear,
     @required this.fullWidth,
     @required this.fullheight,
+    @required this.mainActiveColor,
   })  : assert(items != null),
         assert(items.length >= 2 && items.length <= 5),
         assert(onItemSelected != null),
@@ -101,6 +102,7 @@ class BottomNavyBar extends StatelessWidget {
               return GestureDetector(
                 onTap: () => onItemSelected(index),
                 child: _ItemWidget(
+                  mainActiveColor: mainActiveColor,
                   fullWidth: fullWidth,
                   fullheight: fullheight,
                   item: item,
@@ -130,7 +132,7 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
   final Curve curve;
-
+  final Color mainActiveColor;
   const _ItemWidget({
     Key key,
     @required this.item,
@@ -142,6 +144,7 @@ class _ItemWidget extends StatelessWidget {
     this.curve = Curves.linear,
     @required this.fullWidth,
     @required this.fullheight,
+    this.mainActiveColor,
   })  : assert(isSelected != null),
         assert(item != null),
         assert(backgroundColor != null),
@@ -163,7 +166,9 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          color: isSelected ? item.activeColor : backgroundColor,
+          color: isSelected
+              ? mainActiveColor ?? item.activeColor
+              : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(
@@ -189,15 +194,20 @@ class _ItemWidget extends StatelessWidget {
                   child: item.icon,
                 ),
                 if (isSelected)
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: fullWidth * 0.03),
-                    child: DefaultTextStyle.merge(
-                      style: TextStyle(
-                        color: Colors.white,
+                  Flexible(
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: fullWidth * 0.03),
+                      child: FittedBox(
+                        child: DefaultTextStyle.merge(
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                          maxLines: 1,
+                          textAlign: item.textAlign,
+                          child: item.title,
+                        ),
                       ),
-                      maxLines: 1,
-                      textAlign: item.textAlign,
-                      child: item.title,
                     ),
                   ),
               ],

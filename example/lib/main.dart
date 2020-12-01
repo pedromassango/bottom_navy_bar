@@ -9,6 +9,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       home: MyHomePage(),
+      builder: (context, child) {
+        return Directionality(textDirection: TextDirection.rtl, child: child);
+      },
     );
   }
 }
@@ -50,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavyBar(
+        mainActiveColor: Color(0xff7a4c9f),
         fullWidth: MediaQuery.of(context).size.width,
         fullheight: MediaQuery.of(context).size.height,
         selectedIndex: _currentIndex,
@@ -60,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
             icon: Icon(Icons.apps),
-            title: Text('Home'),
+            title: Text('الرئيسية'),
             activeColor: Colors.red,
             textAlign: TextAlign.center,
           ),
@@ -73,14 +77,14 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavyBarItem(
             icon: Icon(Icons.message),
             title: Text(
-              'Messages test for mes teset test test ',
+              'Messages',
             ),
             activeColor: Colors.pink,
             textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.settings),
-            title: Text('Settings'),
+            title: Text('Settingssss'),
             activeColor: Colors.blue,
             textAlign: TextAlign.center,
           ),
