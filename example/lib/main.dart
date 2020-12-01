@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -51,6 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavyBar(
+        fullWidth: MediaQuery.of(context).size.width,
+        fullheight: MediaQuery.of(context).size.height,
         selectedIndex: _currentIndex,
         showElevation: true,
         itemCornerRadius: 24,
