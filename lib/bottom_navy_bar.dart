@@ -156,7 +156,6 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(fullWidth * 0.13);
     return Semantics(
       container: true,
       selected: isSelected,
