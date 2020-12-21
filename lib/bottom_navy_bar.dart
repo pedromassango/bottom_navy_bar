@@ -15,10 +15,12 @@ class BottomNavyBar extends StatelessWidget {
   final double itemCornerRadius;
   final double containerHeight;
   final double cornerRadius;
+  final Color shadowColor;
   final double blurRadius;
   final double spreadRadius;
   final double shadowOffsetX;
   final double shadowOffsetY;
+  final double activeOpacity;
   final double inactiveOpacity;
   final double verticalPadding;
   final double horizontalPadding;
@@ -35,10 +37,12 @@ class BottomNavyBar extends StatelessWidget {
     this.itemCornerRadius = 50,
     this.containerHeight = 56,
     this.cornerRadius = 0,
+    this.shadowColor = Colors.black,
     this.blurRadius = 0,
     this.spreadRadius = 0,
     this.shadowOffsetX = 0,
     this.shadowOffsetY = 0,
+    this.activeOpacity = 0.1,
     this.inactiveOpacity = 1.0,
     this.verticalPadding = 6,
     this.horizontalPadding = 8,
@@ -68,7 +72,7 @@ class BottomNavyBar extends StatelessWidget {
         boxShadow: [
           if (showElevation)
             BoxShadow(
-              color: Colors.black,
+              color: shadowColor,
               blurRadius: blurRadius,
               spreadRadius: spreadRadius,
               offset: Offset(shadowOffsetX, shadowOffsetY),
@@ -99,6 +103,7 @@ class BottomNavyBar extends StatelessWidget {
                   itemCornerRadius: itemCornerRadius,
                   animationDuration: animationDuration,
                   curve: curve,
+                  activeOpacity: activeOpacity,
                   inactiveOpacity: inactiveOpacity,
                   verticalItemPadding: verticalItemPadding,
                   horizontalItemPadding: horizontalItemPadding,
@@ -120,6 +125,7 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
   final Curve curve;
+  final double activeOpacity;
   final double inactiveOpacity;
   final double verticalItemPadding;
   final double horizontalItemPadding;
@@ -132,6 +138,7 @@ class _ItemWidget extends StatelessWidget {
     @required this.animationDuration,
     @required this.itemCornerRadius,
     @required this.iconSize,
+    @required this.activeOpacity,
     @required this.inactiveOpacity,
     @required this.verticalItemPadding,
     @required this.horizontalItemPadding,
@@ -157,8 +164,9 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          color:
-              isSelected ? item.activeColor.withOpacity(0.1) : backgroundColor,
+          color: isSelected
+              ? item.activeColor.withOpacity(activeOpacity)
+              : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(
