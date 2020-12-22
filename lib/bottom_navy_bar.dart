@@ -123,7 +123,7 @@ class _ItemWidget extends StatelessWidget {
 
   Color get _bgColor {
     final selected = item.activeColor?.withOpacity(0.2) ?? theme.selectedItemColor;
-    final unselected = item.inactiveColor?.withOpacity(0.2) ?? theme.unselectedIconTheme;
+    final unselected = item.inactiveColor?.withOpacity(0.2) ?? theme.unselectedItemColor;
     return isSelected ? selected : unselected;
   }
 
