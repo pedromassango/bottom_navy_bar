@@ -52,10 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: _currentIndex,
-        showElevation: true,
         itemCornerRadius: 24,
         curve: Curves.easeIn,
         onItemSelected: (index) => setState(() => _currentIndex = index),
+        theme: BottomNavigationBarThemeData(
+          elevation: 10.0,
+        ),
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
             icon: Icon(Icons.apps),
