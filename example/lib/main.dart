@@ -62,12 +62,14 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text('Home'),
             activeColor: Colors.red,
             textAlign: TextAlign.center,
+            activeBorderColor: Colors.black
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.people),
             title: Text('Users'),
             activeColor: Colors.purpleAccent,
             textAlign: TextAlign.center,
+              activeBorderColor: Colors.black
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.message),

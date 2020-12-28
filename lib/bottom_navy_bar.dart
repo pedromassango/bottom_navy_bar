@@ -154,6 +154,7 @@ class _ItemWidget extends StatelessWidget {
           color:
               isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
+          border: Border.all(color: isSelected ? item.activeBorderColor : item.inactiveBorderColor, width: 2)
         ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -210,6 +211,8 @@ class BottomNavyBarItem {
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
+    this.activeBorderColor = Colors.transparent,
+    this.inactiveBorderColor = Colors.transparent
   }) : assert(icon != null),
        assert(title != null);
 
@@ -225,6 +228,14 @@ class BottomNavyBarItem {
 
   /// The [icon] and [title] color defined when this item is not selected.
   final Color inactiveColor;
+
+  /// The [icon] and [title] border color defined when this item is selected. Defaults
+  /// to [Colors.transparent].
+  final Color activeBorderColor;
+
+  /// The [icon] and [title] border color defined when this item is not selected. Defaults
+  //  to [Colors.transparent].
+  final Color inactiveBorderColor;
 
   /// The alignment for the [title].
   ///
