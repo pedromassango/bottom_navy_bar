@@ -17,6 +17,7 @@ A beautiful and animated bottom navigation. The navigation bar use your current 
 - `iconSize` - the item icon's size
 - `items` - navigation items, required more than one item and less than six
 - `selectedIndex` - the current item index. Use this to change the selected item. Default to zero
+- `selectedWidth` - changes the width of the selected item. Defaults to 130.
 - `onItemSelected` - required to listen when a item is tapped it provide the selected item's index
 - `backgroundColor` - the navigation bar's background color
 - `showElevation` - if false the appBar's elevation will be removed
