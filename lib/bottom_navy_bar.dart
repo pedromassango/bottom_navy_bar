@@ -36,7 +36,7 @@ class BottomNavyBar extends StatelessWidget {
   final int selectedIndex;
 
   // The width of selected item. Defaults to 130.
-  final int selectedWidth;
+  final double selectedWidth;
 
   /// The icon size of all items. Defaults to 24.
   final double iconSize;
@@ -126,7 +126,7 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
   final Curve curve;
-  final int selectedWidth;
+  final double selectedWidth;
 
   const _ItemWidget({
     Key key,
