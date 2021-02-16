@@ -2,6 +2,10 @@
     <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
 </a> ![Widget Tests](https://github.com/pedromassango/bottom_navy_bar/workflows/Widget%20Tests/badge.svg?branch=master)
 
+<a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
+<img height="128" src="images/flutter_favorite_badge.png">
+</a>
+<br><br>
 
 # BottomNavyBar
 
@@ -9,7 +13,7 @@ A beautiful and animated bottom navigation. The navigation bar use your current 
 
 | Preview | PageView |
 |---------|----------|
-|![FanBottomNavyBar Gif](navy.gif "BottomNavyBar") | ![Fix Gif](fix.gif "Fix") |
+|![FanBottomNavyBar Gif](images/navy.gif "BottomNavyBar") | ![Fix Gif](images/fix.gif "Fix") |
 
 ## Customization (Optional)
 
