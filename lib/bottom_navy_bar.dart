@@ -13,6 +13,8 @@ class BottomNavyBar extends StatelessWidget {
   BottomNavyBar({
     Key key,
     this.selectedIndex = 0,
+    this.itemSelectedWidth = 130,
+    this.itemWidth = 50,
     this.showElevation = true,
     this.iconSize = 24,
     this.backgroundColor,
@@ -33,6 +35,12 @@ class BottomNavyBar extends StatelessWidget {
   /// The selected item is index. Changing this property will change and animate
   /// the item being selected. Defaults to zero.
   final int selectedIndex;
+
+  // The width of selected item. Defaults to 130.
+  final double itemSelectedWidth;
+
+  // The width of item. Defaults to 50.
+  final double itemWidth;
 
   /// The icon size of all items. Defaults to 24.
   final double iconSize;
@@ -101,6 +109,8 @@ class BottomNavyBar extends StatelessWidget {
                   isSelected: index == selectedIndex,
                   backgroundColor: bgColor,
                   itemCornerRadius: itemCornerRadius,
+                  itemWidth: itemWidth,
+                  itemSelectedWidth: itemSelectedWidth,
                   animationDuration: animationDuration,
                   curve: curve,
                 ),
@@ -119,6 +129,8 @@ class _ItemWidget extends StatelessWidget {
   final BottomNavyBarItem item;
   final Color backgroundColor;
   final double itemCornerRadius;
+  final double itemSelectedWidth;
+  final double itemWidth;
   final Duration animationDuration;
   final Curve curve;
 
@@ -129,6 +141,8 @@ class _ItemWidget extends StatelessWidget {
     @required this.backgroundColor,
     @required this.animationDuration,
     @required this.itemCornerRadius,
+    @required this.itemWidth,
+    @required this.itemSelectedWidth,
     @required this.iconSize,
     this.curve = Curves.linear,
   })  : assert(isSelected != null),
@@ -136,8 +150,10 @@ class _ItemWidget extends StatelessWidget {
         assert(backgroundColor != null),
         assert(animationDuration != null),
         assert(itemCornerRadius != null),
-        assert(iconSize != null),
+        assert(itemWidth != null),
+        assert(itemSelectedWidth != null),
         assert(curve != null),
+        assert(iconSize != null),
         super(key: key);
 
   @override
@@ -146,7 +162,7 @@ class _ItemWidget extends StatelessWidget {
       container: true,
       selected: isSelected,
       child: AnimatedContainer(
-        width: isSelected ? 130 : 50,
+        width: isSelected ? itemSelectedWidth : itemWidth,
         height: double.maxFinite,
         duration: animationDuration,
         curve: curve,
@@ -159,7 +175,7 @@ class _ItemWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: NeverScrollableScrollPhysics(),
           child: Container(
-            width: isSelected ? 130 : 50,
+            width: isSelected ? itemSelectedWidth : itemWidth,
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisSize: MainAxisSize.max,
