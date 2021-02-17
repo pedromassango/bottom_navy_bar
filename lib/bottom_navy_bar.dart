@@ -11,7 +11,7 @@ import 'package:flutter/widgets.dart';
 class BottomNavyBar extends StatelessWidget {
 
   BottomNavyBar({
-    Key key,
+    Key? key,
     this.selectedIndex = 0,
     this.showElevation = true,
     this.iconSize = 24,
@@ -20,14 +20,10 @@ class BottomNavyBar extends StatelessWidget {
     this.containerHeight = 56,
     this.animationDuration = const Duration(milliseconds: 270),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
-    @required this.items,
-    @required this.onItemSelected,
+    required this.items,
+    required this.onItemSelected,
     this.curve = Curves.linear,
-  }) : assert(items != null),
-       assert(items.length >= 2 && items.length <= 5),
-       assert(onItemSelected != null),
-       assert(animationDuration != null),
-       assert(curve != null),
+  }) : assert(items.length >= 2 && items.length <= 5),
        super(key: key);
 
   /// The selected item is index. Changing this property will change and animate
@@ -39,7 +35,7 @@ class BottomNavyBar extends StatelessWidget {
 
   /// The background color of the navigation bar. It defaults to
   /// [Theme.bottomAppBarColor] if not provided.
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// Whether this navigation bar should show a elevation. Defaults to true.
   final bool showElevation;
@@ -69,9 +65,7 @@ class BottomNavyBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = (backgroundColor == null)
-        ? Theme.of(context).bottomAppBarColor
-        : backgroundColor;
+    final bgColor = backgroundColor ?? Theme.of(context).bottomAppBarColor;
 
     return Container(
       decoration: BoxDecoration(
@@ -123,22 +117,15 @@ class _ItemWidget extends StatelessWidget {
   final Curve curve;
 
   const _ItemWidget({
-    Key key,
-    @required this.item,
-    @required this.isSelected,
-    @required this.backgroundColor,
-    @required this.animationDuration,
-    @required this.itemCornerRadius,
-    @required this.iconSize,
+    Key? key,
+    required this.item,
+    required this.isSelected,
+    required this.backgroundColor,
+    required this.animationDuration,
+    required this.itemCornerRadius,
+    required this.iconSize,
     this.curve = Curves.linear,
-  })  : assert(isSelected != null),
-        assert(item != null),
-        assert(backgroundColor != null),
-        assert(animationDuration != null),
-        assert(itemCornerRadius != null),
-        assert(iconSize != null),
-        assert(curve != null),
-        super(key: key);
+  })  : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -205,13 +192,12 @@ class _ItemWidget extends StatelessWidget {
 class BottomNavyBarItem {
 
   BottomNavyBarItem({
-    @required this.icon,
-    @required this.title,
+    required this.icon,
+    required this.title,
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
-  }) : assert(icon != null),
-       assert(title != null);
+  });
 
   /// Defines this item's icon which is placed in the right side of the [title].
   final Widget icon;
@@ -224,11 +210,11 @@ class BottomNavyBarItem {
   final Color activeColor;
 
   /// The [icon] and [title] color defined when this item is not selected.
-  final Color inactiveColor;
+  final Color? inactiveColor;
 
   /// The alignment for the [title].
   ///
   /// This will take effect only if [title] it a [Text] widget.
-  final TextAlign textAlign;
+  final TextAlign? textAlign;
 
 }

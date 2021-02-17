@@ -32,11 +32,11 @@ final List<BottomNavyBarItem> dummyItems = <BottomNavyBarItem>[
 final ValueChanged<int> onItemSelected = (int index) {};
 
 Widget buildNavyBarBoilerplate({
-  int currentIndex,
-  bool showElevation,
-  double itemCornerRadius,
-  @required ValueChanged<int> onItemSelected,
-  Curve curve,
+  Curve? curve,
+  int? currentIndex,
+  bool? showElevation,
+  double? itemCornerRadius,
+  required ValueChanged<int> onItemSelected,
 }) {
   return MaterialApp(
     home: Scaffold(
@@ -131,7 +131,7 @@ void main() {
     final Container containerFinder = tester.firstWidget<Container>(find.byType(Container));
 
     expect((containerFinder.decoration as BoxDecoration).boxShadow, isNotNull);
-    expect((containerFinder.decoration as BoxDecoration).boxShadow.length, 1);
-    expect((containerFinder.decoration as BoxDecoration).boxShadow.first.blurRadius, 2);
+    expect((containerFinder.decoration as BoxDecoration).boxShadow!.length, 1);
+    expect((containerFinder.decoration as BoxDecoration).boxShadow!.first.blurRadius, 2);
   });
 }
