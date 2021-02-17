@@ -27,6 +27,26 @@ final List<BottomNavyBarItem> dummyItems = <BottomNavyBarItem>[
 
 final ValueChanged<int> onItemSelected = (int index) {};
 
+final BottomNavigationBarThemeData dummyThemeData =
+    BottomNavigationBarThemeData(
+  selectedIconTheme: IconThemeData(
+    color: Colors.green,
+  ),
+  selectedItemColor: Colors.green,
+  selectedLabelStyle: TextStyle(
+    color: Colors.green,
+  ),
+  unselectedIconTheme: IconThemeData(
+    color: Colors.red,
+  ),
+  unselectedItemColor: Colors.red,
+  unselectedLabelStyle: TextStyle(
+    color: Colors.red,
+  ),
+  backgroundColor: Colors.pink,
+  elevation: 5,
+);
+
 Widget buildNavyBarBoilerplate({
   int currentIndex,
   double itemCornerRadius,
@@ -47,7 +67,8 @@ Widget buildNavyBarBoilerplate({
 }
 
 void main() {
-  testWidgets('default values are used when not provided', (WidgetTester tester) async {
+  testWidgets('default values are used when not provided',
+      (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
@@ -70,17 +91,35 @@ void main() {
       ),
     );
 
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).selectedIndex, 0);
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).itemCornerRadius, 50);
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).containerHeight, 56);
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).animationDuration,
+    expect(
+        tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).selectedIndex,
+        0);
+    expect(
+        tester
+            .widget<BottomNavyBar>(find.byType(BottomNavyBar))
+            .itemCornerRadius,
+        50);
+    expect(
+        tester
+            .widget<BottomNavyBar>(find.byType(BottomNavyBar))
+            .containerHeight,
+        56);
+    expect(
+        tester
+            .widget<BottomNavyBar>(find.byType(BottomNavyBar))
+            .animationDuration,
         const Duration(milliseconds: 270));
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).mainAxisAlignment,
+    expect(
+        tester
+            .widget<BottomNavyBar>(find.byType(BottomNavyBar))
+            .mainAxisAlignment,
         MainAxisAlignment.spaceBetween);
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).curve, Curves.linear);
+    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).curve,
+        Curves.linear);
   });
 
-  testWidgets('throws assertion error if items is less than two or greater than five',
+  testWidgets(
+      'throws assertion error if items is less than two or greater than five',
       (WidgetTester tester) async {
     Widget boilerplate(List<BottomNavyBarItem> items) {
       return MaterialApp(
@@ -112,4 +151,206 @@ void main() {
       ]));
     }, throwsAssertionError);
   });
+
+  testWidgets(
+    'tests functionality when BottemNavigationBarThemeData is provided in material theme',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: ThemeData.light().copyWith(
+            bottomNavigationBarTheme: dummyThemeData,
+          ),
+          home: Scaffold(
+            bottomNavigationBar: BottomNavyBar(
+              selectedIndex: 0,
+              onItemSelected: onItemSelected,
+              items: <BottomNavyBarItem>[
+                BottomNavyBarItem(
+                  icon: Icon(Icons.apps),
+                  title: Text('Item 1'),
+                  textAlign: TextAlign.center,
+                ),
+                BottomNavyBarItem(
+                  icon: Icon(Icons.people),
+                  title: Text('Item 2'),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      final navbar = find.byType(BottomNavyBar);
+
+      /// check base theming
+      final material = find
+          .descendant(of: navbar, matching: find.byType(Material))
+          .first
+          .evaluate()
+          .single
+          .widget as Material;
+
+      expect(material.color, Colors.pink);
+      expect(material.elevation, 5);
+
+      final navyBarItems = find.byType(ItemWidget);
+      expect(navyBarItems, findsNWidgets(2));
+
+      /// check selected item theming
+      final selected = navyBarItems.first;
+
+      final selectedBackground = find
+          .descendant(of: selected, matching: find.byType(AnimatedContainer))
+          .first
+          .evaluate()
+          .single
+          .widget as AnimatedContainer;
+      expect(
+        (selectedBackground.decoration as BoxDecoration).color,
+        Colors.green,
+      );
+
+        final selectedIcon = find
+          .descendant(of: selected, matching: find.byType(IconTheme))
+          .first
+          .evaluate()
+          .single
+          .widget as IconTheme;
+      expect(selectedIcon.data.color, Colors.green); 
+
+      final selectedText = find
+          .descendant(of: selected, matching: find.byType(DefaultTextStyle))
+          .first
+          .evaluate()
+          .single
+          .widget as DefaultTextStyle;
+      expect(selectedText.style.color, Colors.green);
+
+      /// check unselected item theming
+      final unselected = navyBarItems.last;
+
+      final unselectedBackground = find
+          .descendant(of: unselected, matching: find.byType(AnimatedContainer))
+          .first
+          .evaluate()
+          .single
+          .widget as AnimatedContainer;
+      expect(
+        (unselectedBackground.decoration as BoxDecoration).color,
+        Colors.red,
+      );
+
+     final unselectedIcon = find
+          .descendant(of: unselected, matching: find.byType(IconTheme))
+          .first
+          .evaluate()
+          .single
+          .widget as IconTheme;
+      expect(unselectedIcon.data.color, Colors.red); 
+      
+    },
+  );
+
+
+
+
+  testWidgets(
+    'tests functionality when BottemNavigationBarThemeData is provided to the bottomNavybar directly',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            bottomNavigationBar: BottomNavyBar(
+              selectedIndex: 0,
+              onItemSelected: onItemSelected,
+              theme: dummyThemeData,
+              items: <BottomNavyBarItem>[
+                BottomNavyBarItem(
+                  icon: Icon(Icons.apps),
+                  title: Text('Item 1'),
+                  textAlign: TextAlign.center,
+                ),
+                BottomNavyBarItem(
+                  icon: Icon(Icons.people),
+                  title: Text('Item 2'),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      final navbar = find.byType(BottomNavyBar);
+
+      /// check base theming
+      final material = find
+          .descendant(of: navbar, matching: find.byType(Material))
+          .first
+          .evaluate()
+          .single
+          .widget as Material;
+
+      expect(material.color, Colors.pink);
+      expect(material.elevation, 5);
+
+      final navyBarItems = find.byType(ItemWidget);
+      expect(navyBarItems, findsNWidgets(2));
+
+      /// check selected item theming
+      final selected = navyBarItems.first;
+
+      final selectedBackground = find
+          .descendant(of: selected, matching: find.byType(AnimatedContainer))
+          .first
+          .evaluate()
+          .single
+          .widget as AnimatedContainer;
+      expect(
+        (selectedBackground.decoration as BoxDecoration).color,
+        Colors.green,
+      );
+
+        final selectedIcon = find
+          .descendant(of: selected, matching: find.byType(IconTheme))
+          .first
+          .evaluate()
+          .single
+          .widget as IconTheme;
+      expect(selectedIcon.data.color, Colors.green); 
+
+      final selectedText = find
+          .descendant(of: selected, matching: find.byType(DefaultTextStyle))
+          .first
+          .evaluate()
+          .single
+          .widget as DefaultTextStyle;
+      expect(selectedText.style.color, Colors.green);
+
+      /// check unselected item theming
+      final unselected = navyBarItems.last;
+
+      final unselectedBackground = find
+          .descendant(of: unselected, matching: find.byType(AnimatedContainer))
+          .first
+          .evaluate()
+          .single
+          .widget as AnimatedContainer;
+      expect(
+        (unselectedBackground.decoration as BoxDecoration).color,
+        Colors.red,
+      );
+
+     final unselectedIcon = find
+          .descendant(of: unselected, matching: find.byType(IconTheme))
+          .first
+          .evaluate()
+          .single
+          .widget as IconTheme;
+      expect(unselectedIcon.data.color, Colors.red); 
+      
+    },
+  );
+  
 }

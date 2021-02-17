@@ -60,7 +60,8 @@ class BottomNavyBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BottomNavigationBarThemeData _theme = theme ?? BottomNavigationBarTheme.of(context);
+    final BottomNavigationBarThemeData _theme =
+        theme ?? BottomNavigationBarTheme.of(context);
 
     return Material(
       elevation: _theme.elevation ?? 0,
@@ -76,7 +77,7 @@ class BottomNavyBar extends StatelessWidget {
               var index = items.indexOf(item);
               return GestureDetector(
                 onTap: () => onItemSelected(index),
-                child: _ItemWidget(
+                child: ItemWidget(
                   item: item,
                   theme: _theme,
                   isSelected: index == selectedIndex,
@@ -93,7 +94,8 @@ class BottomNavyBar extends StatelessWidget {
   }
 }
 
-class _ItemWidget extends StatelessWidget {
+@visibleForTesting
+class ItemWidget extends StatelessWidget {
   final bool isSelected;
   final BottomNavyBarItem item;
   final BottomNavigationBarThemeData theme;
@@ -101,7 +103,7 @@ class _ItemWidget extends StatelessWidget {
   final Duration animationDuration;
   final Curve curve;
 
-  const _ItemWidget({
+  const ItemWidget({
     Key key,
     @required this.item,
     @required this.theme,
@@ -121,24 +123,36 @@ class _ItemWidget extends StatelessWidget {
   /// is a bit unneccesarily complicated, see this issue:
   /// https://github.com/flutter/flutter/issues/72685
 
+  @visibleForTesting
+  Color get bgColor => _bgColor;
   Color get _bgColor {
-    final selected = item.activeColor?.withOpacity(0.2) ?? theme.selectedItemColor;
-    final unselected = item.inactiveColor?.withOpacity(0.2) ?? theme.unselectedItemColor;
+    final selected =
+        item.activeColor?.withOpacity(0.2) ?? theme.selectedItemColor;
+    final unselected =
+        item.inactiveColor?.withOpacity(0.2) ?? theme.unselectedItemColor;
     return isSelected ? selected : unselected;
   }
 
+  @visibleForTesting
+  IconThemeData get iconTheme => _iconTheme;
   IconThemeData get _iconTheme {
-    final selected = theme.selectedIconTheme?.copyWith(color: item.activeColor ?? null) ??
-        IconThemeData.fallback().copyWith(color: item.activeColor ?? null);
-    final unselected = theme.unselectedIconTheme?.copyWith(color: item.inactiveColor ?? null) ??
+    final selected =
+        theme.selectedIconTheme?.copyWith(color: item.activeColor ?? null) ??
+            IconThemeData.fallback().copyWith(color: item.activeColor ?? null);
+    final unselected = theme.unselectedIconTheme
+            ?.copyWith(color: item.inactiveColor ?? null) ??
         IconThemeData.fallback().copyWith(color: item.inactiveColor ?? null);
     return isSelected ? selected : unselected;
   }
 
+  @visibleForTesting
+  TextStyle get labelStyle => _labelStyle;
   TextStyle get _labelStyle {
-    final selected = theme.selectedLabelStyle?.copyWith(color: item.activeColor ?? null) ??
-        TextStyle(color: item.activeColor ?? null);
-    final unselected = theme.unselectedLabelStyle?.copyWith(color: item.inactiveColor ?? null) ??
+    final selected =
+        theme.selectedLabelStyle?.copyWith(color: item.activeColor ?? null) ??
+            TextStyle(color: item.activeColor ?? null);
+    final unselected = theme.unselectedLabelStyle
+            ?.copyWith(color: item.inactiveColor ?? null) ??
         TextStyle(color: item.inactiveColor ?? null);
     return isSelected ? selected : unselected;
   }
