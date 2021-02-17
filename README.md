@@ -3,7 +3,7 @@
 </a> ![Widget Tests](https://github.com/pedromassango/bottom_navy_bar/workflows/Widget%20Tests/badge.svg?branch=master)
 
 <a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
-<img height="128" src="images/flutter_favorite_badge.png">
+<img height="128" src="https://github.com/pedromassango/bottom_navy_bar/blob/master/images/flutter_favorite_badge.png">
 </a>
 <br><br>
 
@@ -13,7 +13,7 @@ A beautiful and animated bottom navigation. The navigation bar use your current 
 
 | Preview | PageView |
 |---------|----------|
-|![FanBottomNavyBar Gif](images/navy.gif "BottomNavyBar") | ![Fix Gif](images/fix.gif "Fix") |
+|![FanBottomNavyBar Gif](https://github.com/pedromassango/bottom_navy_bar/blob/master/images/navy.gif) | ![Fix Gif](https://github.com/pedromassango/bottom_navy_bar/blob/master/images/fix.gif) |
 
 ## Customization (Optional)
 
