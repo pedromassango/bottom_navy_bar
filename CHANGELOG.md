@@ -1,5 +1,11 @@
 
+## 6.0.0
+
+* Stable Null Safety support
+
 ## 6.0.0-nullsafety.0
+
+* Null Safety support
 
 ## 5.6.0
 
