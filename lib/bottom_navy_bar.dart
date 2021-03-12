@@ -172,16 +172,19 @@ class _ItemWidget extends StatelessWidget {
                   child: item.icon,
                 ),
                 if (isSelected)
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4),
-                    child: DefaultTextStyle.merge(
-                      style: TextStyle(
-                        color: item.activeColor,
-                        fontWeight: FontWeight.bold,
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      child: DefaultTextStyle.merge(
+                        style: TextStyle(
+                          color: item.activeColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        textAlign: item.textAlign,
+                        child: item.title,
                       ),
-                      maxLines: 1,
-                      textAlign: item.textAlign,
-                      child: item.title,
                     ),
                   ),
               ],
