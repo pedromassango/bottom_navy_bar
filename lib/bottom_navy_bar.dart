@@ -9,7 +9,6 @@ import 'package:flutter/widgets.dart';
 /// Update [selectedIndex] to change the selected item.
 /// [selectedIndex] is required and must not be null.
 class BottomNavyBar extends StatelessWidget {
-
   BottomNavyBar({
     Key? key,
     this.selectedIndex = 0,
@@ -23,8 +22,9 @@ class BottomNavyBar extends StatelessWidget {
     required this.items,
     required this.onItemSelected,
     this.curve = Curves.linear,
-  }) : assert(items.length >= 2 && items.length <= 5),
-       super(key: key);
+    this.itemRowAlignment = MainAxisAlignment.start,
+  })  : assert(items.length >= 2 && items.length <= 5),
+        super(key: key);
 
   /// The selected item is index. Changing this property will change and animate
   /// the item being selected. Defaults to zero.
@@ -63,6 +63,10 @@ class BottomNavyBar extends StatelessWidget {
   /// Used to configure the animation curve. Defaults to [Curves.linear].
   final Curve curve;
 
+  /// Defines the alignment of the icon and text row.
+  /// Defaults to [MainAxisAlignment.start].
+  final MainAxisAlignment itemRowAlignment;
+
   @override
   Widget build(BuildContext context) {
     final bgColor = backgroundColor ?? Theme.of(context).bottomAppBarColor;
@@ -97,6 +101,7 @@ class BottomNavyBar extends StatelessWidget {
                   itemCornerRadius: itemCornerRadius,
                   animationDuration: animationDuration,
                   curve: curve,
+                  itemRowAlignment: itemRowAlignment,
                 ),
               );
             }).toList(),
@@ -108,14 +113,6 @@ class BottomNavyBar extends StatelessWidget {
 }
 
 class _ItemWidget extends StatelessWidget {
-  final double iconSize;
-  final bool isSelected;
-  final BottomNavyBarItem item;
-  final Color backgroundColor;
-  final double itemCornerRadius;
-  final Duration animationDuration;
-  final Curve curve;
-
   const _ItemWidget({
     Key? key,
     required this.item,
@@ -125,7 +122,17 @@ class _ItemWidget extends StatelessWidget {
     required this.itemCornerRadius,
     required this.iconSize,
     this.curve = Curves.linear,
-  })  : super(key: key);
+    this.itemRowAlignment = MainAxisAlignment.start,
+  }) : super(key: key);
+
+  final double iconSize;
+  final bool isSelected;
+  final BottomNavyBarItem item;
+  final Color backgroundColor;
+  final double itemCornerRadius;
+  final Duration animationDuration;
+  final Curve curve;
+  final MainAxisAlignment itemRowAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +157,7 @@ class _ItemWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: itemRowAlignment,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 IconTheme(
@@ -165,7 +172,8 @@ class _ItemWidget extends StatelessWidget {
                   child: item.icon,
                 ),
                 if (isSelected)
-                  Expanded(
+                  Flexible(
+                    fit: FlexFit.loose,
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 4),
                       child: DefaultTextStyle.merge(
@@ -190,7 +198,6 @@ class _ItemWidget extends StatelessWidget {
 
 /// The [BottomNavyBar.items] definition.
 class BottomNavyBarItem {
-
   BottomNavyBarItem({
     required this.icon,
     required this.title,
@@ -216,5 +223,4 @@ class BottomNavyBarItem {
   ///
   /// This will take effect only if [title] it a [Text] widget.
   final TextAlign? textAlign;
-
 }
