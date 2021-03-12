@@ -10,7 +10,7 @@ import 'package:flutter/widgets.dart';
 /// [selectedIndex] is required and must not be null.
 class BottomNavyBar extends StatelessWidget {
   BottomNavyBar({
-    Key key,
+    Key? key,
     this.selectedIndex = 0,
     this.showElevation = true,
     this.iconSize = 24,
@@ -19,15 +19,11 @@ class BottomNavyBar extends StatelessWidget {
     this.containerHeight = 56,
     this.animationDuration = const Duration(milliseconds: 270),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
-    this.itemRowMainAxisAlignment = MainAxisAlignment.start,
-    @required this.items,
-    @required this.onItemSelected,
+    required this.items,
+    required this.onItemSelected,
     this.curve = Curves.linear,
-  })  : assert(items != null),
-        assert(items.length >= 2 && items.length <= 5),
-        assert(onItemSelected != null),
-        assert(animationDuration != null),
-        assert(curve != null),
+    this.itemRowAlignment = MainAxisAlignment.start,
+  })  : assert(items.length >= 2 && items.length <= 5),
         super(key: key);
 
   /// The selected item is index. Changing this property will change and animate
@@ -39,7 +35,7 @@ class BottomNavyBar extends StatelessWidget {
 
   /// The background color of the navigation bar. It defaults to
   /// [Theme.bottomAppBarColor] if not provided.
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// Whether this navigation bar should show a elevation. Defaults to true.
   final bool showElevation;
@@ -69,13 +65,11 @@ class BottomNavyBar extends StatelessWidget {
 
   /// Defines the alignment of the icon and text row.
   /// Defaults to [MainAxisAlignment.start].
-  final MainAxisAlignment itemRowMainAxisAlignment;
+  final MainAxisAlignment itemRowAlignment;
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = (backgroundColor == null)
-        ? Theme.of(context).bottomAppBarColor
-        : backgroundColor;
+    final bgColor = backgroundColor ?? Theme.of(context).bottomAppBarColor;
 
     return Container(
       decoration: BoxDecoration(
@@ -107,7 +101,7 @@ class BottomNavyBar extends StatelessWidget {
                   itemCornerRadius: itemCornerRadius,
                   animationDuration: animationDuration,
                   curve: curve,
-                  itemRowMainAxisAlignment: itemRowMainAxisAlignment,
+                  itemRowAlignment: itemRowAlignment,
                 ),
               );
             }).toList(),
@@ -120,23 +114,16 @@ class BottomNavyBar extends StatelessWidget {
 
 class _ItemWidget extends StatelessWidget {
   const _ItemWidget({
-    Key key,
-    @required this.item,
-    @required this.isSelected,
-    @required this.backgroundColor,
-    @required this.animationDuration,
-    @required this.itemCornerRadius,
-    @required this.iconSize,
-    @required this.itemRowMainAxisAlignment,
+    Key? key,
+    required this.item,
+    required this.isSelected,
+    required this.backgroundColor,
+    required this.animationDuration,
+    required this.itemCornerRadius,
+    required this.iconSize,
     this.curve = Curves.linear,
-  })  : assert(isSelected != null),
-        assert(item != null),
-        assert(backgroundColor != null),
-        assert(animationDuration != null),
-        assert(itemCornerRadius != null),
-        assert(iconSize != null),
-        assert(curve != null),
-        super(key: key);
+    this.itemRowAlignment = MainAxisAlignment.start,
+  }) : super(key: key);
 
   final double iconSize;
   final bool isSelected;
@@ -145,7 +132,7 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
   final Curve curve;
-  final MainAxisAlignment itemRowMainAxisAlignment;
+  final MainAxisAlignment itemRowAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +157,7 @@ class _ItemWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: itemRowMainAxisAlignment,
+              mainAxisAlignment: itemRowAlignment,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 IconTheme(
@@ -209,13 +196,12 @@ class _ItemWidget extends StatelessWidget {
 /// The [BottomNavyBar.items] definition.
 class BottomNavyBarItem {
   BottomNavyBarItem({
-    @required this.icon,
-    @required this.title,
+    required this.icon,
+    required this.title,
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
-  })  : assert(icon != null),
-        assert(title != null);
+  });
 
   /// Defines this item's icon which is placed in the right side of the [title].
   final Widget icon;
@@ -228,10 +214,10 @@ class BottomNavyBarItem {
   final Color activeColor;
 
   /// The [icon] and [title] color defined when this item is not selected.
-  final Color inactiveColor;
+  final Color? inactiveColor;
 
   /// The alignment for the [title].
   ///
   /// This will take effect only if [title] it a [Text] widget.
-  final TextAlign textAlign;
+  final TextAlign? textAlign;
 }
