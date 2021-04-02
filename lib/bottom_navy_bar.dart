@@ -10,22 +10,18 @@ import 'package:flutter/widgets.dart';
 /// [selectedIndex] is required and must not be null.
 class BottomNavyBar extends StatelessWidget {
   BottomNavyBar({
-    Key key,
+    Key? key,
     this.selectedIndex = 0,
     this.theme,
     this.itemCornerRadius = 50,
     this.containerHeight = 56,
     this.animationDuration = const Duration(milliseconds: 270),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
-    @required this.items,
-    @required this.onItemSelected,
+    required this.items,
+    required this.onItemSelected,
     this.curve = Curves.linear,
-  })  : assert(items != null),
-        assert(items.length >= 2 && items.length <= 5),
-        assert(onItemSelected != null),
-        assert(animationDuration != null),
-        assert(curve != null),
-        super(key: key);
+  }) : assert(items.length >= 2 && items.length <= 5),
+       super(key: key);
 
   /// The selected item is index. Changing this property will change and animate
   /// the item being selected. Defaults to zero.
@@ -103,21 +99,16 @@ class ItemWidget extends StatelessWidget {
   final Duration animationDuration;
   final Curve curve;
 
-  const ItemWidget({
-    Key key,
-    @required this.item,
-    @required this.theme,
-    @required this.isSelected,
-    @required this.animationDuration,
-    @required this.itemCornerRadius,
+  const _ItemWidget({
+    Key? key,
+    required this.item,
+    required this.isSelected,
+    required this.backgroundColor,
+    required this.animationDuration,
+    required this.itemCornerRadius,
+    required this.iconSize,
     this.curve = Curves.linear,
-  })  : assert(isSelected != null),
-        assert(item != null),
-        assert(theme != null),
-        assert(animationDuration != null),
-        assert(itemCornerRadius != null),
-        assert(curve != null),
-        super(key: key);
+  })  : super(key: key);
 
   /// assuring correct default theming and allowing for per item customization
   /// is a bit unneccesarily complicated, see this issue:
@@ -229,10 +220,11 @@ class BottomNavyBarItem {
   final Color activeColor;
 
   /// The [icon] and [title] color defined when this item is not selected.
-  final Color inactiveColor;
+  final Color? inactiveColor;
 
   /// The alignment for the [title].
   ///
   /// This will take effect only if [title] it a [Text] widget.
-  final TextAlign textAlign;
+  final TextAlign? textAlign;
+
 }

@@ -48,10 +48,11 @@ final BottomNavigationBarThemeData dummyThemeData =
 );
 
 Widget buildNavyBarBoilerplate({
-  int currentIndex,
-  double itemCornerRadius,
-  @required ValueChanged<int> onItemSelected,
-  Curve curve,
+  Curve? curve,
+  int? currentIndex,
+  bool? showElevation,
+  double? itemCornerRadius,
+  required ValueChanged<int> onItemSelected,
 }) {
   return MaterialApp(
     home: Scaffold(

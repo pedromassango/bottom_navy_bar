@@ -1,7 +1,16 @@
 ![Pub](https://img.shields.io/pub/v/bottom_navy_bar) <a href="https://github.com/Solido/awesome-flutter">
     <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
-</a> ![Widget Tests](https://github.com/pedromassango/bottom_navy_bar/workflows/Widget%20Tests/badge.svg?branch=master)
+</a> 
+![Widget Tests](https://github.com/pedromassango/bottom_navy_bar/workflows/Widget%20Tests/badge.svg?branch=master)
 
+[![Latest compatibility result for Stable channel](https://img.shields.io/endpoint?url=https://pub.green/packages/bottom_navy_bar/badge?channel=stable)](https://pub.green/packages/bottom_navy_bar)
+[![Latest compatibility result for Beta channel](https://img.shields.io/endpoint?url=https://pub.green/packages/bottom_navy_bar/badge?channel=beta)](https://pub.green/packages/bottom_navy_bar)
+[![Latest compatibility result for Dev channel](https://img.shields.io/endpoint?url=https://pub.green/packages/bottom_navy_bar/badge?channel=dev)](https://pub.green/packages/bottom_navy_bar)
+
+<a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
+<img height="128" src="https://github.com/pedromassango/bottom_navy_bar/blob/master/images/flutter_favorite_badge.png">
+</a>
+<br><br>
 
 # BottomNavyBar
 
@@ -9,7 +18,7 @@ A beautiful and animated bottom navigation. The navigation bar use your current 
 
 | Preview | PageView |
 |---------|----------|
-|![FanBottomNavyBar Gif](navy.gif "BottomNavyBar") | ![Fix Gif](fix.gif "Fix") |
+|![FanBottomNavyBar Gif](https://github.com/pedromassango/bottom_navy_bar/blob/master/images/navy.gif) | ![Fix Gif](https://github.com/pedromassango/bottom_navy_bar/blob/master/images/fix.gif) |
 
 ## Customization (Optional)
 
