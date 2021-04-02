@@ -9,13 +9,10 @@ import 'package:flutter/widgets.dart';
 /// Update [selectedIndex] to change the selected item.
 /// [selectedIndex] is required and must not be null.
 class BottomNavyBar extends StatelessWidget {
-
   BottomNavyBar({
     Key? key,
+    this.theme,
     this.selectedIndex = 0,
-    this.showElevation = true,
-    this.iconSize = 24,
-    this.backgroundColor,
     this.itemCornerRadius = 50,
     this.containerHeight = 56,
     this.animationDuration = const Duration(milliseconds: 270),
@@ -23,22 +20,16 @@ class BottomNavyBar extends StatelessWidget {
     required this.items,
     required this.onItemSelected,
     this.curve = Curves.linear,
-  }) : assert(items.length >= 2 && items.length <= 5),
-       super(key: key);
+  })  : assert(items.length >= 2 && items.length <= 5),
+        super(key: key);
 
   /// The selected item is index. Changing this property will change and animate
   /// the item being selected. Defaults to zero.
   final int selectedIndex;
 
-  /// The icon size of all items. Defaults to 24.
-  final double iconSize;
-
-  /// The background color of the navigation bar. It defaults to
-  /// [Theme.bottomAppBarColor] if not provided.
-  final Color? backgroundColor;
-
-  /// Whether this navigation bar should show a elevation. Defaults to true.
-  final bool showElevation;
+  /// The  bottom navigation bar theme. It defaults to
+  /// [Theme.BottomNavigationBarTheme] if not provided.
+  final BottomNavigationBarThemeData? theme;
 
   /// Use this to change the item's animation duration. Defaults to 270ms.
   final Duration animationDuration;
@@ -65,19 +56,12 @@ class BottomNavyBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = backgroundColor ?? Theme.of(context).bottomAppBarColor;
+    final BottomNavigationBarThemeData _theme =
+        theme ?? BottomNavigationBarTheme.of(context);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: bgColor,
-        boxShadow: [
-          if (showElevation)
-            const BoxShadow(
-              color: Colors.black12,
-              blurRadius: 2,
-            ),
-        ],
-      ),
+    return Material(
+      elevation: _theme.elevation ?? 0,
+      color: _theme.backgroundColor,
       child: SafeArea(
         child: Container(
           width: double.infinity,
@@ -89,11 +73,10 @@ class BottomNavyBar extends StatelessWidget {
               var index = items.indexOf(item);
               return GestureDetector(
                 onTap: () => onItemSelected(index),
-                child: _ItemWidget(
+                child: ItemWidget(
                   item: item,
-                  iconSize: iconSize,
+                  theme: _theme,
                   isSelected: index == selectedIndex,
-                  backgroundColor: bgColor,
                   itemCornerRadius: itemCornerRadius,
                   animationDuration: animationDuration,
                   curve: curve,
@@ -107,25 +90,65 @@ class BottomNavyBar extends StatelessWidget {
   }
 }
 
-class _ItemWidget extends StatelessWidget {
-  final double iconSize;
+@visibleForTesting
+class ItemWidget extends StatelessWidget {
   final bool isSelected;
   final BottomNavyBarItem item;
-  final Color backgroundColor;
+  final BottomNavigationBarThemeData theme;
   final double itemCornerRadius;
   final Duration animationDuration;
   final Curve curve;
 
-  const _ItemWidget({
+  const ItemWidget({
     Key? key,
     required this.item,
     required this.isSelected,
-    required this.backgroundColor,
+    required this.theme,
     required this.animationDuration,
     required this.itemCornerRadius,
-    required this.iconSize,
     this.curve = Curves.linear,
-  })  : super(key: key);
+  }) : super(key: key);
+
+  /// assuring correct default theming and allowing for per item customization
+  /// is a bit unneccesarily complicated, see this issue:
+  /// https://github.com/flutter/flutter/issues/72685
+
+  @visibleForTesting
+  Color bgColor(BuildContext context) {
+    final selected = item.activeColor?.withOpacity(0.2) ??
+        theme.selectedItemColor ??
+        Theme.of(context).primaryColor;
+    final unselected = item.inactiveColor?.withOpacity(0.2) ??
+        theme.unselectedItemColor ??
+        Theme.of(context).scaffoldBackgroundColor;
+
+    return isSelected ? selected : unselected;
+  }
+
+  @visibleForTesting
+  IconThemeData get iconTheme => _iconTheme;
+  IconThemeData get _iconTheme {
+    final selected = theme.selectedIconTheme?.copyWith(
+          color: item.activeColor ?? null,
+        ) ??
+        IconThemeData.fallback().copyWith(color: item.activeColor ?? null);
+    final unselected = theme.unselectedIconTheme
+            ?.copyWith(color: item.inactiveColor ?? null) ??
+        IconThemeData.fallback().copyWith(color: item.inactiveColor ?? null);
+    return isSelected ? selected : unselected;
+  }
+
+  @visibleForTesting
+  TextStyle get labelStyle => _labelStyle;
+  TextStyle get _labelStyle {
+    final selected =
+        theme.selectedLabelStyle?.copyWith(color: item.activeColor ?? null) ??
+            TextStyle(color: item.activeColor ?? null);
+    final unselected = theme.unselectedLabelStyle
+            ?.copyWith(color: item.inactiveColor ?? null) ??
+        TextStyle(color: item.inactiveColor ?? null);
+    return isSelected ? selected : unselected;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,8 +161,7 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          color:
-              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+          color: bgColor(context),
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(
@@ -154,14 +176,7 @@ class _ItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 IconTheme(
-                  data: IconThemeData(
-                    size: iconSize,
-                    color: isSelected
-                        ? item.activeColor.withOpacity(1)
-                        : item.inactiveColor == null
-                            ? item.activeColor
-                            : item.inactiveColor,
-                  ),
+                  data: _iconTheme,
                   child: item.icon,
                 ),
                 if (isSelected)
@@ -169,10 +184,7 @@ class _ItemWidget extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 4),
                       child: DefaultTextStyle.merge(
-                        style: TextStyle(
-                          color: item.activeColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: _labelStyle,
                         maxLines: 1,
                         textAlign: item.textAlign,
                         child: item.title,
@@ -190,11 +202,10 @@ class _ItemWidget extends StatelessWidget {
 
 /// The [BottomNavyBar.items] definition.
 class BottomNavyBarItem {
-
   BottomNavyBarItem({
     required this.icon,
     required this.title,
-    this.activeColor = Colors.blue,
+    this.activeColor,
     this.textAlign,
     this.inactiveColor,
   });
@@ -207,7 +218,7 @@ class BottomNavyBarItem {
 
   /// The [icon] and [title] color defined when this item is selected. Defaults
   /// to [Colors.blue].
-  final Color activeColor;
+  final Color? activeColor;
 
   /// The [icon] and [title] color defined when this item is not selected.
   final Color? inactiveColor;
@@ -216,5 +227,4 @@ class BottomNavyBarItem {
   ///
   /// This will take effect only if [title] it a [Text] widget.
   final TextAlign? textAlign;
-
 }
