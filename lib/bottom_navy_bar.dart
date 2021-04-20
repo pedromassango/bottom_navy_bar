@@ -9,7 +9,6 @@ import 'package:flutter/widgets.dart';
 /// Update [selectedIndex] to change the selected item.
 /// [selectedIndex] is required and must not be null.
 class BottomNavyBar extends StatelessWidget {
-
   BottomNavyBar({
     Key? key,
     this.selectedIndex = 0,
@@ -23,8 +22,8 @@ class BottomNavyBar extends StatelessWidget {
     required this.items,
     required this.onItemSelected,
     this.curve = Curves.linear,
-  }) : assert(items.length >= 2 && items.length <= 5),
-       super(key: key);
+  })  : assert(items.length >= 2 && items.length <= 5),
+        super(key: key);
 
   /// The selected item is index. Changing this property will change and animate
   /// the item being selected. Defaults to zero.
@@ -125,7 +124,7 @@ class _ItemWidget extends StatelessWidget {
     required this.itemCornerRadius,
     required this.iconSize,
     this.curve = Curves.linear,
-  })  : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -138,8 +137,9 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          color:
-              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+          color: isSelected
+              ? item.activeColor.withOpacity(item.activeColorOpacityLevel)
+              : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(
@@ -190,13 +190,13 @@ class _ItemWidget extends StatelessWidget {
 
 /// The [BottomNavyBar.items] definition.
 class BottomNavyBarItem {
-
   BottomNavyBarItem({
     required this.icon,
     required this.title,
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
+    this.activeColorOpacityLevel = 0.2,
   });
 
   /// Defines this item's icon which is placed in the right side of the [title].
@@ -212,9 +212,11 @@ class BottomNavyBarItem {
   /// The [icon] and [title] color defined when this item is not selected.
   final Color? inactiveColor;
 
+  /// Used to configure active background opacity, if not set, it defaults to 0.2.
+  final double activeColorOpacityLevel;
+
   /// The alignment for the [title].
   ///
   /// This will take effect only if [title] it a [Text] widget.
   final TextAlign? textAlign;
-
 }
