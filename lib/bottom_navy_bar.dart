@@ -137,7 +137,7 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          gradient: item.activeBackgroundColorGradient.length > 0
+          gradient: isSelected && item.activeBackgroundColorGradient.length > 0
               ? LinearGradient(
                   colors: item.activeBackgroundColorGradient,
                   stops: [0.0, 1.0],
