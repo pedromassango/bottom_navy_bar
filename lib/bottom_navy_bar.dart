@@ -137,6 +137,14 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
+          gradient: item.activeBackgroundColorGradient.length > 0
+              ? LinearGradient(
+                  colors: item.activeBackgroundColorGradient,
+                  stops: [0.0, 1.0],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                )
+              : null,
           color: isSelected
               ? item.activeColor.withOpacity(item.activeColorOpacityLevel)
               : backgroundColor,
@@ -197,6 +205,7 @@ class BottomNavyBarItem {
     this.textAlign,
     this.inactiveColor,
     this.activeColorOpacityLevel = 0.2,
+    this.activeBackgroundColorGradient = const [],
   });
 
   /// Defines this item's icon which is placed in the right side of the [title].
@@ -214,6 +223,9 @@ class BottomNavyBarItem {
 
   /// Used to configure active background opacity, if not set, it defaults to 0.2.
   final double activeColorOpacityLevel;
+
+  /// Color gradient for background
+  final List<Color> activeBackgroundColorGradient;
 
   /// The alignment for the [title].
   ///
