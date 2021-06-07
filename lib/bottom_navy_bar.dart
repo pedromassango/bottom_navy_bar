@@ -128,6 +128,13 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    List<double>? stops;
+    if (item.activeBackgroundColorGradient != null) {
+      int gradientLength = item.activeBackgroundColorGradient!.length;
+      stops = List<double>.generate(gradientLength, (index) => index / (gradientLength - 1));
+    }
+
     return Semantics(
       container: true,
       selected: isSelected,
