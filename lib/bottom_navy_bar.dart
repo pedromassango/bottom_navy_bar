@@ -153,7 +153,7 @@ class _ItemWidget extends StatelessWidget {
                 )
               : null,
           color: isSelected
-              ? item.activeColor.withOpacity(item.activeColorOpacityLevel)
+              ? item.activeColor?.withOpacity(item.activeColorOpacityLevel)
               : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
@@ -172,7 +172,7 @@ class _ItemWidget extends StatelessWidget {
                   data: IconThemeData(
                     size: iconSize,
                     color: isSelected
-                        ? item.activeColor.withOpacity(1)
+                        ? item.activeColor?.withOpacity(1)
                         : item.inactiveColor == null
                             ? item.activeColor
                             : item.inactiveColor,
@@ -208,12 +208,12 @@ class BottomNavyBarItem {
   BottomNavyBarItem({
     required this.icon,
     required this.title,
-    this.activeColor = Colors.blue,
+    this.activeColor,
     this.textAlign,
     this.inactiveColor,
     this.activeColorOpacityLevel = 0.2,
-    this.activeBackgroundColorGradient = const [],
-  });
+    this.activeBackgroundColorGradient,
+  })   : assert(activeColor == null || activeBackgroundColorGradient == null);
 
   /// Defines this item's icon which is placed in the right side of the [title].
   final Widget icon;
@@ -223,7 +223,7 @@ class BottomNavyBarItem {
 
   /// The [icon] and [title] color defined when this item is selected. Defaults
   /// to [Colors.blue].
-  final Color activeColor;
+  final Color? activeColor;
 
   /// The [icon] and [title] color defined when this item is not selected.
   final Color? inactiveColor;
@@ -232,7 +232,7 @@ class BottomNavyBarItem {
   final double activeColorOpacityLevel;
 
   /// Color gradient for background
-  final List<Color> activeBackgroundColorGradient;
+  final List<Color>? activeBackgroundColorGradient;
 
   /// The alignment for the [title].
   ///
