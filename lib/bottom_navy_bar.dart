@@ -9,11 +9,11 @@ import 'package:flutter/widgets.dart';
 /// Update [selectedIndex] to change the selected item.
 /// [selectedIndex] is required and must not be null.
 class BottomNavyBar extends StatelessWidget {
-
   BottomNavyBar({
     Key? key,
     this.selectedIndex = 0,
     this.showElevation = true,
+    this.showItemElevation = false,
     this.iconSize = 24,
     this.backgroundColor,
     this.itemCornerRadius = 50,
@@ -23,6 +23,10 @@ class BottomNavyBar extends StatelessWidget {
       topRight: Radius.circular(0),
     ),
     this.elevationShadow = const BoxShadow(
+      color: Colors.black12,
+      blurRadius: 2,
+    ),
+    this.itemElevationShadow = const BoxShadow(
       color: Colors.black12,
       blurRadius: 2,
     ),
@@ -52,6 +56,12 @@ class BottomNavyBar extends StatelessWidget {
 
   /// The shadow to be rendered when elevated
   final BoxShadow elevationShadow;
+
+  /// Whether the items should be elevated. Defaults to false.
+  final bool showItemElevation;
+
+  /// The shadow to be rendered when elevated for each item
+  final BoxShadow itemElevationShadow;
 
   /// Use this to change the item's animation duration. Defaults to 270ms.
   final Duration animationDuration;
@@ -109,15 +119,16 @@ class BottomNavyBar extends StatelessWidget {
               return GestureDetector(
                 onTap: () => onItemSelected(index),
                 child: _ItemWidget(
-                  item: item,
-                  iconSize: iconSize,
-                  isSelected: index == selectedIndex,
-                  backgroundColor: bgColor,
-                  itemCornerRadius: itemCornerRadius,
-                  animationDuration: animationDuration,
-                  curve: curve,
-                  itemPadding: itemPadding,
-                ),
+                    item: item,
+                    iconSize: iconSize,
+                    isSelected: index == selectedIndex,
+                    backgroundColor: bgColor,
+                    itemCornerRadius: itemCornerRadius,
+                    animationDuration: animationDuration,
+                    curve: curve,
+                    itemPadding: itemPadding,
+                    showItemElevation: showItemElevation,
+                    itemElevationShadow: itemElevationShadow),
               );
             }).toList(),
           ),
@@ -136,6 +147,8 @@ class _ItemWidget extends StatelessWidget {
   final Duration animationDuration;
   final Curve curve;
   final EdgeInsets itemPadding;
+  final bool showItemElevation;
+  final BoxShadow itemElevationShadow;
 
   const _ItemWidget({
     Key? key,
@@ -146,6 +159,8 @@ class _ItemWidget extends StatelessWidget {
     required this.itemCornerRadius,
     required this.iconSize,
     required this.itemPadding,
+    required this.showItemElevation,
+    required this.itemElevationShadow,
     this.curve = Curves.linear,
   }) : super(key: key);
 
@@ -162,6 +177,9 @@ class _ItemWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected ? item.activeBackgroundColor : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
+          boxShadow: [
+            if (showItemElevation) itemElevationShadow,
+          ],
         ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
