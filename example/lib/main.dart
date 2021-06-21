@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -58,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onItemSelected: (index) => setState(() => _currentIndex = index),
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
+            solidBackground: true,
             icon: Icon(Icons.apps),
             title: Text('Home'),
             activeColor: Colors.red,
