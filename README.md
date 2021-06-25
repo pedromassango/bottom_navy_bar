@@ -14,7 +14,8 @@
 
 # BottomNavyBar
 
-A beautiful and animated bottom navigation. The navigation bar uses your current theme, but you are free to customize it.
+A beautiful and animated bottom navigation.
+The navigation bar uses your current theme, but you are free to customize it.
 
 | Preview | PageView |
 |---------|----------|
