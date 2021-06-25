@@ -14,7 +14,7 @@
 
 # BottomNavyBar
 
-A beautiful and animated bottom navigation. The navigation bar use your current theme, but you are free to customize it.
+A beautiful and animated bottom navigation. The navigation bar uses your current theme, but you are free to customize it.
 
 | Preview | PageView |
 |---------|----------|
@@ -25,8 +25,8 @@ A beautiful and animated bottom navigation. The navigation bar use your current 
 ### BottomNavyBar
 - `iconSize` - the item icon's size
 - `items` - navigation items, required more than one item and less than six
-- `selectedIndex` - the current item index. Use this to change the selected item. Default to zero
-- `onItemSelected` - required to listen when a item is tapped it provide the selected item's index
+- `selectedIndex` - the current item index. Use this to change the selected item. Defaults to zero
+- `onItemSelected` - required to listen when an item is tapped it provides the selected item's index
 - `backgroundColor` - the navigation bar's background color
 - `showElevation` - if false the appBar's elevation will be removed
 - `mainAxisAlignment` - use this property to change the horizontal alignment of the items. It is mostly used when you have ony two items and you want to center the items
