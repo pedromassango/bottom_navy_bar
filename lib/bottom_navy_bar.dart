@@ -18,10 +18,7 @@ class BottomNavyBar extends StatelessWidget {
     this.backgroundColor,
     this.itemCornerRadius = 50,
     this.containerHeight = 56,
-    this.corner = const BorderRadius.only(
-      topLeft: Radius.circular(0),
-      topRight: Radius.circular(0),
-    ),
+    this.corner = BorderRadius.zero,
     this.elevationShadow = const BoxShadow(
       color: Colors.black12,
       blurRadius: 2,
@@ -31,7 +28,7 @@ class BottomNavyBar extends StatelessWidget {
       blurRadius: 2,
     ),
     this.padding = const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-    this.itemPadding = const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+    this.itemPadding = const EdgeInsets.symmetric(horizontal: 4),
     this.animationDuration = const Duration(milliseconds: 270),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     required this.items,
@@ -54,13 +51,13 @@ class BottomNavyBar extends StatelessWidget {
   /// Whether this navigation bar should show a elevation. Defaults to true.
   final bool showElevation;
 
-  /// The shadow to be rendered when elevated
+  /// The shadow to be rendered when elevated.
   final BoxShadow elevationShadow;
 
   /// Whether the items should be elevated. Defaults to false.
   final bool showItemElevation;
 
-  /// The shadow to be rendered when elevated for each item
+  /// The shadow to be rendered when elevated for each item.
   final BoxShadow itemElevationShadow;
 
   /// Use this to change the item's animation duration. Defaults to 270ms.
@@ -83,13 +80,13 @@ class BottomNavyBar extends StatelessWidget {
   /// Defines the bottom navigation bar height. Defaults to 56.
   final double containerHeight;
 
-  /// Defines corners, if not est, it defaults to 0
+  /// Defines corners, if not est, it defaults to 0.
   final BorderRadius corner;
 
-  /// Defines padding for the container, defaults to EdgeInsets.symmetric(vertical: 6, horizontal: 8)
+  /// Defines padding for the container, defaults to EdgeInsets.symmetric(vertical: 6, horizontal: 8).
   final EdgeInsets padding;
 
-  /// Defines padding for the item in a container, defaults to EdgeInsets.symmetric(vertical: 10, horizontal: 4)
+  /// Defines padding for the item in a container, defaults to EdgeInsets.symmetric(vertical: 10, horizontal: 4).
   final EdgeInsets itemPadding;
 
   /// Used to configure the animation curve. Defaults to [Curves.linear].
