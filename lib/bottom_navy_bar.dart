@@ -90,6 +90,7 @@ class BottomNavyBar extends StatelessWidget {
                 onTap: () => onItemSelected(index),
                 child: _ItemWidget(
                   item: item,
+                  decoration: item.decoration,
                   iconSize: iconSize,
                   isSelected: index == selectedIndex,
                   backgroundColor: bgColor,
@@ -114,8 +115,9 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
   final Curve curve;
+  Decoration? decoration;
 
-  const _ItemWidget({
+  _ItemWidget({
     Key? key,
     required this.item,
     required this.isSelected,
@@ -123,6 +125,7 @@ class _ItemWidget extends StatelessWidget {
     required this.animationDuration,
     required this.itemCornerRadius,
     required this.iconSize,
+    required this.decoration,
     this.curve = Curves.linear,
   }) : super(key: key);
 
@@ -136,10 +139,12 @@ class _ItemWidget extends StatelessWidget {
         height: double.maxFinite,
         duration: animationDuration,
         curve: curve,
-        decoration: BoxDecoration(
-          color:
-              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
-          borderRadius: BorderRadius.circular(itemCornerRadius),
+        decoration: decoration != null
+            ? decoration
+            : BoxDecoration(
+              color:
+                isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+              borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -195,6 +200,7 @@ class BottomNavyBarItem {
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
+    this.decoration
   });
 
   /// Defines this item's icon which is placed in the right side of the [title].
@@ -209,6 +215,9 @@ class BottomNavyBarItem {
 
   /// The [icon] and [title] color defined when this item is not selected.
   final Color? inactiveColor;
+
+  /// The [decoration] color defined for this item for both selected and not selected states.
+  final Decoration? decoration;
 
   /// The alignment for the [title].
   ///

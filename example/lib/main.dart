@@ -60,12 +60,20 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.apps),
             title: Text('Home'),
             activeColor: Colors.red,
+            decoration: UnderlineTabIndicator(
+              borderSide: BorderSide(width: 3.0, color: Colors.black),
+              insets: EdgeInsets.fromLTRB(0, 1, 10, 1)
+            ),
             textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.people),
             title: Text('Users'),
             activeColor: Colors.purpleAccent,
+            decoration: BoxDecoration(
+              color: Colors.purpleAccent.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(10),
+            ),
             textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(
