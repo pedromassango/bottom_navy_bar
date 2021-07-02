@@ -60,14 +60,14 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.apps),
             title: Text('Home'),
             activeColor: Colors.red,
-            expandedBackground: Colors.black,
+            expandedBackgroundColor: Colors.black,
             textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.people),
             title: Text('Users'),
             activeColor: Colors.purpleAccent,
-            expandedBackground: Colors.yellowAccent,
+            expandedBackgroundColor: Colors.yellowAccent,
             textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(

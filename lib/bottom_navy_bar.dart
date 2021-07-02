@@ -138,8 +138,8 @@ class _ItemWidget extends StatelessWidget {
         curve: curve,
         decoration: BoxDecoration(
           color: isSelected
-              ? item.expandedBackground != null
-                  ? item.expandedBackground
+              ? item.expandedBackgroundColor != null
+                  ? item.expandedBackgroundColor
                   : item.activeColor.withOpacity(0.2)
               : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
@@ -198,7 +198,7 @@ class BottomNavyBarItem {
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
-    this.expandedBackground
+    this.expandedBackgroundColor
   });
 
   /// Defines this item's icon which is placed in the right side of the [title].
@@ -215,7 +215,7 @@ class BottomNavyBarItem {
   final Color? inactiveColor;
 
   /// The background color defined when this item is selected.
-  final Color? expandedBackground;
+  final Color? expandedBackgroundColor;
 
   /// The alignment for the [title].
   ///
