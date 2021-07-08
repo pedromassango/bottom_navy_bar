@@ -17,10 +17,11 @@ class BottomNavyBar extends StatelessWidget {
     this.iconSize = 24,
     this.backgroundColor,
     this.itemCornerRadius = 50,
+    this.itemBorder,
     this.containerHeight = 56,
-    this.containerBorder,
-    this.containerBorderRadius = BorderRadius.zero,
-    this.elevationShadow = const BoxShadow(
+    this.barBorder,
+    this.barBorderRadius = BorderRadius.zero,
+    this.barElevationShadow = const BoxShadow(
       color: Colors.black12,
       blurRadius: 2,
     ),
@@ -52,15 +53,6 @@ class BottomNavyBar extends StatelessWidget {
   /// Whether this navigation bar should show a elevation. Defaults to true.
   final bool showElevation;
 
-  /// The shadow to be rendered when elevated.
-  final BoxShadow elevationShadow;
-
-  /// Whether the items should be elevated. Defaults to false.
-  final bool showItemElevation;
-
-  /// The shadow to be rendered when elevated for each item.
-  final BoxShadow itemElevationShadow;
-
   /// Use this to change the item's animation duration. Defaults to 270ms.
   final Duration animationDuration;
 
@@ -78,14 +70,26 @@ class BottomNavyBar extends StatelessWidget {
   /// The [items] corner radius, if not set, it defaults to 50.
   final double itemCornerRadius;
 
+  /// Whether the [items] should be elevated. Defaults to false.
+  final bool showItemElevation;
+
+  /// The shadow to be rendered when elevated for each of [items].
+  final BoxShadow itemElevationShadow;
+
+  /// The border to show around each of [items].
+  final Border? itemBorder;
+
+  /// The shadow to be rendered when elevated.
+  final BoxShadow barElevationShadow;
+  
   /// Defines the bottom navigation bar height. Defaults to 56.
   final double containerHeight;
 
   /// Defines corners for container, if not set, it defaults to 0.
-  final BorderRadius containerBorderRadius;
+  final BorderRadius barBorderRadius;
 
   /// Defines border for container.
-  final Border? containerBorder;
+  final Border? barBorder;
 
   /// Defines padding for the container, defaults to EdgeInsets.symmetric(vertical: 6, horizontal: 8).
   final EdgeInsets padding;
@@ -104,10 +108,10 @@ class BottomNavyBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: bgColor,
         boxShadow: [
-          if (showElevation) elevationShadow,
+          if (showElevation) barElevationShadow,
         ],
-        borderRadius: containerBorderRadius,
-        border: containerBorder,
+        borderRadius: barBorderRadius,
+        border: barBorder,
       ),
       child: SafeArea(
         child: Container(
@@ -130,7 +134,9 @@ class BottomNavyBar extends StatelessWidget {
                     curve: curve,
                     itemPadding: itemPadding,
                     showItemElevation: showItemElevation,
-                    itemElevationShadow: itemElevationShadow),
+                    itemElevationShadow: itemElevationShadow,
+                    itemBorder: itemBorder,
+                ),
               );
             }).toList(),
           ),
@@ -151,6 +157,7 @@ class _ItemWidget extends StatelessWidget {
   final EdgeInsets itemPadding;
   final bool showItemElevation;
   final BoxShadow itemElevationShadow;
+  final Border? itemBorder;
 
   const _ItemWidget({
     Key? key,
@@ -164,6 +171,7 @@ class _ItemWidget extends StatelessWidget {
     required this.showItemElevation,
     required this.itemElevationShadow,
     this.curve = Curves.linear,
+    this.itemBorder,
   }) : super(key: key);
 
   @override
@@ -179,6 +187,7 @@ class _ItemWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected ? item.activeBackgroundColor : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
+          border: itemBorder,
           boxShadow: [
             if (showItemElevation) itemElevationShadow,
           ],
