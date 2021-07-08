@@ -13,10 +13,25 @@ class BottomNavyBar extends StatelessWidget {
     Key? key,
     this.selectedIndex = 0,
     this.showElevation = true,
+    this.showItemElevation = false,
     this.iconSize = 24,
     this.backgroundColor,
     this.itemCornerRadius = 50,
+    this.itemBorder,
+    this.activeItemBorder,
     this.containerHeight = 56,
+    this.barBorder,
+    this.barBorderRadius = BorderRadius.zero,
+    this.barElevationShadow = const BoxShadow(
+      color: Colors.black12,
+      blurRadius: 2,
+    ),
+    this.itemElevationShadow = const BoxShadow(
+      color: Colors.black12,
+      blurRadius: 2,
+    ),
+    this.padding = const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+    this.itemPadding = const EdgeInsets.symmetric(horizontal: 4),
     this.animationDuration = const Duration(milliseconds: 270),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     required this.items,
@@ -56,8 +71,35 @@ class BottomNavyBar extends StatelessWidget {
   /// The [items] corner radius, if not set, it defaults to 50.
   final double itemCornerRadius;
 
+  /// Whether the [items] should be elevated. Defaults to false.
+  final bool showItemElevation;
+
+  /// The shadow to be rendered when elevated for each of [items].
+  final BoxShadow itemElevationShadow;
+
+  /// The border to show around each of [items].
+  final Border? itemBorder;
+
+  /// The border to show around selected [items].
+  final Border? activeItemBorder;
+
+  /// The shadow to be rendered when elevated.
+  final BoxShadow barElevationShadow;
+  
   /// Defines the bottom navigation bar height. Defaults to 56.
   final double containerHeight;
+
+  /// Defines corners for container, if not set, it defaults to 0.
+  final BorderRadius barBorderRadius;
+
+  /// Defines border for container.
+  final Border? barBorder;
+
+  /// Defines padding for the container, defaults to EdgeInsets.symmetric(vertical: 6, horizontal: 8).
+  final EdgeInsets padding;
+
+  /// Defines padding for the item in a container, defaults to EdgeInsets.symmetric(vertical: 10, horizontal: 4).
+  final EdgeInsets itemPadding;
 
   /// Used to configure the animation curve. Defaults to [Curves.linear].
   final Curve curve;
@@ -70,18 +112,16 @@ class BottomNavyBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: bgColor,
         boxShadow: [
-          if (showElevation)
-            const BoxShadow(
-              color: Colors.black12,
-              blurRadius: 2,
-            ),
+          if (showElevation) barElevationShadow,
         ],
+        borderRadius: barBorderRadius,
+        border: barBorder,
       ),
       child: SafeArea(
         child: Container(
           width: double.infinity,
           height: containerHeight,
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+          padding: padding,
           child: Row(
             mainAxisAlignment: mainAxisAlignment,
             children: items.map((item) {
@@ -89,13 +129,18 @@ class BottomNavyBar extends StatelessWidget {
               return GestureDetector(
                 onTap: () => onItemSelected(index),
                 child: _ItemWidget(
-                  item: item,
-                  iconSize: iconSize,
-                  isSelected: index == selectedIndex,
-                  backgroundColor: bgColor,
-                  itemCornerRadius: itemCornerRadius,
-                  animationDuration: animationDuration,
-                  curve: curve,
+                    item: item,
+                    iconSize: iconSize,
+                    isSelected: index == selectedIndex,
+                    backgroundColor: bgColor,
+                    itemCornerRadius: itemCornerRadius,
+                    animationDuration: animationDuration,
+                    curve: curve,
+                    itemPadding: itemPadding,
+                    showItemElevation: showItemElevation,
+                    itemElevationShadow: itemElevationShadow,
+                    itemBorder: itemBorder,
+                    activeItemBorder: activeItemBorder,
                 ),
               );
             }).toList(),
@@ -114,6 +159,11 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
   final Curve curve;
+  final EdgeInsets itemPadding;
+  final bool showItemElevation;
+  final BoxShadow itemElevationShadow;
+  final Border? itemBorder;
+  final Border? activeItemBorder;
 
   const _ItemWidget({
     Key? key,
@@ -123,7 +173,12 @@ class _ItemWidget extends StatelessWidget {
     required this.animationDuration,
     required this.itemCornerRadius,
     required this.iconSize,
+    required this.itemPadding,
+    required this.showItemElevation,
+    required this.itemElevationShadow,
     this.curve = Curves.linear,
+    this.itemBorder,
+    this.activeItemBorder,
   }) : super(key: key);
 
   @override
@@ -137,9 +192,12 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          color:
-              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+          color: isSelected ? item.activeBackgroundColor : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
+          border: isSelected ? activeItemBorder : itemBorder,
+          boxShadow: [
+            if (showItemElevation) itemElevationShadow,
+          ],
         ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -166,7 +224,7 @@ class _ItemWidget extends StatelessWidget {
                 if (isSelected)
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      padding: itemPadding,
                       child: DefaultTextStyle.merge(
                         style: TextStyle(
                           color: item.activeColor,
@@ -193,6 +251,7 @@ class BottomNavyBarItem {
     required this.icon,
     required this.title,
     this.activeColor = Colors.blue,
+    this.activeBackgroundColor = const Color(0x332196F3),
     this.textAlign,
     this.inactiveColor,
   });
@@ -206,6 +265,10 @@ class BottomNavyBarItem {
   /// The [icon] and [title] color defined when this item is selected. Defaults
   /// to [Colors.blue].
   final Color activeColor;
+
+  /// The [icon] and [title] color defined when this item is selected. Defaults
+  /// to [Colors.blue].
+  final Color activeBackgroundColor;
 
   /// The [icon] and [title] color defined when this item is not selected.
   final Color? inactiveColor;
