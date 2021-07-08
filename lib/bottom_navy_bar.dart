@@ -18,7 +18,8 @@ class BottomNavyBar extends StatelessWidget {
     this.backgroundColor,
     this.itemCornerRadius = 50,
     this.containerHeight = 56,
-    this.corner = BorderRadius.zero,
+    this.containerBorder,
+    this.containerBorderRadius = BorderRadius.zero,
     this.elevationShadow = const BoxShadow(
       color: Colors.black12,
       blurRadius: 2,
@@ -80,8 +81,11 @@ class BottomNavyBar extends StatelessWidget {
   /// Defines the bottom navigation bar height. Defaults to 56.
   final double containerHeight;
 
-  /// Defines corners, if not est, it defaults to 0.
-  final BorderRadius corner;
+  /// Defines corners for container, if not set, it defaults to 0.
+  final BorderRadius containerBorderRadius;
+
+  /// Defines border for container.
+  final Border? containerBorder;
 
   /// Defines padding for the container, defaults to EdgeInsets.symmetric(vertical: 6, horizontal: 8).
   final EdgeInsets padding;
@@ -102,7 +106,8 @@ class BottomNavyBar extends StatelessWidget {
         boxShadow: [
           if (showElevation) elevationShadow,
         ],
-        borderRadius: corner,
+        borderRadius: containerBorderRadius,
+        border: containerBorder,
       ),
       child: SafeArea(
         child: Container(
