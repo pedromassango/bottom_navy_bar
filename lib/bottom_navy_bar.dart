@@ -18,6 +18,7 @@ class BottomNavyBar extends StatelessWidget {
     this.backgroundColor,
     this.itemCornerRadius = 50,
     this.itemBorder,
+    this.activeItemBorder,
     this.containerHeight = 56,
     this.barBorder,
     this.barBorderRadius = BorderRadius.zero,
@@ -79,6 +80,9 @@ class BottomNavyBar extends StatelessWidget {
   /// The border to show around each of [items].
   final Border? itemBorder;
 
+  /// The border to show around selected [items].
+  final Border? activeItemBorder;
+
   /// The shadow to be rendered when elevated.
   final BoxShadow barElevationShadow;
   
@@ -136,6 +140,7 @@ class BottomNavyBar extends StatelessWidget {
                     showItemElevation: showItemElevation,
                     itemElevationShadow: itemElevationShadow,
                     itemBorder: itemBorder,
+                    activeItemBorder: activeItemBorder,
                 ),
               );
             }).toList(),
@@ -158,6 +163,7 @@ class _ItemWidget extends StatelessWidget {
   final bool showItemElevation;
   final BoxShadow itemElevationShadow;
   final Border? itemBorder;
+  final Border? activeItemBorder;
 
   const _ItemWidget({
     Key? key,
@@ -172,6 +178,7 @@ class _ItemWidget extends StatelessWidget {
     required this.itemElevationShadow,
     this.curve = Curves.linear,
     this.itemBorder,
+    this.activeItemBorder,
   }) : super(key: key);
 
   @override
@@ -187,7 +194,7 @@ class _ItemWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected ? item.activeBackgroundColor : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
-          border: itemBorder,
+          border: isSelected ? activeItemBorder : itemBorder,
           boxShadow: [
             if (showItemElevation) itemElevationShadow,
           ],
