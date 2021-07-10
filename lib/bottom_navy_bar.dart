@@ -132,7 +132,7 @@ class _ItemWidget extends StatelessWidget {
       container: true,
       selected: isSelected,
       child: AnimatedContainer(
-        width: isSelected ? 130 : 50,
+        width: 100,
         height: double.maxFinite,
         duration: animationDuration,
         curve: curve,
@@ -145,8 +145,8 @@ class _ItemWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: NeverScrollableScrollPhysics(),
           child: Container(
-            width: isSelected ? 130 : 50,
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            width: 100,
+            padding: EdgeInsets.symmetric(horizontal: 2),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -163,10 +163,9 @@ class _ItemWidget extends StatelessWidget {
                   ),
                   child: item.icon,
                 ),
-                if (isSelected)
-                  Expanded(
+                Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 3),
                       child: DefaultTextStyle.merge(
                         style: TextStyle(
                           color: item.activeColor,
@@ -177,7 +176,7 @@ class _ItemWidget extends StatelessWidget {
                         child: item.title,
                       ),
                     ),
-                  ),
+                ),
               ],
             ),
           ),
