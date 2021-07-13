@@ -181,8 +181,11 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          color:
-              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+          color: isSelected
+              ? (item.activeBackgroundColor == null
+                  ? item.activeColor.withOpacity(0.2)
+                  : item.activeBackgroundColor)
+              : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(
@@ -262,6 +265,7 @@ class BottomNavyBarItem {
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
+    this.activeBackgroundColor,
   });
 
   /// Defines this item's icon which is placed in the right side of the [title].
@@ -281,4 +285,9 @@ class BottomNavyBarItem {
   ///
   /// This will take effect only if [title] it a [Text] widget.
   final TextAlign? textAlign;
+
+  /// The [BottomNavyBarItem] background color when active.
+  ///
+  /// Will fallback to [activeColor] with opacity 0.2
+  final Color? activeBackgroundColor;
 }
