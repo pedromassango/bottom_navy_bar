@@ -222,7 +222,7 @@ class _ItemWidget extends StatelessWidget {
                       padding: itemPadding,
                       child: DefaultTextStyle.merge(
                         style: TextStyle(
-                          color: item.activeColor,
+                          color: item.activeTextColor == null ? item.activeColor : item.activeTextColor,
                           fontWeight: FontWeight.bold,
                         ),
                         maxLines: 1,
@@ -265,6 +265,7 @@ class BottomNavyBarItem {
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
+    this.activeTextColor,
     this.activeBackgroundColor,
   });
 
@@ -285,6 +286,11 @@ class BottomNavyBarItem {
   ///
   /// This will take effect only if [title] it a [Text] widget.
   final TextAlign? textAlign;
+
+  /// The [title] color with higher priority than [activeColor]
+  ///
+  /// Will fallback to [activeColor] when null
+  final Color? activeTextColor;
 
   /// The [BottomNavyBarItem] background color when active.
   ///
