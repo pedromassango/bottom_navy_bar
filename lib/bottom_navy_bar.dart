@@ -288,6 +288,6 @@ class BottomNavyBarItem {
 
   /// The [BottomNavyBarItem] background color when active.
   ///
-  /// Will fallback to [activeColor] with opacity 0.2
+  /// Will fallback to [activeColor] with opacity 0.2 when null
   final Color? activeBackgroundColor;
 }
