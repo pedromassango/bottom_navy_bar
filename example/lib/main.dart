@@ -63,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text('Home'),
             activeColor: Colors.red,
             textAlign: TextAlign.center,
+            tooltipText: "Home Sweet Home",
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.people),
