@@ -132,7 +132,7 @@ class _ItemWidget extends StatelessWidget {
       container: true,
       selected: isSelected,
       child: AnimatedContainer(
-        width: isSelected ? 130 : 50,
+        width: isSelected ? item.selectedWidth : item.width,
         height: double.maxFinite,
         duration: animationDuration,
         curve: curve,
@@ -145,7 +145,7 @@ class _ItemWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: NeverScrollableScrollPhysics(),
           child: Container(
-            width: isSelected ? 130 : 50,
+            width: isSelected ? item.selectedWidth : item.width,
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisSize: MainAxisSize.max,
@@ -193,6 +193,8 @@ class BottomNavyBarItem {
     required this.icon,
     required this.title,
     this.activeColor = Colors.blue,
+    this.selectedWidth = 130,
+    this.width = 50,
     this.textAlign,
     this.inactiveColor,
   });
@@ -206,6 +208,12 @@ class BottomNavyBarItem {
   /// The [icon] and [title] color defined when this item is selected. Defaults
   /// to [Colors.blue].
   final Color activeColor;
+  
+  /// Defines the selected item width. Defaults to 130.
+  final double selectedWidth;
+  
+  /// Defines the item width. Defaults to 50.
+  final double width;
 
   /// The [icon] and [title] color defined when this item is not selected.
   final Color? inactiveColor;
