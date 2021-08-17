@@ -65,7 +65,7 @@ class BottomNavyBar extends StatelessWidget {
   /// Used to configure the animation curve. Defaults to [Curves.linear].
   final Curve curve;
 
-  /// Define if [selected item] has a shape.
+  /// Define if [selected item] has a color shape.
   /// Defaults to [true].
   final bool showSelectionShape;
   
