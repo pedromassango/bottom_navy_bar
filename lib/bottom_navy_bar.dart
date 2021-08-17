@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 /// Update [selectedIndex] to change the selected item.
 /// [selectedIndex] is required and must not be null.
 class BottomNavyBar extends StatelessWidget {
+
   BottomNavyBar({
     Key? key,
     this.selectedIndex = 0,
@@ -22,8 +23,10 @@ class BottomNavyBar extends StatelessWidget {
     required this.items,
     required this.onItemSelected,
     this.curve = Curves.linear,
-  })  : assert(items.length >= 2 && items.length <= 5),
-        super(key: key);
+    this.showSelectionShape = true,
+    this.cursor = MaterialStateMouseCursor.clickable,
+  }) : assert(items.length >= 2 && items.length <= 5),
+       super(key: key);
 
   /// The selected item is index. Changing this property will change and animate
   /// the item being selected. Defaults to zero.
@@ -62,6 +65,14 @@ class BottomNavyBar extends StatelessWidget {
   /// Used to configure the animation curve. Defaults to [Curves.linear].
   final Curve curve;
 
+  /// Define if [selected item] has a color shape.
+  /// Defaults to [true].
+  final bool showSelectionShape;
+  
+  /// Define the cursor for the hover items.
+  /// Defaults to [MaterialStateMouseCursor.clickable]
+  final MaterialStateMouseCursor cursor;
+
   @override
   Widget build(BuildContext context) {
     final bgColor = backgroundColor ?? Theme.of(context).bottomAppBarColor;
@@ -86,16 +97,20 @@ class BottomNavyBar extends StatelessWidget {
             mainAxisAlignment: mainAxisAlignment,
             children: items.map((item) {
               var index = items.indexOf(item);
-              return GestureDetector(
-                onTap: () => onItemSelected(index),
-                child: _ItemWidget(
-                  item: item,
-                  iconSize: iconSize,
-                  isSelected: index == selectedIndex,
-                  backgroundColor: bgColor,
-                  itemCornerRadius: itemCornerRadius,
-                  animationDuration: animationDuration,
-                  curve: curve,
+              return MouseRegion(
+                cursor: cursor,
+                child: GestureDetector(
+                  onTap: () => onItemSelected(index),
+                  child: _ItemWidget(
+                    item: item,
+                    iconSize: iconSize,
+                    isSelected: index == selectedIndex,
+                    backgroundColor: bgColor,
+                    itemCornerRadius: itemCornerRadius,
+                    animationDuration: animationDuration,
+                    showSelectionShape: showSelectionShape,
+                    curve: curve,
+                  ),
                 ),
               );
             }).toList(),
@@ -114,6 +129,7 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
   final Curve curve;
+  final bool showSelectionShape;
 
   const _ItemWidget({
     Key? key,
@@ -124,7 +140,8 @@ class _ItemWidget extends StatelessWidget {
     required this.itemCornerRadius,
     required this.iconSize,
     this.curve = Curves.linear,
-  }) : super(key: key);
+    this.showSelectionShape = true
+  })  : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +155,8 @@ class _ItemWidget extends StatelessWidget {
         curve: curve,
         decoration: BoxDecoration(
           color:
-              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+              isSelected && showSelectionShape?
+              item.activeColor.withOpacity(0.2) : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(

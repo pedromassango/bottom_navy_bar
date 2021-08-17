@@ -55,6 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCornerRadius: 24,
         curve: Curves.easeIn,
         onItemSelected: (index) => setState(() => _currentIndex = index),
+        // showSelectionShape: true,
+        // cursor: MaterialStateMouseCursor.clickable,
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
             icon: Icon(Icons.apps),
