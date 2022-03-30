@@ -48,7 +48,7 @@ Add the dependency in `pubspec.yaml`:
 ```yaml
 dependencies:
   ...
-  bottom_navy_bar: ^5.6.0
+  bottom_navy_bar: ^6.0.0
 ```
 
 ## Basic Usage
