@@ -3,6 +3,8 @@ library bottom_navy_bar;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+enum BottomStyle { styleOne }
+
 /// A beautiful and animated bottom navigation that paints a rounded shape
 /// around its [items] to provide a wonderful look.
 ///
@@ -15,6 +17,7 @@ class BottomNavyBar extends StatelessWidget {
     this.showElevation = true,
     this.iconSize = 24,
     this.backgroundColor,
+    this.bottomStyle = BottomStyle.styleOne,
     this.itemCornerRadius = 50,
     this.containerHeight = 56,
     this.animationDuration = const Duration(milliseconds: 270),
@@ -24,6 +27,9 @@ class BottomNavyBar extends StatelessWidget {
     this.curve = Curves.linear,
   })  : assert(items.length >= 2 && items.length <= 5),
         super(key: key);
+
+  /// Choose a style for your bottom nav
+  final BottomStyle bottomStyle;
 
   /// The selected item is index. Changing this property will change and animate
   /// the item being selected. Defaults to zero.
@@ -95,6 +101,7 @@ class BottomNavyBar extends StatelessWidget {
                   backgroundColor: bgColor,
                   itemCornerRadius: itemCornerRadius,
                   animationDuration: animationDuration,
+                  bottomStyle: bottomStyle,
                   curve: curve,
                 ),
               );
@@ -114,6 +121,7 @@ class _ItemWidget extends StatelessWidget {
   final double itemCornerRadius;
   final Duration animationDuration;
   final Curve curve;
+  final BottomStyle bottomStyle;
 
   const _ItemWidget({
     Key? key,
@@ -123,11 +131,86 @@ class _ItemWidget extends StatelessWidget {
     required this.animationDuration,
     required this.itemCornerRadius,
     required this.iconSize,
+    required this.bottomStyle,
     this.curve = Curves.linear,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return _switchStyle(bottomStyle);
+  }
+
+  Widget _switchStyle(BottomStyle bottomStyle) {
+    switch (bottomStyle) {
+      case BottomStyle.styleOne:
+        return _styleOne();
+      default:
+        return Container();
+    }
+  }
+
+  /// Style one widget
+  Semantics _styleOne() {
+    return Semantics(
+      container: true,
+      selected: isSelected,
+      child: AnimatedContainer(
+        width: isSelected ? 130 : 50,
+        height: double.maxFinite,
+        duration: animationDuration,
+        curve: curve,
+        decoration: BoxDecoration(
+          color:
+              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+          borderRadius: BorderRadius.circular(itemCornerRadius),
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          physics: NeverScrollableScrollPhysics(),
+          child: Container(
+            width: isSelected ? 130 : 50,
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                IconTheme(
+                  data: IconThemeData(
+                    size: iconSize,
+                    color: isSelected
+                        ? item.activeColor.withOpacity(1)
+                        : item.inactiveColor == null
+                            ? item.activeColor
+                            : item.inactiveColor,
+                  ),
+                  child: item.icon,
+                ),
+                if (isSelected)
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      child: DefaultTextStyle.merge(
+                        style: TextStyle(
+                          color: item.activeColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        textAlign: item.textAlign,
+                        child: item.title,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Style two widget
+  Semantics _styleTwo() {
     return Semantics(
       container: true,
       selected: isSelected,
