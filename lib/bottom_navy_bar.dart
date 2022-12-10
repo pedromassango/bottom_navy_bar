@@ -1,7 +1,6 @@
 library bottom_navy_bar;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 /// A beautiful and animated bottom navigation that paints a rounded shape
 /// around its [items] to provide a wonderful look.
@@ -15,8 +14,14 @@ class BottomNavyBar extends StatelessWidget {
     this.showElevation = true,
     this.iconSize = 24,
     this.backgroundColor,
+    this.shadowColor = Colors.black12,
     this.itemCornerRadius = 50,
     this.containerHeight = 56,
+    this.blurRadius = 2,
+    this.spreadRadius = 0,
+    this.borderRadius,
+    this.shadowOffset = Offset.zero,
+    this.itemPadding = const EdgeInsets.symmetric(horizontal: 4),
     this.animationDuration = const Duration(milliseconds: 270),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     required this.items,
@@ -33,8 +38,11 @@ class BottomNavyBar extends StatelessWidget {
   final double iconSize;
 
   /// The background color of the navigation bar. It defaults to
-  /// [Theme.bottomAppBarColor] if not provided.
+  /// [ThemeData.bottomAppBarColor] if not provided.
   final Color? backgroundColor;
+
+  /// Defines the shadow color of the navigation bar. Defaults to [Colors.black12].
+  final Color shadowColor;
 
   /// Whether this navigation bar should show a elevation. Defaults to true.
   final bool showElevation;
@@ -59,6 +67,22 @@ class BottomNavyBar extends StatelessWidget {
   /// Defines the bottom navigation bar height. Defaults to 56.
   final double containerHeight;
 
+  /// Used to configure the blurRadius of the [BoxShadow]. Defaults to 2.
+  final double blurRadius;
+
+  /// Used to configure the spreadRadius of the [BoxShadow]. Defaults to 0.
+  final double spreadRadius;
+
+  /// Used to configure the offset of the [BoxShadow]. Defaults to null.
+  final Offset shadowOffset;
+
+  /// Used to configure the borderRadius of the [BottomNavyBar]. Defaults to null.
+  final BorderRadiusGeometry? borderRadius;
+
+  /// Used to configure the padding of the [BottomNavyBarItem] [items].
+  /// Defaults to EdgeInsets.symmetric(horizontal: 4).
+  final EdgeInsets itemPadding;
+
   /// Used to configure the animation curve. Defaults to [Curves.linear].
   final Curve curve;
 
@@ -71,11 +95,14 @@ class BottomNavyBar extends StatelessWidget {
         color: bgColor,
         boxShadow: [
           if (showElevation)
-            const BoxShadow(
-              color: Colors.black12,
-              blurRadius: 2,
+            BoxShadow(
+              color: shadowColor,
+              blurRadius: blurRadius,
+              spreadRadius: spreadRadius,
+              offset: shadowOffset,
             ),
         ],
+        borderRadius: borderRadius,
       ),
       child: SafeArea(
         child: Container(
@@ -95,6 +122,7 @@ class BottomNavyBar extends StatelessWidget {
                   backgroundColor: bgColor,
                   itemCornerRadius: itemCornerRadius,
                   animationDuration: animationDuration,
+                  itemPadding: itemPadding,
                   curve: curve,
                 ),
               );
@@ -113,16 +141,18 @@ class _ItemWidget extends StatelessWidget {
   final Color backgroundColor;
   final double itemCornerRadius;
   final Duration animationDuration;
+  final EdgeInsets itemPadding;
   final Curve curve;
 
   const _ItemWidget({
     Key? key,
-    required this.item,
-    required this.isSelected,
-    required this.backgroundColor,
-    required this.animationDuration,
-    required this.itemCornerRadius,
     required this.iconSize,
+    required this.isSelected,
+    required this.item,
+    required this.backgroundColor,
+    required this.itemCornerRadius,
+    required this.animationDuration,
+    required this.itemPadding,
     this.curve = Curves.linear,
   }) : super(key: key);
 
@@ -151,7 +181,7 @@ class _ItemWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
+              children: [
                 IconTheme(
                   data: IconThemeData(
                     size: iconSize,
@@ -166,7 +196,7 @@ class _ItemWidget extends StatelessWidget {
                 if (isSelected)
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      padding: itemPadding,
                       child: DefaultTextStyle.merge(
                         style: TextStyle(
                           color: item.activeColor,
