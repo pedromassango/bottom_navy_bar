@@ -6,9 +6,9 @@ name: Widget Tests
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -23,6 +23,6 @@ jobs:
       - run: flutter format --set-exit-if-changed example/lib/
       - run: flutter pub get
       - run: flutter analyze
-      - run: pub global activate coverage
+      - run: dart pub global activate coverage
       - run: flutter test --coverage
       - run: bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info
