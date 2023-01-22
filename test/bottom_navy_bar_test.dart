@@ -70,6 +70,7 @@ void main() {
                 icon: Icon(Icons.people),
                 title: Text('Item 2'),
                 activeColor: Colors.purpleAccent,
+                inactiveColor: Colors.blue,
                 textAlign: TextAlign.center,
               ),
             ],
@@ -78,14 +79,61 @@ void main() {
       ),
     );
 
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).iconSize, 24.0);
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).selectedIndex, 0);
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).showElevation, true);
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).itemCornerRadius, 50);
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).containerHeight, 56);
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).animationDuration, const Duration(milliseconds: 270));
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).mainAxisAlignment, MainAxisAlignment.spaceBetween);
-    expect(tester.widget<BottomNavyBar>(find.byType(BottomNavyBar)).curve, Curves.linear);
+    final bottomNavyBar = tester.widget<BottomNavyBar>(find.byType(BottomNavyBar));
+
+    expect(bottomNavyBar.selectedIndex, 0);
+    expect(bottomNavyBar.iconSize, 24.0);
+    expect(bottomNavyBar.showElevation, true);
+    expect(bottomNavyBar.backgroundColor, null);
+    expect(bottomNavyBar.shadowColor, Colors.black12);
+    expect(bottomNavyBar.itemCornerRadius, 50);
+    expect(bottomNavyBar.containerHeight, 56);
+    expect(bottomNavyBar.blurRadius, 2);
+    expect(bottomNavyBar.spreadRadius, 0);
+    expect(bottomNavyBar.borderRadius, null);
+    expect(bottomNavyBar.shadowOffset, Offset.zero);
+    expect(bottomNavyBar.itemPadding, const EdgeInsets.symmetric(horizontal: 4));
+    expect(bottomNavyBar.animationDuration, const Duration(milliseconds: 270));
+    expect(bottomNavyBar.mainAxisAlignment, MainAxisAlignment.spaceBetween);
+    expect(bottomNavyBar.curve, Curves.linear);
+  });
+
+  testWidgets('onItemSelected', (WidgetTester tester) async {
+    int itemIndex = 0;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          floatingActionButton: BottomNavyBar(
+            onItemSelected: (index) {
+              itemIndex = index;
+            },
+            items: [
+              BottomNavyBarItem(
+                icon: Icon(Icons.apps),
+                title: Text('Item 1'),
+                activeColor: Colors.red,
+                textAlign: TextAlign.center,
+              ),
+              BottomNavyBarItem(
+                icon: Icon(Icons.people),
+                title: Text('Item 2'),
+                activeColor: Colors.red,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(itemIndex, 0);
+
+    await tester.tap(find.byIcon(Icons.people));
+    await tester.pumpAndSettle();
+
+    expect(itemIndex, 1);
   });
   
   testWidgets('throws assertion error if items is less than two or greater than five', (WidgetTester tester) async {

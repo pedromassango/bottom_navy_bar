@@ -75,14 +75,14 @@ class BottomNavyBar extends StatelessWidget {
   /// Used to configure the spreadRadius of the [BoxShadow]. Defaults to 0.
   final double spreadRadius;
 
-  /// Used to configure the offset of the [BoxShadow]. Defaults to null.
-  final Offset shadowOffset;
-
   /// Used to configure the borderRadius of the [BottomNavyBar]. Defaults to null.
   final BorderRadiusGeometry? borderRadius;
 
+  /// Used to configure the offset of the [BoxShadow]. Defaults to [Offset.zero].
+  final Offset shadowOffset;
+
   /// Used to configure the padding of the [BottomNavyBarItem] [items].
-  /// Defaults to EdgeInsets.symmetric(horizontal: 4).
+  /// Defaults to [const EdgeInsets.symmetric(horizontal: 4)].
   final EdgeInsets itemPadding;
 
   /// Used to configure the animation curve. Defaults to [Curves.linear].
