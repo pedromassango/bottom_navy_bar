@@ -15,12 +15,12 @@ jobs:
   tests:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: subosito/flutter-action@v1
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
         with:
           channel: beta
-      - run: flutter format --set-exit-if-changed lib/
-      - run: flutter format --set-exit-if-changed example/lib/
+      - run: dart format --set-exit-if-changed lib/
+      - run: dart format --set-exit-if-changed example/lib/
       - run: flutter pub get
       - run: flutter analyze
       - run: dart pub global activate coverage
