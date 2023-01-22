@@ -1,69 +1,88 @@
+## 7.0.0
+
+- Added more customization options
+- Updated SDK constraints
 
 ## 6.0.0
 
-* Stable Null Safety support
+- Stable Null Safety support
 
 ## 6.0.0-nullsafety.0
 
-* Null Safety support
+- Null Safety support
 
 ## 5.6.0
 
-* Added Tests
-* Added public API documentation
+- Added Tests
+- Added public API documentation
 
 ## 5.4.0
 
-* Added `containerHeight` param to change the Navigation Bar height
+- Added `containerHeight` param to change the Navigation Bar height
 
 ## 5.3.2
 
-* Added `curve` param to customize the item change's animation
-* Added `textAlign` property in `BottomNavyBarItem` to change the alignment of the item title
- 
+- Added `curve` param to customize the item change's animation
+- Added `textAlign` property in `BottomNavyBarItem` to change the alignment of the item title
+
 ## 5.2.2
- * Added [mainAxisAlignment] property to align the items in the navigation bar
 
-## 5.2.1 
-* Added [itemCornerRadius] property to change the active item's corner radius
+- Added [mainAxisAlignment] property to align the items in the navigation bar
 
-## 5.2.0 
-* Added optional parameter animationDuration to BottomNavyBar
-* Fixed issue, that selectedIndex has to be final in StatefulWidget
-* BottomNavyBar changed to StatelessWidget
+## 5.2.1
 
-## 5.1.0 
-* Added assertion to prevent more than five items
+- Added [itemCornerRadius] property to change the active item's corner radius
 
-## 5.0.0 
-* Fixed: Bar is too low at iPhone X(s/R)
+## 5.2.0
 
-## 4.2.0 
-* Fixed the width of the Bottom navigation bar
+- Added optional parameter animationDuration to BottomNavyBar
+- Fixed issue, that selectedIndex has to be final in StatefulWidget
+- BottomNavyBar changed to StatelessWidget
 
-## 4.1.0 
-* Added support to hide/show appBar's elevation
+## 5.1.0
 
-## 4.0.0 
-* Fixed: Can't set default active item before Tap
+- Added assertion to prevent more than five items
 
-## 3.0.0 
-* Animation duration set to 270 milliseconds && code improved.
+## 5.0.0
 
-## 2.2.0 
-* Icon now have default inactive color as the active color (bug fixed).
+- Fixed: Bar is too low at iPhone X(s/R)
 
-## 2.1.0 
-* Icon now have default inactive color as the active color.
+## 4.2.0
 
-## 2.0.0 
-* Full update & more improved.
+- Fixed the width of the Bottom navigation bar
 
-## 1.1.1 
-* First stable version.
+## 4.1.0
 
-## 0.1.1 
-* Few updates.
+- Added support to hide/show appBar's elevation
 
-## 0.1.0 
-* Initial beta release.
+## 4.0.0
+
+- Fixed: Can't set default active item before Tap
+
+## 3.0.0
+
+- Animation duration set to 270 milliseconds && code improved.
+
+## 2.2.0
+
+- Icon now have default inactive color as the active color (bug fixed).
+
+## 2.1.0
+
+- Icon now have default inactive color as the active color.
+
+## 2.0.0
+
+- Full update & more improved.
+
+## 1.1.1
+
+- First stable version.
+
+## 0.1.1
+
+- Few updates.
+
+## 0.1.0
+
+- Initial beta release.
