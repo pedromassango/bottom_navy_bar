@@ -156,3 +156,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 ```
+
+## Contributions
+
+Contributions of any kind are more than welcome! Feel free to fork and improve in any way you want, make a pull request, or open an issue.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for more info on how to contribute to this project.
+
+# License
+
+This project is licensed under the Apache-2.0 License - see the [LICENSE](./LICENSE) file for details.
