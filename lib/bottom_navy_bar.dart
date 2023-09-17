@@ -158,7 +158,7 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
+    Semantics semantic = Semantics(
       container: true,
       selected: isSelected,
       child: AnimatedContainer(
@@ -214,6 +214,12 @@ class _ItemWidget extends StatelessWidget {
         ),
       ),
     );
+    return item.tooltipText == null
+        ? semantic
+        : Tooltip(
+      message: item.tooltipText!,
+      child: semantic,
+    );
   }
 }
 
@@ -225,6 +231,7 @@ class BottomNavyBarItem {
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
+    this.tooltipText,
   });
 
   /// Defines this item's icon which is placed in the right side of the [title].
@@ -244,4 +251,6 @@ class BottomNavyBarItem {
   ///
   /// This will take effect only if [title] it a [Text] widget.
   final TextAlign? textAlign;
+  /// Will show a tooltip for icon if provided.
+  final String? tooltipText;
 }
