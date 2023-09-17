@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
