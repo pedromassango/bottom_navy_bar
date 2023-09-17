@@ -11,10 +11,10 @@ You can contribute by:
 * Improving documentation
 * Talking about BottomNavyBar
 
-All bugs, tasks or enhancements are tracked as [GitHub issues][https://github.com/pedromassango/bottom_navy_bar/issues]. Issues that might be a good start for new contributors are marked with the `good first issue` label.
+All bugs, tasks or enhancements are tracked as [GitHub issues](https://github.com/pedromassango/bottom_navy_bar/issues). Issues that might be a good start for new contributors are marked with the `good first issue` label.
 
 We recommend you get in touch with us before contributing, you can do that by:
-- openning a new issue
+- opening a new issue
 - or start a new discussion.
 
 ## After

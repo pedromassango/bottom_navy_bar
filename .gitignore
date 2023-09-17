@@ -9,7 +9,13 @@ ios/.generated/
 ios/Flutter/Generated.xcconfig
 ios/Runner/GeneratedPluginRegistrant.*
 .idea/
-.github/
 pubspec.lock
 example/pubspec.lockUpdate
 /example/ios/Flutter/flutter_export_environment.sh
+
+# android
+android/local.properties
+
+# Coverage
+coverage/
+coverage/lcov.info

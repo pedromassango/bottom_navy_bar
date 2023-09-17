@@ -38,7 +38,7 @@ class BottomNavyBar extends StatelessWidget {
   final double iconSize;
 
   /// The background color of the navigation bar. It defaults to
-  /// [ThemeData.bottomAppBarColor] if not provided.
+  /// [ThemeData.BottomAppBarTheme.color] if not provided.
   final Color? backgroundColor;
 
   /// Defines the shadow color of the navigation bar. Defaults to [Colors.black12].
@@ -88,7 +88,7 @@ class BottomNavyBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = backgroundColor ?? Theme.of(context).bottomAppBarColor;
+    final bgColor = backgroundColor ?? (Theme.of(context).bottomAppBarTheme.color ?? Colors.white);
 
     return Container(
       decoration: BoxDecoration(

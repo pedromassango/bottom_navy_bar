@@ -1,10 +1,10 @@
 name: bottom_navy_bar
-description: A beautiful and animated bottom navigation. The navigation bar use your current theme, but you are free to customize it.
+description: A beautiful and animated bottom navigation. The navigation bar uses your current theme, but you are free to customize it.
 version: 6.0.0
 homepage: https://github.com/pedromassango/bottom_navy_bar
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
+  sdk: ">=2.17.0-0 <3.0.0"
 
 dependencies:
   flutter:
