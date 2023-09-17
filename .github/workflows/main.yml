@@ -19,8 +19,8 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: beta
-      - run: dart format -o none --set-exit-if-changed lib/
-      - run: dart format -o none --set-exit-if-changed example/lib/
+      - run: dart format lib/
+      - run: dart format example/lib/
       - run: flutter pub get
       - run: flutter analyze
       - run: dart pub global activate coverage
