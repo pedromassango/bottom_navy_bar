@@ -162,7 +162,7 @@ class _ItemWidget extends StatelessWidget {
       container: true,
       selected: isSelected,
       child: AnimatedContainer(
-        width: isSelected ? 130 : 50, // Limit the width here
+        width: isSelected ? 130 : 50,
         height: double.maxFinite,
         duration: animationDuration,
         curve: curve,
@@ -174,7 +174,8 @@ class _ItemWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: NeverScrollableScrollPhysics(),
           child: Container(
-            width: isSelected ? 130 : 50, // Limit the width here
+            // Remove fixed width, let it adjust based on content
+            // width: isSelected ? 130 : 50, // Limit the width here
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisSize: MainAxisSize.min, // Change to MainAxisSize.min to reduce space
@@ -194,15 +195,17 @@ class _ItemWidget extends StatelessWidget {
                 ),
                 if (isSelected)
                   Container(
-                    padding: itemPadding,
-                    child: DefaultTextStyle.merge(
-                      style: TextStyle(
-                        color: item.activeColor,
-                        fontWeight: FontWeight.bold,
+                    padding: EdgeInsets.only(left: 4), // Adjust left padding here
+                    child: Flexible( // Use Flexible instead of Expanded
+                      child: DefaultTextStyle.merge(
+                        style: TextStyle(
+                          color: item.activeColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        textAlign: item.textAlign,
+                        child: item.title,
                       ),
-                      maxLines: 1,
-                      textAlign: item.textAlign,
-                      child: item.title,
                     ),
                   ),
               ],
