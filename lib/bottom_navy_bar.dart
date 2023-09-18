@@ -88,7 +88,8 @@ class BottomNavyBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = backgroundColor ?? (Theme.of(context).bottomAppBarTheme.color ?? Colors.white);
+    final bgColor = backgroundColor ??
+        (Theme.of(context).bottomAppBarTheme.color ?? Colors.white);
 
     return Container(
       decoration: BoxDecoration(
@@ -175,10 +176,12 @@ class _ItemWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: NeverScrollableScrollPhysics(),
           child: Container(
-            width: isSelected ? 130 : 50,
+            // Remove fixed width, let it adjust based on content
+            // width: isSelected ? 130 : 50, // Limit the width here
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Row(
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: MainAxisSize
+                  .min, // Change to MainAxisSize.min to reduce space
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -194,9 +197,9 @@ class _ItemWidget extends StatelessWidget {
                   child: item.icon,
                 ),
                 if (isSelected)
-                  Expanded(
-                    child: Container(
-                      padding: itemPadding,
+                  Container(
+                      padding:
+                          EdgeInsets.only(left: 4), // Adjust left padding here
                       child: DefaultTextStyle.merge(
                         style: TextStyle(
                           color: item.activeColor,
@@ -205,9 +208,7 @@ class _ItemWidget extends StatelessWidget {
                         maxLines: 1,
                         textAlign: item.textAlign,
                         child: item.title,
-                      ),
-                    ),
-                  ),
+                      )),
               ],
             ),
           ),
