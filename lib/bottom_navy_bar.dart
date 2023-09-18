@@ -88,7 +88,8 @@ class BottomNavyBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = backgroundColor ?? (Theme.of(context).bottomAppBarTheme.color ?? Colors.white);
+    final bgColor = backgroundColor ??
+        (Theme.of(context).bottomAppBarTheme.color ?? Colors.white);
 
     return Container(
       decoration: BoxDecoration(
@@ -167,7 +168,8 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          color: isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+          color:
+              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(
@@ -178,7 +180,8 @@ class _ItemWidget extends StatelessWidget {
             // width: isSelected ? 130 : 50, // Limit the width here
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Row(
-              mainAxisSize: MainAxisSize.min, // Change to MainAxisSize.min to reduce space
+              mainAxisSize: MainAxisSize
+                  .min, // Change to MainAxisSize.min to reduce space
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -188,15 +191,15 @@ class _ItemWidget extends StatelessWidget {
                     color: isSelected
                         ? item.activeColor.withOpacity(1)
                         : item.inactiveColor == null
-                        ? item.activeColor
-                        : item.inactiveColor,
+                            ? item.activeColor
+                            : item.inactiveColor,
                   ),
                   child: item.icon,
                 ),
                 if (isSelected)
                   Container(
-                    padding: EdgeInsets.only(left: 4), // Adjust left padding here
-                    child: Flexible( // Use Flexible instead of Expanded
+                      padding:
+                          EdgeInsets.only(left: 4), // Adjust left padding here
                       child: DefaultTextStyle.merge(
                         style: TextStyle(
                           color: item.activeColor,
@@ -205,9 +208,7 @@ class _ItemWidget extends StatelessWidget {
                         maxLines: 1,
                         textAlign: item.textAlign,
                         child: item.title,
-                      ),
-                    ),
-                  ),
+                      )),
               ],
             ),
           ),
@@ -216,7 +217,6 @@ class _ItemWidget extends StatelessWidget {
     );
   }
 }
-
 
 /// The [BottomNavyBar.items] definition.
 class BottomNavyBarItem {
