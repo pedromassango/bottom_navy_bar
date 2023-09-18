@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavyBarItem(
             icon: Icon(Icons.message),
             title: Text(
-              'Messages test for mes teset test test ',
+              'Messages',
             ),
             activeColor: Colors.pink,
             textAlign: TextAlign.center,
