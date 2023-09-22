@@ -167,8 +167,10 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          color:
-              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+          color: isSelected
+              ? (item.activeBackgroundColor ??
+                  item.activeColor.withOpacity(0.2))
+              : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(
@@ -199,7 +201,7 @@ class _ItemWidget extends StatelessWidget {
                       padding: itemPadding,
                       child: DefaultTextStyle.merge(
                         style: TextStyle(
-                          color: item.activeColor,
+                          color: item.activeTextColor ?? item.activeColor,
                           fontWeight: FontWeight.bold,
                         ),
                         maxLines: 1,
@@ -225,6 +227,8 @@ class BottomNavyBarItem {
     this.activeColor = Colors.blue,
     this.textAlign,
     this.inactiveColor,
+    this.activeTextColor,
+    this.activeBackgroundColor,
   });
 
   /// Defines this item's icon which is placed in the right side of the [title].
@@ -244,4 +248,14 @@ class BottomNavyBarItem {
   ///
   /// This will take effect only if [title] it a [Text] widget.
   final TextAlign? textAlign;
+
+  /// The [title] color with higher priority than [activeColor]
+  ///
+  /// Will fallback to [activeColor] when null
+  final Color? activeTextColor;
+
+  /// The [BottomNavyBarItem] background color when active.
+  ///
+  /// Will fallback to [activeColor] with opacity 0.2 when null
+  final Color? activeBackgroundColor;
 }
