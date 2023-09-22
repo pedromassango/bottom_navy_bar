@@ -167,8 +167,9 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          color:
-              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+          color: isSelected
+              ? item.activeColor.withOpacity(item.activeColorOpacity)
+              : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(
@@ -186,7 +187,7 @@ class _ItemWidget extends StatelessWidget {
                   data: IconThemeData(
                     size: iconSize,
                     color: isSelected
-                        ? item.activeColor.withOpacity(1)
+                        ? item.activeColor.withOpacity(item.activeColorOpacity)
                         : item.inactiveColor == null
                             ? item.activeColor
                             : item.inactiveColor,
@@ -223,6 +224,7 @@ class BottomNavyBarItem {
     required this.icon,
     required this.title,
     this.activeColor = Colors.blue,
+    this.activeColorOpacity = 0.2,
     this.textAlign,
     this.inactiveColor,
   });
@@ -236,6 +238,10 @@ class BottomNavyBarItem {
   /// The [icon] and [title] color defined when this item is selected. Defaults
   /// to [Colors.blue].
   final Color activeColor;
+
+  /// The [icon] and [title] color's opacity defined when this item is selected. Defaults
+  /// to [0.2].
+  final double activeColorOpacity;
 
   /// The [icon] and [title] color defined when this item is not selected.
   final Color? inactiveColor;
