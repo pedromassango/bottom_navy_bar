@@ -158,6 +158,13 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    List<double>? stops;
+    if (item.activeBackgroundColorGradient != null) {
+      int gradientLength = item.activeBackgroundColorGradient!.length;
+      stops = List<double>.generate(gradientLength, (index) => index / (gradientLength - 1));
+    }
+
     return Semantics(
       container: true,
       selected: isSelected,
@@ -167,8 +174,17 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          color:
-              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+          gradient: isSelected && item.activeBackgroundColorGradient != null && item.activeBackgroundColorGradient!.length > 0
+              ? LinearGradient(
+                  colors: item.activeBackgroundColorGradient!,
+                  stops: stops,
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                )
+              : null,
+          color: isSelected
+              ? item.activeColor?.withOpacity(item.activeColorOpacityLevel)
+              : backgroundColor,
           borderRadius: BorderRadius.circular(itemCornerRadius),
         ),
         child: SingleChildScrollView(
@@ -186,7 +202,7 @@ class _ItemWidget extends StatelessWidget {
                   data: IconThemeData(
                     size: iconSize,
                     color: isSelected
-                        ? item.activeColor.withOpacity(1)
+                        ? item.activeColor?.withOpacity(1)
                         : item.inactiveColor == null
                             ? item.activeColor
                             : item.inactiveColor,
@@ -222,10 +238,12 @@ class BottomNavyBarItem {
   BottomNavyBarItem({
     required this.icon,
     required this.title,
-    this.activeColor = Colors.blue,
+    this.activeColor,
     this.textAlign,
     this.inactiveColor,
-  });
+    this.activeColorOpacityLevel = 0.2,
+    this.activeBackgroundColorGradient,
+  })   : assert(activeColor == null || activeBackgroundColorGradient == null);
 
   /// Defines this item's icon which is placed in the right side of the [title].
   final Widget icon;
@@ -235,10 +253,16 @@ class BottomNavyBarItem {
 
   /// The [icon] and [title] color defined when this item is selected. Defaults
   /// to [Colors.blue].
-  final Color activeColor;
+  final Color? activeColor;
 
   /// The [icon] and [title] color defined when this item is not selected.
   final Color? inactiveColor;
+
+  /// Used to configure active background opacity, if not set, it defaults to 0.2.
+  final double activeColorOpacityLevel;
+
+  /// Color gradient for background
+  final List<Color>? activeBackgroundColorGradient;
 
   /// The alignment for the [title].
   ///

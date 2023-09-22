@@ -134,4 +134,33 @@ void main() {
     expect((containerFinder.decoration as BoxDecoration).boxShadow!.length, 1);
     expect((containerFinder.decoration as BoxDecoration).boxShadow!.first.blurRadius, 2);
   });
+
+  testWidgets('throws assertion error if both activeColor and activeBackgroundColorGradient are set', (WidgetTester tester) async {
+    expect(() async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            floatingActionButton: BottomNavyBar(
+              onItemSelected: onItemSelected,
+              items: <BottomNavyBarItem>[
+                BottomNavyBarItem(
+                  icon: Icon(Icons.apps),
+                  title: Text('Item 1'),
+                  activeBackgroundColorGradient: [Colors.pink, Colors.deepPurple, Colors.blue.shade900],
+                  activeColor: Colors.yellow,
+                  textAlign: TextAlign.center,
+                ),
+                BottomNavyBarItem(
+                  icon: Icon(Icons.people),
+                  title: Text('Item 2'),
+                  activeBackgroundColorGradient: [Colors.red, Colors.orange, Colors.yellow, Colors.green, Colors.blue, Colors.purple],
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }, throwsAssertionError);
+  });
 }
