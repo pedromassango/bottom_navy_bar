@@ -24,6 +24,7 @@ class BottomNavyBar extends StatelessWidget {
     this.itemPadding = const EdgeInsets.symmetric(horizontal: 4),
     this.animationDuration = const Duration(milliseconds: 270),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
+    this.showInactiveTitle = false,
     required this.items,
     required this.onItemSelected,
     this.curve = Curves.linear,
@@ -86,9 +87,13 @@ class BottomNavyBar extends StatelessWidget {
   /// Used to configure the animation curve. Defaults to [Curves.linear].
   final Curve curve;
 
+  /// Whether this navigation bar should show a Inactive titles. Defaults to false.
+  final bool showInactiveTitle;
+
   @override
   Widget build(BuildContext context) {
-    final bgColor = backgroundColor ?? (Theme.of(context).bottomAppBarTheme.color ?? Colors.white);
+    final bgColor = backgroundColor ??
+        (Theme.of(context).bottomAppBarTheme.color ?? Colors.white);
 
     return Container(
       decoration: BoxDecoration(
@@ -124,6 +129,7 @@ class BottomNavyBar extends StatelessWidget {
                   animationDuration: animationDuration,
                   itemPadding: itemPadding,
                   curve: curve,
+                  showInactiveTitle: showInactiveTitle,
                 ),
               );
             }).toList(),
@@ -143,6 +149,7 @@ class _ItemWidget extends StatelessWidget {
   final Duration animationDuration;
   final EdgeInsets itemPadding;
   final Curve curve;
+  final bool showInactiveTitle;
 
   const _ItemWidget({
     Key? key,
@@ -153,6 +160,7 @@ class _ItemWidget extends StatelessWidget {
     required this.itemCornerRadius,
     required this.animationDuration,
     required this.itemPadding,
+    required this.showInactiveTitle,
     this.curve = Curves.linear,
   }) : super(key: key);
 
@@ -162,7 +170,13 @@ class _ItemWidget extends StatelessWidget {
       container: true,
       selected: isSelected,
       child: AnimatedContainer(
-        width: isSelected ? 130 : 50,
+        width: (showInactiveTitle)
+            ? ((isSelected)
+                ? MediaQuery.of(context).size.width * 0.25
+                : MediaQuery.of(context).size.width * 0.2)
+            : ((isSelected)
+                ? MediaQuery.of(context).size.width * 0.3
+                : MediaQuery.of(context).size.width * 0.1),
         height: double.maxFinite,
         duration: animationDuration,
         curve: curve,
@@ -175,8 +189,14 @@ class _ItemWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: NeverScrollableScrollPhysics(),
           child: Container(
-            width: isSelected ? 130 : 50,
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            width: (showInactiveTitle)
+                ? ((isSelected)
+                ? MediaQuery.of(context).size.width * 0.25
+                : MediaQuery.of(context).size.width * 0.2)
+                : ((isSelected)
+                ? MediaQuery.of(context).size.width * 0.3
+                : MediaQuery.of(context).size.width * 0.1),
+            padding: EdgeInsets.symmetric(horizontal: 4),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -193,8 +213,8 @@ class _ItemWidget extends StatelessWidget {
                   ),
                   child: item.icon,
                 ),
-                if (isSelected)
-                  Expanded(
+                if (showInactiveTitle)
+                  Flexible(
                     child: Container(
                       padding: itemPadding,
                       child: DefaultTextStyle.merge(
@@ -204,6 +224,23 @@ class _ItemWidget extends StatelessWidget {
                         ),
                         maxLines: 1,
                         textAlign: item.textAlign,
+                        overflow: TextOverflow.ellipsis,
+                        child: item.title,
+                      ),
+                    ),
+                  )
+                else if (isSelected)
+                  Flexible(
+                    child: Container(
+                      padding: itemPadding,
+                      child: DefaultTextStyle.merge(
+                        style: TextStyle(
+                          color: item.activeColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        textAlign: item.textAlign,
+                        overflow: TextOverflow.ellipsis,
                         child: item.title,
                       ),
                     ),
