@@ -33,6 +33,7 @@ The navigation bar uses your current theme, but you are free to customize it.
 - `mainAxisAlignment` - use this property to change the horizontal alignment of the items. It is mostly used when you have ony two items and you want to center the items
 - `curve` - param to customize the item change's animation
 - `containerHeight` - changes the Navigation Bar's height
+- `showInactiveTitle` - use this property show a Inactive titles. Defaults to false.
  
 ### BottomNavyBarItem
 - `icon` - the icon of this item
