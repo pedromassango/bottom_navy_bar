@@ -1,6 +1,6 @@
 name: bottom_navy_bar
 description: A beautiful and animated bottom navigation. The navigation bar uses your current theme, but you are free to customize it.
-version: 6.0.0
+version: 7.0.0
 homepage: https://github.com/pedromassango/bottom_navy_bar
 
 environment:

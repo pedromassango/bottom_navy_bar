@@ -1,8 +1,8 @@
-## 7.0.0-unreleased
+## 6.1.0
 
 * Added customizations options for the bottom navigation bar such as `shadowColor`, `showElevation`, `blurRadius`, `spreadRadius`, `shadowOffset`, `borderRadius`, and `itemPadding`.
-* Added `showInactiveTitle` param to enable titles of Inactive items
-
+* Added `showInactiveTitle` param to enable titles of Inactive items.
+* Support for Flutter 3.0.0 and above.
 
 ## 6.0.0
 
