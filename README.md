@@ -158,6 +158,14 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
+## Author
+
+- [Pedro Massango](https://github.com/pedromassango)
+
+## Maintainers
+
+- [Antonio Pedro](https://github.com/antonio-pedro99)
+
 ## Contributions
 
 Contributions of any kind are more than welcome! Feel free to fork and improve in any way you want, make a pull request, or open an issue.
