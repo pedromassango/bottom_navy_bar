@@ -1,7 +1,6 @@
-## 7.0.0
-* Coming soon
+# 7.0.0
 
-## 6.1.0-alpha
+## 6.1.0
 
 * Added customizations options for the bottom navigation bar such as `shadowColor`, `showElevation`, `blurRadius`, `spreadRadius`, `shadowOffset`, `borderRadius`, and `itemPadding`.
 * Added `showInactiveTitle` param to enable titles of Inactive items.
