@@ -10,6 +10,7 @@ final List<BottomNavyBarItem> dummyItems = <BottomNavyBarItem>[
     textAlign: TextAlign.center,
     activeTextColor: Colors.white,
     activeBackgroundColor: Colors.red,
+    tooltipText: 'Item 1',
   ),
   BottomNavyBarItem(
     icon: Icon(Icons.people),
@@ -149,5 +150,19 @@ void main() {
     expect(bottomNavyBar.items[0].activeColor, Colors.red);
     expect(bottomNavyBar.items[0].activeTextColor, Colors.white);
     expect(bottomNavyBar.items[0].activeBackgroundColor, Colors.red);
+  });
+
+  testWidgets('should show a tooltip message when tooltipText is not null', (WidgetTester tester) async {
+    await tester.pumpWidget(
+        buildNavyBarBoilerplate(
+          onItemSelected: onItemSelected,
+        ),
+    );
+
+    final BottomNavyBar bottomNavyBar = tester.firstWidget<BottomNavyBar>(find.byType(BottomNavyBar));
+
+    expect(bottomNavyBar.items[0].tooltipText, 'Item 1');
+    // if tooltipText is null, tooltip should be null
+    expect(bottomNavyBar.items[1].tooltipText, null);
   });
 }
