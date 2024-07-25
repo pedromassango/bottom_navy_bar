@@ -41,6 +41,8 @@ The navigation bar uses your current theme, but you are free to customize it.
 - `activeColor` - the active item's background and text color
 - `inactiveColor` - the inactive item's icon color
 - `textAlign` - property to change the alignment of the item title
+- `activeBackgroundColor` - the active item's background color
+- `activeTextColor` - the active item's text color
 
 ## Getting Started
 
