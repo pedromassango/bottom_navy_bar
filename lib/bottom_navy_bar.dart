@@ -302,6 +302,6 @@ class BottomNavyBarItem {
   ///
   /// Will fallback to [activeColor] with opacity 0.2 when null
   final Color? activeBackgroundColor;
-  /// Will show a tooltip for icon if provided.
+  /// Will show a tooltip for the item if provided.
   final String? tooltipText;
 }

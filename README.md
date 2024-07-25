@@ -43,6 +43,7 @@ The navigation bar uses your current theme, but you are free to customize it.
 - `textAlign` - property to change the alignment of the item title
 - `activeBackgroundColor` - the active item's background color
 - `activeTextColor` - the active item's text color
+- `tooltipText` - the tooltip text that will appear when the item is long pressed
 
 ## Getting Started
 

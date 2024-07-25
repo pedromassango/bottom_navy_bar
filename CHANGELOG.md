@@ -1,6 +1,7 @@
 # 7.0.0
 
 - Added customizations options for text and background colors of the bottom navigation bar item as `activeBackgroundColor`, `activeTextColor`.
+- Added support for `tooltipText` to show a tooltip when the item is long pressed.
 
 ## 6.1.0
 
