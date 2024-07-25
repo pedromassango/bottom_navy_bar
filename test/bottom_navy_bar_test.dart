@@ -8,6 +8,8 @@ final List<BottomNavyBarItem> dummyItems = <BottomNavyBarItem>[
     title: Text('Item 1'),
     activeColor: Colors.red,
     textAlign: TextAlign.center,
+    activeTextColor: Colors.white,
+    activeBackgroundColor: Colors.red,
   ),
   BottomNavyBarItem(
     icon: Icon(Icons.people),
@@ -133,5 +135,19 @@ void main() {
     expect((containerFinder.decoration as BoxDecoration).boxShadow, isNotNull);
     expect((containerFinder.decoration as BoxDecoration).boxShadow!.length, 1);
     expect((containerFinder.decoration as BoxDecoration).boxShadow!.first.blurRadius, 2);
+  });
+
+  testWidgets('should have different colors for activeTextColor and activeBackground Color', (WidgetTester tester) async {
+    await tester.pumpWidget(
+        buildNavyBarBoilerplate(
+          onItemSelected: onItemSelected,
+        ),
+    );
+
+    final BottomNavyBar bottomNavyBar = tester.firstWidget<BottomNavyBar>(find.byType(BottomNavyBar));
+
+    expect(bottomNavyBar.items[0].activeColor, Colors.red);
+    expect(bottomNavyBar.items[0].activeTextColor, Colors.white);
+    expect(bottomNavyBar.items[0].activeBackgroundColor, Colors.red);
   });
 }

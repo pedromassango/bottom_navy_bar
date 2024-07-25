@@ -1,5 +1,7 @@
 # 7.0.0
 
+- Added customizations options for text and background colors of the bottom navigation bar item as `activeBackgroundColor`, `activeTextColor`.
+
 ## 6.1.0
 
 * Added customizations options for the bottom navigation bar such as `shadowColor`, `showElevation`, `blurRadius`, `spreadRadius`, `shadowOffset`, `borderRadius`, and `itemPadding`.
